@@ -1,42 +1,46 @@
 package gestion_satde.entities;
+import java.time.LocalDate;
 
 import java.util.Date;
 
 public class evenement {
-    private int id;
+    private int id_evenement;
     private String nom;
     private String type;
-    private Date date;
+    private LocalDate date;
     private String oraganisateur;
-    private String nombre_participant;
+    private double nombre_participant;
+    private int id_stade;
     public evenement(){
 
     }
 
-    public evenement(String nom, String type, Date date, String oraganisateur, String nombre_participant) {
+    public evenement(String nom, String type, LocalDate date, String oraganisateur, double nombre_participant,int id_stade) {
         this.nom = nom;
         this.type = type;
         this.date = date;
         this.oraganisateur = oraganisateur;
         this.nombre_participant = nombre_participant;
+        this.id_stade = id_stade;
     }
 
-    public evenement(int id, String nom, String prenom , Date date, String oraganisateur, String nombre_participant,String type) {
-        this.id = id;
+    public evenement(int id_evenement, String nom , LocalDate date, String oraganisateur, double nombre_participant,String type,int id_stade) {
+        this.id_evenement = id_evenement;
         this.nom = nom;
         this.oraganisateur = oraganisateur;
         this.nombre_participant = nombre_participant;
         this.date = date;
         this.type = type;
+        this.id_stade = id_stade;
     }
 
 
     public int getId() {
-        return id;
+        return id_evenement;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_evenement = id_evenement;
     }
 
     public String getNom() {
@@ -55,11 +59,11 @@ public class evenement {
         this.type = type;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDate getDate() {
+        return  date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -71,12 +75,18 @@ public class evenement {
         this.oraganisateur = oraganisateur;
     }
 
-    public String getNombre_participant() {
+    public double getNombre_participant() {
         return nombre_participant;
     }
 
-    public void setNombre_participant(String nombre_participant) {
+    public void setNombre_participant(double nombre_participant) {
         this.nombre_participant = nombre_participant;
+    }
+    public int getId_stade() {
+        return id_stade;
+    }
+    public void setId_stade(int id_stade) {
+        this.id_stade = id_stade;
     }
 
     @Override
@@ -93,7 +103,7 @@ public class evenement {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + this.id;
+        hash = 17 * hash + this.id_evenement;
         return hash;
     }
 
@@ -109,7 +119,7 @@ public class evenement {
             return false;
         }
         final evenement other = (evenement) obj;
-        if (this.id != other.id) {
+        if (this.id_evenement != other.id_evenement) {
             return false;
         }
         return true;

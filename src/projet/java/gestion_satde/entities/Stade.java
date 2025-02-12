@@ -1,34 +1,35 @@
 package gestion_satde.entities;
 
 public class Stade {
-    private int id;
+    private int id_stade;
     private String nom;
-    private float capacite;
+    private Double capacite;
     private String image;
 
     public Stade(){
 
     }
 
-    public Stade(String nom, float capacite) {
+    public Stade(String nom, double capacite, String image) {
         this.nom = nom;
         this.capacite = capacite;
+        this.image = image;
 
     }
 
-    public Stade(int id, String nom, float capacite,String image) {
-        this.id = id;
+    public Stade(int id_stade, String nom, double capacite,String image) {
+        this.id_stade = id_stade;
         this.nom = nom;
         this.capacite = capacite;
         this.image=image;
     }
 
     public int getId() {
-        return id;
+        return id_stade;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_stade = id_stade;
     }
 
     public String getNom() {
@@ -39,12 +40,20 @@ public class Stade {
         this.nom = nom;
     }
 
-    public float getcapacite() {
+    public double getcapacite() {
         return capacite;
     }
 
-    public void setcapacite(float capacite) {
+    public void setcapacite(double capacite) {
         this.capacite = capacite;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
@@ -55,7 +64,7 @@ public class Stade {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + this.id;
+        hash = 17 * hash + this.id_stade;
         return hash;
     }
 
@@ -71,7 +80,7 @@ public class Stade {
             return false;
         }
         final Stade other = (Stade) obj;
-        if (this.id != other.id) {
+        if (this.id_stade != other.id_stade) {
             return false;
         }
         return true;
