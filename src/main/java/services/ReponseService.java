@@ -1,90 +1,105 @@
 package services;
 
+import entite.Reponse;
+import tools.DataSource;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import tools.DataSource;
-import entite.Reponse;
 
-public class ReponseService implements IService<Reponse> {
+public class ReponseService {
+
     private Connection cnx;
 
     public ReponseService() {
         this.cnx = DataSource.getInstance().getConnection();
     }
 
-    @Override
-    public void ajouter(Reponse reponse) {
-        String query = "INSERT INTO reponse (id_reclamation, contenu, date_reponse) VALUES (?, ?, ?)";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
-            ps.setInt(1, reponse.getReclamationId());
-            ps.setString(2, reponse.getContenu());
-            ps.setString(3, reponse.getDateReponse());
-            ps.executeUpdate();
+    public void ajouterReponse(Reponse reponse) {
+        String query = "INSERT INTO reponse (id_reclamation, contenu, date_reponse, type, fichier_joint, priorite) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
+            stmt.setInt(1, reponse.getIdReclamation());
+            stmt.setString(2, reponse.getContenu());
+            stmt.setString(3, reponse.getDateReponse());
+            stmt.setString(4, reponse.getType());
+            stmt.setString(5, reponse.getFichierJoint());
+            stmt.setInt(6, reponse.getPriorite());
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void modifier(Reponse reponse) {
-        String query = "UPDATE reponse SET contenu = ?, date_reponse = ? WHERE id = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
-            ps.setString(1, reponse.getContenu());
-            ps.setString(2, reponse.getDateReponse());
-            ps.setInt(3, reponse.getId());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void supprimer(int id) {
-        String query = "DELETE FROM reponse WHERE id = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public Reponse getOne(Reponse reponse) {
-        String query = "SELECT * FROM reponse WHERE id = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
-            ps.setInt(1, reponse.getId());
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Reponse(
-                        rs.getInt("id_reclamation"),
-                        rs.getString("contenu"),
-                        rs.getString("date_reponse")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public List<Reponse> getAll(Reponse reponse) {
-        List<Reponse> reponses = new ArrayList<>();
+    public List<Reponse> getAllReponses() {
+        List<Reponse> responses = new ArrayList<>();
         String query = "SELECT * FROM reponse";
-        try (Statement stmt = cnx.createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
+        try (Statement stmt = cnx.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
-                reponses.add(new Reponse(
+                Reponse reponse = new Reponse(
+                        rs.getInt("id"),
                         rs.getInt("id_reclamation"),
                         rs.getString("contenu"),
-                        rs.getString("date_reponse")
-                ));
+                        rs.getString("date_reponse"),
+                        rs.getString("type"),
+                        rs.getString("fichier_joint"),
+                        rs.getInt("priorite")
+                );
+                responses.add(reponse);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return reponses;
+        return responses;
+    }
+
+    public void supprimerReponse(int id) {
+        String query = "DELETE FROM reponse WHERE id = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modifierReponse(Reponse reponse) {
+        String query = "UPDATE reponse SET contenu = ?, date_reponse = ?, type = ?, fichier_joint = ?, priorite = ? WHERE id = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
+            stmt.setString(1, reponse.getContenu());
+            stmt.setString(2, reponse.getDateReponse());
+            stmt.setString(3, reponse.getType());
+            stmt.setString(4, reponse.getFichierJoint());
+            stmt.setInt(5, reponse.getPriorite());
+            stmt.setInt(6, reponse.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Reponse> getReponsesByReclamationId(int reclamationId) {
+        List<Reponse> responses = new ArrayList<>();
+        String query = "SELECT * FROM reponse WHERE id_reclamation = ?";
+        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
+            stmt.setInt(1, reclamationId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Reponse reponse = new Reponse(
+                            rs.getInt("id"),
+                            rs.getInt("id_reclamation"),
+                            rs.getString("contenu"),
+                            rs.getString("date_reponse"),
+                            rs.getString("type"),
+                            rs.getString("fichier_joint"),
+                            rs.getInt("priorite")
+                    );
+                    responses.add(reponse);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return responses;
     }
 }

@@ -1,0 +1,47 @@
+/* Apply a sleek gradient background to the ListView */
+.list-view {
+    -fx-background-color: linear-gradient(to bottom, #f0e5de, #a1c4fd);
+    -fx-border-radius: 15px;
+    -fx-padding: 12px;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-color: #c5d9ff;  /* Corrected border */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.5, 0, 5);
+}
+
+/* Styling for the ListView cells with soft edges and smooth background */
+.list-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: #333;
+    -fx-font-size: 16px;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-weight: 500;
+    -fx-padding: 12px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, #ccc, 3, 0.3, 0, 2);
+}
+
+/* Hover effect for ListView items to increase interactivity */
+.list-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
+    -fx-text-fill: #4e73df;
+    -fx-cursor: hand;
+}
+
+/* Style for the buttons with modern, flat design */
+.button {
+    -fx-background-color: #ff7f50;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-padding: 12px 24px;
+    -fx-border-radius: 30px;
+    -fx-border: none;
+    -fx-effect: dropshadow(gaussian, #000, 5, 0.5, 0, 0);
+    -fx-transition: all 0.3s ease;
+}
+
+/* Button hover effect with scale handled in Java code */
+.button:hover {
+    -fx-background-color: #ff6347;
+}

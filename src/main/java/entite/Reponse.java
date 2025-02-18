@@ -2,18 +2,36 @@ package entite;
 
 public class Reponse {
     private int id;
-    private int reclamationId;
+    private int idReclamation;
     private String contenu;
     private String dateReponse;
+    private String type; // "Information", "Demande de précisions", "Résolution"
+    private String fichierJoint; // Path to an attachment
+    private int priorite; // Priority level (1 = Low, 2 = Medium, 3 = High)
 
-    // Constructeur
-    public Reponse(int reclamationId, String contenu, String dateReponse) {
-        this.reclamationId = reclamationId;
+    // Constructors
+    public Reponse() {}
+
+    public Reponse(int idReclamation, String contenu, String dateReponse, String type, String fichierJoint, int priorite) {
+        this.idReclamation = idReclamation;
         this.contenu = contenu;
         this.dateReponse = dateReponse;
+        this.type = type;
+        this.fichierJoint = fichierJoint;
+        this.priorite = priorite;
     }
 
-    // Getters et Setters
+    public Reponse(int id, int idReclamation, String contenu, String dateReponse, String type, String fichierJoint, int priorite) {
+        this.id = id;
+        this.idReclamation = idReclamation;
+        this.contenu = contenu;
+        this.dateReponse = dateReponse;
+        this.type = type;
+        this.fichierJoint = fichierJoint;
+        this.priorite = priorite;
+    }
+
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -22,12 +40,12 @@ public class Reponse {
         this.id = id;
     }
 
-    public int getReclamationId() {
-        return reclamationId;
+    public int getIdReclamation() {
+        return idReclamation;
     }
 
-    public void setReclamationId(int reclamationId) {
-        this.reclamationId = reclamationId;
+    public void setIdReclamation(int idReclamation) {
+        this.idReclamation = idReclamation;
     }
 
     public String getContenu() {
@@ -46,15 +64,40 @@ public class Reponse {
         this.dateReponse = dateReponse;
     }
 
-    // Méthode toString pour afficher les informations de la réponse
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getFichierJoint() {
+        return fichierJoint;
+    }
+
+    public void setFichierJoint(String fichierJoint) {
+        this.fichierJoint = fichierJoint;
+    }
+
+    public int getPriorite() {
+        return priorite;
+    }
+
+    public void setPriorite(int priorite) {
+        this.priorite = priorite;
+    }
+
     @Override
     public String toString() {
         return "Reponse{" +
                 "id=" + id +
-                ", reclamationId=" + reclamationId +
+                ", idReclamation=" + idReclamation +
                 ", contenu='" + contenu + '\'' +
                 ", dateReponse='" + dateReponse + '\'' +
+                ", type='" + type + '\'' +
+                ", fichierJoint='" + fichierJoint + '\'' +
+                ", priorite=" + priorite +
                 '}';
     }
 }
-

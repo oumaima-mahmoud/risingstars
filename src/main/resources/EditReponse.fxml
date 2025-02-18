@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.FileChooser?>
+
+<AnchorPane fx:id="bord" xmlns="http://javafx.com/javafx/17.0.8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UpdateReponseController" prefHeight="400.0" prefWidth="500.0">
+    <children>
+        <Label layoutX="30.0" layoutY="20.0" text="Modifier Réponse">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <!-- Contenu Field -->
+        <Label layoutX="30.0" layoutY="70.0" text="Contenu">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextArea fx:id="taContenu" layoutX="150.0" layoutY="70.0" prefHeight="150.0" prefWidth="320.0" />
+
+        <!-- Type Field (TextField) -->
+        <Label layoutX="30.0" layoutY="240.0" text="Type">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="tfType" layoutX="150.0" layoutY="240.0" prefWidth="320.0"/>
+
+        <!-- Fichier Joint Field (TextField) -->
+        <Label layoutX="30.0" layoutY="280.0" text="Fichier Joint">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="tfFichierJoint" layoutX="150.0" layoutY="280.0" prefWidth="320.0"/>
+
+        <!-- Button to select file -->
+        <Button fx:id="btnSelectFile" layoutX="150.0" layoutY="310.0" text="Sélectionner un fichier" onAction="#selectFile"/>
+
+        <!-- Priorité Field (TextField) -->
+        <Label layoutX="30.0" layoutY="340.0" text="Priorité">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="tfPriorite" layoutX="150.0" layoutY="340.0" prefWidth="320.0"/>
+
+        <!-- Save and Cancel Buttons -->
+        <Button fx:id="btnSave" layoutX="150.0" layoutY="380.0" text="Sauvegarder" onAction="#saveReponse" />
+        <Button fx:id="btnCancel" layoutX="250.0" layoutY="380.0" text="Annuler" onAction="#cancelModification" />
+    </children>
+</AnchorPane>

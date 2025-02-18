@@ -1,5 +1,7 @@
 package entite;
 public class Reclamation {
+
+
     private int id;
     private int userId;
     private String type;
@@ -8,7 +10,7 @@ public class Reclamation {
     private String dateReclamation;
     private String etat; // "en_attente", "en_cours", "termine"
 
-    // Constructeur
+    // Constructor with parameters
     public Reclamation(int userId, String type, String description, String objet, String etat) {
         this.userId = userId;
         this.type = type;
@@ -17,7 +19,18 @@ public class Reclamation {
         this.etat = etat;
     }
 
-    // Getters et Setters
+    // No-argument constructor (added)
+    public Reclamation() {
+        // Default values (optional)
+        this.userId = 0;
+        this.type = "";
+        this.description = "";
+        this.objet = "";
+        this.etat = "en_attente";  // Default state
+        this.dateReclamation = "";
+    }
+
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -74,7 +87,6 @@ public class Reclamation {
         this.etat = etat;
     }
 
-    // Méthode toString pour afficher les informations de la réclamation
     @Override
     public String toString() {
         return "Reclamation{" +
@@ -88,4 +100,3 @@ public class Reclamation {
                 '}';
     }
 }
-
