@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AuthController">
+
+   <children>
+      <Label layoutX="147.0" layoutY="108.0" text="Email:" />
+      <TextField layoutX="254.0" layoutY="104.0" onAction="#handleLogin" />
+      <PasswordField layoutX="254.0" layoutY="145.0" />
+      <ComboBox layoutX="253.0" layoutY="187.0" prefWidth="150.0" promptText="Sélectionner votre role" />
+      <Button layoutX="248.0" layoutY="285.0" mnemonicParsing="false" text="Se connecter" />
+      <Label layoutX="147.0" layoutY="149.0" text="Mot de passe:" />
+      <Label layoutX="147.0" layoutY="191.0" text="Role:" />
+   </children>
+   <ComboBox fx:id="cbRole" promptText="Sélectionnez un rôle">
+      <items>
+         <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Gestionnaire"/>
+            <String fx:value="Spectateur"/>
+            <String fx:value="Annonceur"/>
+            <String fx:value="Sponsor"/>
+         </FXCollections>
+      </items>
+   </ComboBox>
+</AnchorPane>

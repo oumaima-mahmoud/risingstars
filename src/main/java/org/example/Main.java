@@ -1,17 +1,39 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import Services.UtilisateurService;
+import entities.Utilisateur;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        UtilisateurService userService = new UtilisateurService();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        // Nettoyer la table avant le test
+        userService.viderTable();
+
+        // Création d'un email unique
+        String emailUnique = "test" + System.currentTimeMillis() + "@example.com";
+
+        // Test CREATE
+        Utilisateur nouvelUser = new Utilisateur(0, "Jean", "Dupont", emailUnique, "mdpSecret");
+        userService.ajouter(nouvelUser);
+        System.out.println("✅ Utilisateur créé - ID: " + nouvelUser.getIdUser());
+
+        // Test READ
+        Utilisateur userFromDB = userService.getOne(nouvelUser.getIdUser());
+        if(userFromDB != null) {
+            System.out.println("📥 Utilisateur trouvé : " + userFromDB.getEmail());
+
+            // Test UPDATE
+            userFromDB.setEmail("nouveau_" + emailUnique);
+            userService.modifier(userFromDB);
+            System.out.println("🔄 Email mis à jour : " + userService.getOne(userFromDB.getIdUser()).getEmail());
+
+            // Test DELETE
+            userService.supprimer(userFromDB.getIdUser());
+            System.out.println("❌ Suppression réussie ? " +
+                    (userService.getOne(userFromDB.getIdUser()) == null ? "Oui" : "Non"));
+        } else {
+            System.out.println("❌ Erreur : Utilisateur non trouvé après création");
         }
     }
 }

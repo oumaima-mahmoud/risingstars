@@ -11,10 +11,6 @@ public enum StatutAbonnement {
         this.statut = statut;
     }
 
-    public String getStatut() {
-        return statut;
-    }
-
     @Override
     public String toString() {
         return statut;
