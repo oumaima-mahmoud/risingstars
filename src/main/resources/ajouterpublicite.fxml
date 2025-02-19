@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ajouterpublicitec"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.ajouteroffrec">
+
+    <Label text="Ajouter une Publicité" layoutX="50" layoutY="20" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <Label text="Titre :" layoutX="50" layoutY="60"/>
+    <TextField fx:id="txtTitre" layoutX="150" layoutY="60" prefWidth="300"/>
+
+    <Label text="Description :" layoutX="50" layoutY="100"/>
+    <TextArea fx:id="txtDescription" layoutX="150" layoutY="100" prefWidth="300" prefHeight="60"/>
+
+    <Label text="Media URL :" layoutX="50" layoutY="180"/>
+    <TextField fx:id="txtMediaUrl" layoutX="150" layoutY="180" prefWidth="300"/>
+
+    <Label text="Date :" layoutX="50" layoutY="220"/>
+    <DatePicker fx:id="datePicker" layoutX="150" layoutY="220"/>
+
+    <Label text="Statut :" layoutX="50" layoutY="260"/>
+    <ComboBox fx:id="comboStatut" layoutX="150" layoutY="260" prefWidth="150">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="En attente"/>
+                <String fx:value="Validée"/>
+                <String fx:value="Refusée"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <Button text="Ajouter" layoutX="150" layoutY="320" onAction="#ajouterPublicite"/>
+    <Button text="Annuler" layoutX="300" layoutY="320" onAction="#fermerFenetre"/>
 
 </AnchorPane>

@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Modifieroffre"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.modifieroffrec">
 
-</AnchorPane>
+    <Label text="Modifier Offre" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT"/>
+        </columnConstraints>
+
+        <Label text="Montant :" />
+        <TextField fx:id="txtMontant" />
+
+        <Label text="Conditions :" />
+        <TextArea fx:id="txtConditions" prefRowCount="3" wrapText="true"/>
+
+        <Label text="Contact :" />
+        <TextField fx:id="txtContact" />
+
+        <Label text="Date de proposition :" />
+        <Label fx:id="lblDate"/>
+    </GridPane>
+
+    <HBox spacing="10">
+        <Button text="Modifier" onAction="#modifierOffre"/>
+        <Button text="Annuler" onAction="#fermerFenetre"/>
+    </HBox>
+
+</VBox>

@@ -1,5 +1,7 @@
 package services;
 
+import entite.Offre;
+
 import java.util.List;
 
 /**
@@ -13,8 +15,9 @@ public interface IService<T> {
      * Ajoute une nouvelle entité dans la base de données.
      *
      * @param t L'entité à ajouter.
+     * @return
      */
-    void ajouter(T t);
+    boolean ajouter(T t);
 
     /**
      * Met à jour une entité existante dans la base de données.
@@ -27,8 +30,9 @@ public interface IService<T> {
      * Supprime une entité de la base de données en fonction de son ID.
      *
      * @param id L'ID de l'entité à supprimer.
+     * @return
      */
-    void supprimer(int id);
+    boolean supprimer(int id);
 
     /**
      * Récupère une entité spécifique en fonction de son ID.
@@ -37,6 +41,8 @@ public interface IService<T> {
      * @return L'entité correspondante ou null si elle n'existe pas.
      */
     T getOne(T t);
+
+    Offre getOne(int id);
 
     /**
      * Récupère toutes les entités de la base de données.

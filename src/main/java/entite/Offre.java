@@ -1,25 +1,41 @@
 package entite;
 
+import java.time.LocalDateTime;
+
 public class Offre {
     private int id_offre;
     private int id_publicite;
     private int id_sponsor;
     private double montant;
     private String conditions;
-    private String date_proposition;
+    private LocalDateTime date_proposition;
     private String contact;
 
+    // Constructeur complet
+    public Offre(int id_offre, int id_publicite, int id_sponsor, double montant, String conditions, LocalDateTime date_proposition, String contact) {
+        this.id_offre = id_offre;
+        this.id_publicite = id_publicite;
+        this.id_sponsor = id_sponsor;
+        this.montant = montant;
+        this.conditions = conditions;
+        this.date_proposition = date_proposition;
+        this.contact = contact;
+    }
 
-    // Constructeur
-    public Offre(int id_publicite,int id_sponsor,double montant,String conditions,String contact) {
+    // Constructeur sans id_offre (utile pour l'insertion)
+    public Offre(int id_publicite, int id_sponsor, double montant, String conditions, String contact) {
         this.id_publicite = id_publicite;
         this.id_sponsor = id_sponsor;
         this.montant = montant;
         this.conditions = conditions;
         this.contact = contact;
+        this.date_proposition = LocalDateTime.now(); // Par défaut, la date de proposition est maintenant
     }
 
-    public Offre(int id_offre, double montant, String conditions, String dateProposition, String contact, int id_sponsor, int id_publicite) {
+    // Constructeur vide (utile pour certaines manipulations)
+    public Offre() {}
+
+    public Offre(int id_offre, double montant, String conditions, LocalDateTime now, String contact, int i, Publicite idPublicite) {
     }
 
     // Getters et Setters
@@ -63,12 +79,12 @@ public class Offre {
         this.conditions = conditions;
     }
 
-    public String getDate_proposition() {
+    public LocalDateTime getDate_proposition() {
         return date_proposition;
     }
 
-    public void setDate_proposition(String dateProposition) {
-        this.date_proposition = dateProposition;
+    public void setDate_proposition(LocalDateTime date_proposition) {
+        this.date_proposition = date_proposition;
     }
 
     public String getContact() {
@@ -79,7 +95,7 @@ public class Offre {
         this.contact = contact;
     }
 
-    // Méthode toString pour afficher les informations de la réponse
+    // Méthode toString pour afficher les informations de l'offre
     @Override
     public String toString() {
         return "Offre{" +
@@ -87,9 +103,9 @@ public class Offre {
                 ", id_publicite=" + id_publicite +
                 ", id_sponsor=" + id_sponsor +
                 ", montant=" + montant +
-                ", conditions =" + conditions +
+                ", conditions='" + conditions + '\'' +
                 ", contact='" + contact + '\'' +
-                ", date_proposition='" + date_proposition + '\'' +
+                ", date_proposition=" + date_proposition +
                 '}';
     }
 }

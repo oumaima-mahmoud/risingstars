@@ -1,6 +1,7 @@
 package controllers;
 
 import entite.Offre;
+import entite.Publicite;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -10,7 +11,7 @@ import services.OffreServiceimpl;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class modifieroffrec {
+public class ajouteroffrec {
 
     @FXML
     private TextField txtMontant;
@@ -27,41 +28,35 @@ public class modifieroffrec {
             return null;
         }
     };
-
-    private Offre offreAModifier;
+    private Publicite idPublicite;
 
     @FXML
     public void initialize() {
+        // Afficher la date actuelle
         lblDate.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 
-    public void setOffre(Offre offre) {
-        this.offreAModifier = offre;
-        txtMontant.setText(String.valueOf(offre.getMontant()));
-        txtConditions.setText(offre.getConditions());
-        txtContact.setText(offre.getContact());
-        lblDate.setText(offre.getDate_proposition().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+    public void setIdPublicite(Publicite id) {
+        this.idPublicite = id;
     }
 
     @FXML
-    private void modifierOffre() {
+    private void ajouterOffre() {
         try {
             double montant = Double.parseDouble(txtMontant.getText().trim());
             String conditions = txtConditions.getText().trim();
             String contact = txtContact.getText().trim();
+            LocalDateTime dateProposition = LocalDateTime.now();
 
             if (conditions.isEmpty() || contact.isEmpty()) {
                 afficherAlerte("Erreur", "Tous les champs doivent être remplis !");
                 return;
             }
 
-            offreAModifier.setMontant(montant);
-            offreAModifier.setConditions(conditions);
-            offreAModifier.setContact(contact);
+            Offre nouvelleOffre = new Offre(0, montant, conditions, dateProposition, contact, 1, idPublicite);
+            offreService.ajouter(nouvelleOffre);
 
-            offreService.modifier(offreAModifier);
-
-            afficherAlerte("Succès", "Offre modifiée avec succès !");
+            afficherAlerte("Succès", "Offre ajoutée avec succès !");
             fermerFenetre();
         } catch (NumberFormatException e) {
             afficherAlerte("Erreur", "Veuillez entrer un montant valide !");

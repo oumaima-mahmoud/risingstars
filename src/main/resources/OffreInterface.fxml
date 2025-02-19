@@ -1,37 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.OffreController" spacing="10" alignment="CENTER" prefWidth="400" prefHeight="500">
-    <Label text="Gestion des Offres" style="-fx-font-size: 20px;" />
-    <GridPane hgap="10" vgap="10">
-        <Label text="Montant:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-        <TextField fx:id="montantField" promptText="Montant" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AfficherPublicitec">
+    <!-- Titre -->
+    <Label text="Liste des Offres" layoutX="200" layoutY="10" style="-fx-font-size: 24px;"/>
 
-        <Label text="Conditions:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-        <TextField fx:id="conditionsField" promptText="Conditions" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+    <!-- TableView pour afficher les offres -->
+    <TableView fx:id="tableOffres" layoutX="20" layoutY="50" prefWidth="450" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="colMontant" text="Montant" />
+            <TableColumn fx:id="colConditions" text="Conditions" />
+            <TableColumn fx:id="colDateProposition" text="Date Proposition" />
+            <TableColumn fx:id="colContact" text="Contact" />
+        </columns>
+    </TableView>
 
-        <Label text="Date Proposition:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-        <TextField fx:id="datePropositionField" promptText="YYYY-MM-DD" GridPane.rowIndex="2" GridPane.columnIndex="1" />
-
-        <Label text="Contact:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-        <TextField fx:id="contactField" promptText="Contact" GridPane.rowIndex="3" GridPane.columnIndex="1" />
-
-        <Label text="ID Sponsor:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
-        <TextField fx:id="idSponsorField" promptText="ID Sponsor" GridPane.rowIndex="4" GridPane.columnIndex="1" />
-
-        <Label text="ID Publicité:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
-        <TextField fx:id="idPubliciteField" promptText="ID Publicité" GridPane.rowIndex="5" GridPane.columnIndex="1" />
-    </GridPane>
-
-    <HBox spacing="10" alignment="CENTER">
-        <Button text="Ajouter" onAction="#ajouterOffre" />
-        <Button text="Modifier" onAction="#modifierOffre" />
-        <Button text="Supprimer" onAction="#supprimerOffre" />
-        <Button text="Voir Offres" onAction="#voirOffres" />
-    </HBox>
-
-    <Label fx:id="messageLabel" style="-fx-text-fill: red;" />
-</VBox>
+    <!-- Bouton pour ajouter une offre -->
+    <Button text="Ajouter une Offre" layoutX="380" layoutY="380" fx:id="btnAjouterOffre"/>
+</AnchorPane>

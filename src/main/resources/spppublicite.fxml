@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Spppublicite"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.Supppublicitec">
+    <!-- Titre -->
+    <Label text="Suppression de Publicité" layoutX="150" layoutY="10" style="-fx-font-size: 24px;"/>
 
+    <!-- Sélectionner une publicité -->
+    <Label text="Sélectionner une publicité à supprimer :" layoutX="20" layoutY="50"/>
+    <ComboBox fx:id="comboPublicites" layoutX="200" layoutY="50" prefWidth="250"/>
+
+    <!-- Boutons -->
+    <Button text="Supprimer" layoutX="200" layoutY="120" fx:id="btnSupprimer"/>
+    <Button text="Annuler" layoutX="320" layoutY="120" fx:id="btnAnnuler"/>
 </AnchorPane>
