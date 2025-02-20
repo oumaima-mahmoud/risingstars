@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PanierInfo">
+   <children>
+      <TableView fx:id="tableview" layoutX="144.0" layoutY="108.0" prefHeight="200.0" prefWidth="238.0">
+         <columns>
+            <TableColumn fx:id="dateCreation" prefWidth="75.0" text="dateCreation" />
+            <TableColumn fx:id="total" prefWidth="75.0" text="total" />
+            <TableColumn fx:id="etat" prefWidth="75.0" text="etat" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AfficherCommande">
+   <children>
+      <TableView layoutX="100.0" layoutY="67.0" prefHeight="206.0" prefWidth="297.0">
+        <columns>
+          <TableColumn fx:id="Quantite" prefWidth="75.0" text="quantite" />
+          <TableColumn fx:id="dateCommande" prefWidth="75.0" text="dateCommande" />
+            <TableColumn fx:id="prix" prefWidth="75.0" text="prix" />
+            <TableColumn fx:id="idPanier" prefWidth="75.0" text="idPanier" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
