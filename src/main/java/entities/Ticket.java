@@ -20,6 +20,9 @@ public class Ticket {
         this.prix = prix;
     }
 
+    public Ticket(int id, java.sql.Date date, String value, double v, boolean selected) {
+    }
+
     // Getters et Setters
     public int getId() {
         return id;

@@ -1,9 +1,6 @@
 package Services;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,4 +112,13 @@ public class ParkingService implements IService<Parking> {
         }
         return parkings;
     }
-}
+
+    { public List<Parking> trouverPlacesDisponibles(Date Date dateDebut = new Date;
+        dateDebut, Date Object dateFin = new Date();
+        dateFin) {
+        List<Parking> placesDisponibles = new ArrayList<>();
+
+
+        return placesDisponibles;
+    }
+

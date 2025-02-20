@@ -23,7 +23,6 @@ public class TicketController {
 
     @FXML
     public void passerEtapeSuivante(ActionEvent event) {
-        // Vérifier si une date et un type d'événement sont sélectionnés
         if (typeEvenement.getValue() == null || dateEvenement.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
@@ -33,24 +32,20 @@ public class TicketController {
             return;
         }
 
-        // Créer un ticket
         Ticket ticket = new Ticket(
-                0, // ID auto-généré
+                0,
                 Date.valueOf(dateEvenement.getValue()),
                 typeEvenement.getValue(),
-                50.0, // Prix fixe pour l'exemple
-                ouiVoiture.isSelected() // Vérifie si l'utilisateur a une voiture
+                50.0,
+                ouiVoiture.isSelected()
         );
         ticketService.ajouter(ticket);
 
-        // Rediriger vers la page suivante
         try {
             FXMLLoader loader;
             if (ouiVoiture.isSelected()) {
-                // Rediriger vers la page de réservation de parking
                 loader = new FXMLLoader(getClass().getResource("/views/reservation_parking.fxml"));
             } else {
-                // Rediriger directement vers la page de confirmation
                 loader = new FXMLLoader(getClass().getResource("/views/confirmation.fxml"));
             }
             Parent root = loader.load();

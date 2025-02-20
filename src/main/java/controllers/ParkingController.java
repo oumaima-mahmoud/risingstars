@@ -5,10 +5,15 @@ import entities.Reservation;
 import entities.Ticket;
 import entities.StatutRes;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import Services.ParkingService;
 import Services.ReservationService;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
@@ -19,16 +24,14 @@ public class ParkingController {
 
     private ParkingService parkingService = new ParkingService();
     private ReservationService reservationService = new ReservationService();
-    private Ticket ticket; // Le ticket passé depuis TicketController
+    private Ticket ticket;
 
-    // Méthode pour recevoir le ticket depuis TicketController
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
 
     @FXML
     public void chercherPlaces() {
-        // Vérifier que les dates sont sélectionnées
         if (dateDebut.getValue() == null || dateFin.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
@@ -38,7 +41,6 @@ public class ParkingController {
             return;
         }
 
-        // Récupérer les places disponibles
         List<Parking> places = parkingService.trouverPlacesDisponibles(
                 Date.valueOf(dateDebut.getValue()),
                 Date.valueOf(dateFin.getValue())
@@ -50,9 +52,8 @@ public class ParkingController {
     public void confirmerReservation() {
         Parking parkingSelectionne = listePlaces.getSelectionModel().getSelectedItem();
         if (parkingSelectionne != null) {
-            // Créer une réservation
             Reservation reservation = new Reservation(
-                    0, // ID auto-généré
+                    0,
                     ticket,
                     parkingSelectionne,
                     StatutRes.EN_ATTENTE,
@@ -60,7 +61,6 @@ public class ParkingController {
             );
             reservationService.ajouter(reservation);
 
-            // Rediriger vers la page de confirmation
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/confirmation.fxml"));
                 Parent root = loader.load();
@@ -72,7 +72,6 @@ public class ParkingController {
                 e.printStackTrace();
             }
         } else {
-            // Afficher un message d'erreur si aucune place n'est sélectionnée
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText("Aucune place sélectionnée");

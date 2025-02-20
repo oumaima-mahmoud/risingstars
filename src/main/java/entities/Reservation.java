@@ -20,6 +20,9 @@ public class Reservation {
         this.prixTotal = prixTotal;
     }
 
+    public Reservation(int id, Ticket ticket, Parking parkingSelectionne, StatutRes statutRes, Date date) {
+    }
+
     // Getters et Setters
     public int getId() {
         return id;
@@ -69,12 +72,10 @@ public class Reservation {
         this.prixTotal = prixTotal;
     }
 
-    // Méthode pour obtenir l'ID d'utilisation
     public int getUtilisationID() {
-        return this.utilisateurID; // ou une autre logique métier si nécessaire
+        return this.utilisateurID;
     }
 
-    // Méthode toString pour afficher les détails de la réservation
     @Override
     public String toString() {
         return "Reservation{" +

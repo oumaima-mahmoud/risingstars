@@ -24,6 +24,9 @@ public class Parking {
         this.prix = prix;
     }
 
+    public Parking(int id, String a1, java.sql.Date date, java.sql.Date date1, boolean b) {
+    }
+
     // Getters et Setters
     public int getId() {
         return id;

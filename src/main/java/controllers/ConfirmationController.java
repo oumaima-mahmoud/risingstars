@@ -17,14 +17,11 @@ public class ConfirmationController {
 
     @FXML
     public void initialiser(Reservation reservation) {
-        // Afficher le statut de la réservation
         statutReservation.setText("Statut : " + reservation.getStatut());
 
-        // Afficher les détails du ticket
         detailsTicket.setText("Ticket : " + reservation.getTicket().getTypeEvenement() +
                 " (" + reservation.getTicket().getDate() + ")");
 
-        // Afficher les détails du parking (si applicable)
         if (reservation.getParking() != null) {
             detailsParking.setText("Parking : " + reservation.getParking().getNumeroPlace() +
                     " (" + reservation.getParking().getDateDebut() + " - " + reservation.getParking().getDateFin() + ")");
