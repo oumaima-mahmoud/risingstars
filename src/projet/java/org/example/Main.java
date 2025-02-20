@@ -1,28 +1,43 @@
 package org.example;
 
-import gestion_satde.entities.Stade;
-import gestion_satde.entities.evenement;
-import gestion_satde.services.serviceEvenement;
-import gestion_satde.services.serviceStade;
-import gestion_satde.tools.DataSource;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.stage.Screen;
+import javafx.geometry.Rectangle2D;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
-public class Main {
+public class Main extends Application {
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/StadeInterface.fxml"));
+        Parent root = loader.load();
+
+        // Set scene size
+        double width = 1000; // Adjust as needed
+        double height = 700; // Adjust as needed
+        Scene scene = new Scene(root, width, height);
+
+        stage.setScene(scene);
+        stage.setTitle("Stade");
+
+        // Center the window
+        centerStage(stage, width, height);
+
+        stage.show();
+    }
+
+    private void centerStage(Stage stage, double width, double height) {
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((screenBounds.getWidth() - width) / 2);
+        stage.setY((screenBounds.getHeight() - height) / 2);
+    }
+
     public static void main(String[] args) {
-        DataSource.getInstance();
-        serviceStade ss = new serviceStade();
-        Stade st = new Stade("sousse",30.500,"//");
-       // List<Stade> t = new ArrayList<>();
-        Stade st2 = new Stade();
-        st2=ss.getOne(2);
-        System.out.println(st2);
-        serviceEvenement se = new serviceEvenement();
-        LocalDate eventDate = LocalDate.of(2025, 5, 20);
-
-        evenement e= new evenement("match1","football",eventDate,"federation",50.000,2);
-        se.modifier(e,1);
+        launch(args);
     }
 }

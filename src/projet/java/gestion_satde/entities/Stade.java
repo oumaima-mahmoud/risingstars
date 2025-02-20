@@ -29,7 +29,7 @@ public class Stade {
     }
 
     public void setId(int id) {
-        this.id_stade = id_stade;
+        this.id_stade = id;
     }
 
     public String getNom() {

@@ -111,13 +111,14 @@ public class serviceEvenement implements Iservice <evenement> {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 evenement e = new evenement();
-                e.setId(rs.getInt("id"));
+                e.setId(rs.getInt("id_evenement"));
                 e.setNom(rs.getString("nom"));
                 e.setType(rs.getString("type"));  // Assuming 'capacite' is the correct column name
                 Date sqlDate = rs.getDate("date");
+                e.setId_stade(rs.getInt("id_stade"));
                 e.setOraganisateur(rs.getString("organisateur"));
                 e.setNombre_participant(rs.getDouble("nombre_participant"));
-                e.setId_stade(rs.getInt("id_stade"));
+
 
                 evenements.add(e);
             }

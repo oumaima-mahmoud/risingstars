@@ -103,7 +103,7 @@ public class serviceStade implements Iservice <Stade> {
                 p.setId(rs.getInt("id"));
                 p.setNom(rs.getString("nom"));
                 p.setcapacite(rs.getFloat("capacite"));  // Assuming 'capacite' is the correct column name
-
+                p.setImage(rs.getString("image"));
                 Stades.add(p);
             }
         } catch (SQLException ex) {

@@ -40,7 +40,7 @@ public class evenement {
     }
 
     public void setId(int id) {
-        this.id_evenement = id_evenement;
+        this.id_evenement = id;
     }
 
     public String getNom() {
