@@ -1,0 +1,93 @@
+/* Apply a cool gradient background to the ListView */
+.list-view {
+    -fx-background-color: linear-gradient(to bottom, #d9e7ff, #a8e6cf);
+    -fx-border-radius: 15px;
+    -fx-padding: 12px;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-color: #8eaebd;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.5, 0, 5);
+}
+
+/* Styling for ListView cells with soft edges and a modern background */
+.list-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-text-fill: #2b3e50;
+    -fx-font-size: 16px;
+    -fx-font-family: 'Segoe UI', sans-serif;
+    -fx-font-weight: 500;
+    -fx-padding: 12px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, #ccc, 3, 0.3, 0, 2);
+}
+
+/* Hover effect for ListView items with a subtle color change */
+.list-cell:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.9);
+    -fx-text-fill: #218c74;
+    -fx-cursor: hand;
+}
+
+/* Style for modern, minimalistic buttons */
+.button {
+    -fx-background-color: #3b5998;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-padding: 12px 24px;
+    -fx-border-radius: 30px;
+    -fx-border: none;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 0);
+    -fx-transition: all 0.3s ease;
+}
+
+/* Button hover effect with a fresh green accent */
+.button:hover {
+    -fx-background-color: #218c74;
+}
+
+/* ComboBox styling */
+.combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-border-color: #3b5998;
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-padding: 6px;
+}
+
+/* Styling for the ComboBox dropdown menu */
+.combo-box-popup .list-view {
+    -fx-background-color: #f0f4f8;
+    -fx-border-color: #3b5998;
+}
+
+/* Styling for ComboBox items */
+.combo-box .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: #2b3e50;
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+}
+
+/* Hover effect for ComboBox items */
+.combo-box .list-cell:hover {
+    -fx-background-color: #a8e6cf;
+    -fx-text-fill: #218c74;
+}
+
+/* When ComboBox is clicked (focused) */
+.combo-box:focused {
+    -fx-border-color: #218c74;
+    -fx-border-width: 2px;
+}
+
+/* Arrow button inside the ComboBox */
+.combo-box .arrow {
+    -fx-background-color: #3b5998;
+}
+
+/* Hover effect for the arrow */
+.combo-box:hover .arrow {
+    -fx-background-color: #218c74;
+}

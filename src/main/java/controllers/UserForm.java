@@ -1,24 +1,35 @@
 package controllers;
 
-import entities.Utilisateur;
-import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import Services.UtilisateurService;
-import java.net.URL;
-import java.util.ResourceBundle;
+import entities.Utilisateur;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class UserFormController {
-    @FXML private TextField tfNom;
-    @FXML private TextField tfPrenom;
-    @FXML private TextField tfEmail;
-    @FXML private PasswordField pfPassword;
+public class UserForm {
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private TextField idmail;
+
+    @FXML
+    private PasswordField idmdp;
+
+    @FXML
+    private TextField idnom;
+
+    @FXML
+    private TextField idprenom;
 
     private Utilisateur currentUser;
     private final UtilisateurService userService = new UtilisateurService();
@@ -26,9 +37,9 @@ public class UserFormController {
     public void setUser(Utilisateur user) {
         this.currentUser = user;
         if (user != null) {
-            tfNom.setText(user.getNom());
-            tfPrenom.setText(user.getPrenom());
-            tfEmail.setText(user.getEmail());
+            idnom.setText(user.getNom());
+            idprenom.setText(user.getPrenom());
+            idmail.setText(user.getEmail());
         }
     }
 
@@ -38,16 +49,16 @@ public class UserFormController {
             if (currentUser == null) {
                 Utilisateur newUser = new Utilisateur(
                         0,
-                        tfNom.getText(),
-                        tfPrenom.getText(),
-                        tfEmail.getText(),
-                        pfPassword.getText()
+                        idnom.getText(),
+                        idprenom.getText(),
+                        idmail.getText(),
+                        idmdp.getText()
                 );
                 userService.ajouter(newUser);
             } else {
-                currentUser.setNom(tfNom.getText());
-                currentUser.setPrenom(tfPrenom.getText());
-                currentUser.setEmail(tfEmail.getText());
+                currentUser.setNom(idnom.getText());
+                currentUser.setPrenom(idprenom.getText());
+                currentUser.setEmail(idmail.getText());
                 userService.modifier(currentUser);
             }
             closeWindow();
@@ -60,7 +71,7 @@ public class UserFormController {
     }
 
     private boolean validateForm() {
-        if (tfNom.getText().isEmpty() || tfEmail.getText().isEmpty()) {
+        if (idnom.getText().isEmpty() || idmail.getText().isEmpty()) {
             showAlert("Erreur", "Nom et email sont obligatoires.");
             return false;
         }
@@ -68,7 +79,7 @@ public class UserFormController {
     }
 
     private void closeWindow() {
-        Stage stage = (Stage) tfNom.getScene().getWindow();
+        Stage stage = (Stage) idnom.getScene().getWindow();
         stage.close();
     }
 
@@ -80,3 +91,4 @@ public class UserFormController {
         alert.showAndWait();
     }
 }
+

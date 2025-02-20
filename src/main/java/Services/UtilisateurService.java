@@ -1,5 +1,7 @@
 package Services;
 
+import entities.Abonnement;
+import entities.StatutAbonnement;
 import entities.Utilisateur;
 import tools.DataSource;
 
@@ -125,5 +127,29 @@ public class UtilisateurService implements IService<Utilisateur> {
     }
 
     public String getAbonnementsByUserId(int userId) {
+        List<Abonnement> abonnements = new ArrayList<>();
+        String query = "SELECT * FROM abonnement WHERE id_user = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Abonnement abonnement = new Abonnement(
+                            rs.getInt("id_abonnement"),
+                            rs.getString("type_abonnement"),
+                            rs.getDate("date_debut"),
+                            rs.getDate("date_fin"),
+                            rs.getDouble("tarif"),
+                            StatutAbonnement.valueOf(rs.getString("statut").toUpperCase()), // ✅ Conversion ici
+                            rs.getInt("point_fidelite"),
+                            rs.getInt("id_user")
+                    );
+
+                    abonnements.add(abonnement);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la récupération des abonnements : " + e.getMessage());
+        }
+        return abonnements.toString();
     }
 }

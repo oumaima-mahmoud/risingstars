@@ -11,6 +11,30 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import Services.UtilisateurService;
 
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+
+public class Dashboard {
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private ListView<?> usersList;
+
+
+    @FXML
+    void initialize() {
+        assert usersList != null : "fx:id=\"usersList\" was not injected: check your FXML file 'dashboard.fxml'.";
+
+    }
 public class DashboardController {
     @FXML private ListView<Utilisateur> usersList;
 
