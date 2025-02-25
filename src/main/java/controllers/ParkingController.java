@@ -1,7 +1,7 @@
 package controllers;
 
 import entities.Parking;
-import services.ParkingService;
+import Services.ParkingService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
