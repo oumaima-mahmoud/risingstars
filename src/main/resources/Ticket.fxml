@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.ParkingController" spacing="10" padding="20">
+
+    <Label text="Gestion des Parkings" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="ID Parking:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtIdParking" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="ID Réservation:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtReservationId" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Nombre de Places:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtNbrPlace" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Statut:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtStatut" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Date Réservation:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtDateReservation" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Heure Début:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtHeureDebut" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <Label text="Heure Fin:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtHeureFin" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+        <Label text="Prix:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtPrix" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10">
+        <Button fx:id="btnAjouter" text="Ajouter"/>
+        <Button fx:id="btnModifier" text="Modifier"/>
+        <Button fx:id="btnSupprimer" text="Supprimer"/>
+        <Button fx:id="btnRechercher" text="Rechercher"/>
+        <Button fx:id="btnReset" text="Réinitialiser"/>
+    </HBox>
+
+</VBox>

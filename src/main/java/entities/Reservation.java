@@ -1,89 +1,54 @@
 package entities;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Reservation {
     private int id;
-    private int place;
-    private int utilisateurID;
+    private int userId;
+    private String place;
     private Date dateReservation;
-    private StatutRes statut;
-    private float prixTotal;
+    private StatutReservation statut;
+    private double prixTotal;
 
-    // Constructeur
-    public Reservation(int id, int place, int utilisateurID, Date dateReservation, StatutRes statut, float prixTotal) {
+    public Reservation() {
+    }
+
+    public Reservation(int id, int userId, String place, Date dateReservation, String statut, double prixTotal) {
         this.id = id;
+        this.userId = userId;
         this.place = place;
-        this.utilisateurID = utilisateurID;
         this.dateReservation = dateReservation;
-        this.statut = statut;
+        this.statut = StatutReservation.valueOf(statut);
         this.prixTotal = prixTotal;
     }
 
-    public Reservation(int id, Ticket ticket, Parking parkingSelectionne, StatutRes statutRes, Date date) {
-    }
+    // Getters & Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    // Getters et Setters
-    public int getId() {
-        return id;
-    }
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getPlace() { return place; }
+    public void setPlace(String place) { this.place = place; }
 
-    public int getPlace() {
-        return place;
-    }
+    public Date getDateReservation() { return dateReservation; }
+    public void setDateReservation(Date dateReservation) { this.dateReservation = dateReservation; }
 
-    public void setPlace(int place) {
-        this.place = place;
-    }
+    public StatutReservation getStatut() { return statut; }
+    public void setStatut(String statut) { this.statut = StatutReservation.valueOf(statut); }
 
-    public int getUtilisateurID() {
-        return utilisateurID;
-    }
-
-    public void setUtilisateurID(int utilisateurID) {
-        this.utilisateurID = utilisateurID;
-    }
-
-    public Date getDateReservation() {
-        return dateReservation;
-    }
-
-    public void setDateReservation(Date dateReservation) {
-        this.dateReservation = dateReservation;
-    }
-
-    public StatutRes getStatut() {
-        return statut;
-    }
-
-    public void setStatut(StatutRes statut) {
-        this.statut = statut;
-    }
-
-    public float getPrixTotal() {
-        return prixTotal;
-    }
-
-    public void setPrixTotal(float prixTotal) {
-        this.prixTotal = prixTotal;
-    }
-
-    public int getUtilisationID() {
-        return this.utilisateurID;
-    }
+    public double getPrixTotal() { return prixTotal; }
+    public void setPrixTotal(double prixTotal) { this.prixTotal = prixTotal; }
 
     @Override
     public String toString() {
         return "Reservation{" +
                 "id=" + id +
-                ", place=" + place +
-                ", utilisateurID=" + utilisateurID +
+                ", userId=" + userId +
+                ", place='" + place + '\'' +
                 ", dateReservation=" + dateReservation +
-                ", statut=" + statut +
+                ", statut='" + statut + '\'' +
                 ", prixTotal=" + prixTotal +
                 '}';
     }

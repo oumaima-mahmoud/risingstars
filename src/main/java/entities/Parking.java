@@ -4,105 +4,63 @@ import java.util.Date;
 
 public class Parking {
     private int id;
-    private int reservationID;
-    private int intPlace;
-    private StatutRes statut;
-    private Date dateReser;
-    private Date heureDebut;
-    private Date heureFin;
-    private int prix;
+    private int reservationId;
+    private int nbrPlace;
+    private StatutParking statut;
+    private Date dateReservation;
+    private String heureDebut;
+    private String heureFin;
+    private double prix;
 
-    // Constructeur
-    public Parking(int id, int reservationID, int intPlace, StatutRes statut, Date dateReser, Date heureDebut, Date heureFin, int prix) {
+    public Parking() {
+    }
+
+    public Parking(int id, int reservationId, int nbrPlace, String statut, Date dateReservation, String heureDebut, String heureFin, double prix) {
         this.id = id;
-        this.reservationID = reservationID;
-        this.intPlace = intPlace;
-        this.statut = statut;
-        this.dateReser = dateReser;
+        this.reservationId = reservationId;
+        this.nbrPlace = nbrPlace;
+        this.statut = StatutParking.valueOf(statut);
+        this.dateReservation = dateReservation;
         this.heureDebut = heureDebut;
         this.heureFin = heureFin;
         this.prix = prix;
     }
 
-    public Parking(int id, String a1, java.sql.Date date, java.sql.Date date1, boolean b) {
-    }
+    // Getters & Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    // Getters et Setters
-    public int getId() {
-        return id;
-    }
+    public int getReservationId() { return reservationId; }
+    public void setReservationId(int reservationId) { this.reservationId = reservationId; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public int getNbrPlace() { return nbrPlace; }
+    public void setNbrPlace(int nbrPlace) { this.nbrPlace = nbrPlace; }
 
-    public int getReservationID() {
-        return reservationID;
-    }
+    public String getStatut() { return statut; }
+    public void setStatut(String statut) { this.statut = StatutParking.valueOf(statut); }
 
-    public void setReservationID(int reservationID) {
-        this.reservationID = reservationID;
-    }
+    public Date getDateReservation() { return dateReservation; }
+    public void setDateReservation(Date dateReservation) { this.dateReservation = dateReservation; }
 
-    public int getIntPlace() {
-        return intPlace;
-    }
+    public String getHeureDebut() { return heureDebut; }
+    public void setHeureDebut(String heureDebut) { this.heureDebut = heureDebut; }
 
-    public void setIntPlace(int intPlace) {
-        this.intPlace = intPlace;
-    }
+    public String getHeureFin() { return heureFin; }
+    public void setHeureFin(String heureFin) { this.heureFin = heureFin; }
 
-    public StatutRes getStatut() {
-        return statut;
-    }
+    public double getPrix() { return prix; }
+    public void setPrix(double prix) { this.prix = prix; }
 
-    public void setStatut(StatutRes statut) {
-        this.statut = statut;
-    }
-
-    public Date getDateReser() {
-        return dateReser;
-    }
-
-    public void setDateReser(Date dateReser) {
-        this.dateReser = dateReser;
-    }
-
-    public Date getHeureDebut() {
-        return heureDebut;
-    }
-
-    public void setHeureDebut(Date heureDebut) {
-        this.heureDebut = heureDebut;
-    }
-
-    public Date getHeureFin() {
-        return heureFin;
-    }
-
-    public void setHeureFin(Date heureFin) {
-        this.heureFin = heureFin;
-    }
-
-    public int getPrix() {
-        return prix;
-    }
-
-    public void setPrix(int prix) {
-        this.prix = prix;
-    }
-
-    // Méthode toString pour afficher les détails du parking
     @Override
     public String toString() {
         return "Parking{" +
                 "id=" + id +
-                ", reservationID=" + reservationID +
-                ", intPlace=" + intPlace +
-                ", statut=" + statut +
-                ", dateReser=" + dateReser +
-                ", heureDebut=" + heureDebut +
-                ", heureFin=" + heureFin +
+                ", reservationId=" + reservationId +
+                ", nbrPlace=" + nbrPlace +
+                ", statut='" + statut + '\'' +
+                ", dateReservation=" + dateReservation +
+                ", heureDebut='" + heureDebut + '\'' +
+                ", heureFin='" + heureFin + '\'' +
                 ", prix=" + prix +
                 '}';
     }

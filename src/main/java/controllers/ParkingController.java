@@ -1,82 +1,136 @@
 package controllers;
 
 import entities.Parking;
-import entities.Reservation;
-import entities.Ticket;
-import entities.StatutRes;
+import services.ParkingService;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import Services.ParkingService;
-import Services.ReservationService;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.sql.Date;
-import java.util.List;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ParkingController {
-    @FXML private ListView<Parking> listePlaces;
-    @FXML private DatePicker dateDebut;
-    @FXML private DatePicker dateFin;
+
+    @FXML
+    private TextField nbrPlaceField;
+    @FXML
+    private DatePicker dateReservationField;
+    @FXML
+    private TextField heureDebutField;
+    @FXML
+    private TextField heureFinField;
+    @FXML
+    private TextField prixField;
+    @FXML
+    private ComboBox<String> statutComboBox;
+    @FXML
+    private TableView<Parking> parkingTable;
+    @FXML
+    private TableColumn<Parking, Integer> idColumn;
+    @FXML
+    private TableColumn<Parking, Integer> nbrPlaceColumn;
+    @FXML
+    private TableColumn<Parking, String> dateReservationColumn;
+    @FXML
+    private TableColumn<Parking, String> heureDebutColumn;
+    @FXML
+    private TableColumn<Parking, String> heureFinColumn;
+    @FXML
+    private TableColumn<Parking, Double> prixColumn;
+    @FXML
+    private TableColumn<Parking, String> statutColumn;
 
     private ParkingService parkingService = new ParkingService();
-    private ReservationService reservationService = new ReservationService();
-    private Ticket ticket;
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    @FXML
+    public void initialize() {
+        statutComboBox.getItems().addAll("LIBRE", "RESERVE", "OCCUPE");
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nbrPlaceColumn.setCellValueFactory(new PropertyValueFactory<>("nbrPlace"));
+        dateReservationColumn.setCellValueFactory(new PropertyValueFactory<>("dateReservation"));
+        heureDebutColumn.setCellValueFactory(new PropertyValueFactory<>("heureDebut"));
+        heureFinColumn.setCellValueFactory(new PropertyValueFactory<>("heureFin"));
+        prixColumn.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        statutColumn.setCellValueFactory(new PropertyValueFactory<>("statut"));
+
+        loadParkingData();
+    }
+
+    private void loadParkingData() {
+        ObservableList<Parking> parkingList = FXCollections.observableArrayList(parkingService.getAllParkings());
+        parkingTable.setItems(parkingList);
     }
 
     @FXML
-    public void chercherPlaces() {
-        if (dateDebut.getValue() == null || dateFin.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Dates manquantes");
-            alert.setContentText("Veuillez sélectionner une date de début et une date de fin.");
-            alert.showAndWait();
-            return;
+    private void addParking() {
+        try {
+            int nbrPlace = Integer.parseInt(nbrPlaceField.getText());
+            String dateReservation = dateReservationField.getValue().toString();
+            String heureDebut = heureDebutField.getText();
+            String heureFin = heureFinField.getText();
+            double prix = Double.parseDouble(prixField.getText());
+            String statut = statutComboBox.getValue();
+
+            Parking newParking = new Parking(0, nbrPlace, dateReservation, heureDebut, heureFin, prix, statut);
+            parkingService.addParking(newParking);
+
+            clearFields();
+            loadParkingData();
+        } catch (Exception e) {
+            showAlert("Erreur", "Veuillez entrer des valeurs valides.");
         }
-
-        List<Parking> places = parkingService.trouverPlacesDisponibles(
-                Date.valueOf(dateDebut.getValue()),
-                Date.valueOf(dateFin.getValue())
-        );
-        listePlaces.getItems().setAll(places);
     }
 
     @FXML
-    public void confirmerReservation() {
-        Parking parkingSelectionne = listePlaces.getSelectionModel().getSelectedItem();
-        if (parkingSelectionne != null) {
-            Reservation reservation = new Reservation(
-                    0,
-                    ticket,
-                    parkingSelectionne,
-                    StatutRes.EN_ATTENTE,
-                    new Date(System.currentTimeMillis())
-            );
-            reservationService.ajouter(reservation);
-
+    private void updateParking() {
+        Parking selectedParking = parkingTable.getSelectionModel().getSelectedItem();
+        if (selectedParking != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/confirmation.fxml"));
-                Parent root = loader.load();
-                ConfirmationController confirmationController = loader.getController();
-                confirmationController.initialiser(reservation);
-                Stage stage = (Stage) listePlaces.getScene().getWindow();
-                stage.setScene(new Scene(root));
-            } catch (IOException e) {
-                e.printStackTrace();
+                selectedParking.setNbrPlace(Integer.parseInt(nbrPlaceField.getText()));
+                selectedParking.setDateReservation(dateReservationField.getValue().toString());
+                selectedParking.setHeureDebut(heureDebutField.getText());
+                selectedParking.setHeureFin(heureFinField.getText());
+                selectedParking.setPrix(Double.parseDouble(prixField.getText()));
+                selectedParking.setStatut(statutComboBox.getValue());
+
+                parkingService.updateParking(selectedParking);
+
+                clearFields();
+                loadParkingData();
+            } catch (Exception e) {
+                showAlert("Erreur", "Veuillez entrer des valeurs valides.");
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Aucune place sélectionnée");
-            alert.setContentText("Veuillez sélectionner une place de parking.");
-            alert.showAndWait();
+            showAlert("Sélection requise", "Veuillez sélectionner un parking à modifier.");
         }
+    }
+
+    @FXML
+    private void deleteParking() {
+        Parking selectedParking = parkingTable.getSelectionModel().getSelectedItem();
+        if (selectedParking != null) {
+            parkingService.deleteParking(selectedParking.getId());
+            clearFields();
+            loadParkingData();
+        } else {
+            showAlert("Sélection requise", "Veuillez sélectionner un parking à supprimer.");
+        }
+    }
+
+    private void clearFields() {
+        nbrPlaceField.clear();
+        dateReservationField.setValue(null);
+        heureDebutField.clear();
+        heureFinField.clear();
+        prixField.clear();
+        statutComboBox.getSelectionModel().clearSelection();
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

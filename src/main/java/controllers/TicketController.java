@@ -1,58 +1,73 @@
 package controllers;
 
 import entities.Ticket;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import Services.TicketService;
 
-import java.io.IOException;
-import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
 
 public class TicketController {
-    @FXML private ComboBox<String> typeEvenement;
-    @FXML private DatePicker dateEvenement;
-    @FXML private RadioButton ouiVoiture;
-    @FXML private RadioButton nonVoiture;
+    @FXML private TextField tfReservationId, tfNumeroPlace, tfPrix;
+    @FXML private TableView<Ticket> tableTickets;
+    @FXML private TableColumn<Ticket, Integer> colId, colReservationId, colNumeroPlace;
+    @FXML private TableColumn<Ticket, String> colDate, colCodeBarre;
+    @FXML private TableColumn<Ticket, Double> colPrix;
 
-    private TicketService ticketService = new TicketService();
+    private final TicketService ticketService = new TicketService();
+    private ObservableList<Ticket> ticketsList = FXCollections.observableArrayList();
 
     @FXML
-    public void passerEtapeSuivante(ActionEvent event) {
-        if (typeEvenement.getValue() == null || dateEvenement.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Champs manquants");
-            alert.setContentText("Veuillez sélectionner un type d'événement et une date.");
-            alert.showAndWait();
-            return;
-        }
+    public void initialize() {
+        colId.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
+        colReservationId.setCellValueFactory(cellData -> cellData.getValue().reservationIdProperty().asObject());
+        colNumeroPlace.setCellValueFactory(cellData -> cellData.getValue().numeroDePlaceProperty().asObject());
+        colDate.setCellValueFactory(cellData -> cellData.getValue().dateProperty().asString());
+        colCodeBarre.setCellValueFactory(cellData -> cellData.getValue().codeBarreProperty());
+        colPrix.setCellValueFactory(cellData -> cellData.getValue().prixProperty().asObject());
 
-        Ticket ticket = new Ticket(
-                0,
-                Date.valueOf(dateEvenement.getValue()),
-                typeEvenement.getValue(),
-                50.0,
-                ouiVoiture.isSelected()
-        );
-        ticketService.ajouter(ticket);
+        loadTickets();
+    }
 
+    private void loadTickets() {
         try {
-            FXMLLoader loader;
-            if (ouiVoiture.isSelected()) {
-                loader = new FXMLLoader(getClass().getResource("/views/reservation_parking.fxml"));
-            } else {
-                loader = new FXMLLoader(getClass().getResource("/views/confirmation.fxml"));
-            }
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
+            List<Ticket> tickets = ticketService.getAllTickets();
+            ticketsList.setAll(tickets);
+            tableTickets.setItems(ticketsList);
+        } catch (SQLException e) {
+            showAlert("Erreur", "Impossible de charger les tickets !");
         }
+    }
+
+    @FXML
+    private void ajouterTicket() {
+        try {
+            String codeBarre = ticketService.genererCodeBarre(
+                    Integer.parseInt(tfReservationId.getText()),
+                    Integer.parseInt(tfNumeroPlace.getText())
+            );
+            Ticket ticket = new Ticket(
+                    Integer.parseInt(tfReservationId.getText()),
+                    new java.util.Date(),
+                    Integer.parseInt(tfNumeroPlace.getText()),
+                    codeBarre,
+                    Double.parseDouble(tfPrix.getText())
+            );
+            ticketService.ajouterTicket(ticket);
+            loadTickets();
+            showAlert("Succès", "Ticket ajouté avec succès !");
+        } catch (Exception e) {
+            showAlert("Erreur", "Veuillez remplir tous les champs correctement.");
+        }
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

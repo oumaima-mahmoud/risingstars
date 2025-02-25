@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.ReservationController" spacing="10" padding="20">
+
+    <Label text="Gestion des Réservations" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <!-- Champ ID -->
+        <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtId" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <!-- Champ User ID -->
+        <Label text="User ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtUserId" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <!-- Champ Place -->
+        <Label text="Place:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtPlace" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <!-- Champ Date -->
+        <Label text="Date (YYYY-MM-DD):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtDate" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <!-- Champ Statut -->
+        <Label text="Statut:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtStatut" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <!-- Champ Prix Total -->
+        <Label text="Prix Total:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtPrixTotal" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Boutons -->
+    <HBox spacing="10">
+        <Button fx:id="btnAjouter" text="Ajouter"/>
+        <Button fx:id="btnModifier" text="Modifier"/>
+        <Button fx:id="btnSupprimer" text="Supprimer"/>
+        <Button fx:id="btnRechercher" text="Rechercher"/>
+        <Button fx:id="btnReset" text="Réinitialiser"/>
+    </HBox>
+
+</VBox>

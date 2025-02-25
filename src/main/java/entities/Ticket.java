@@ -4,82 +4,50 @@ import java.util.Date;
 
 public class Ticket {
     private int id;
-    private int reservationID;
+    private int reservationId;
     private Date date;
-    private String numPlace;
+    private int numeroDePlace;
     private String codeBarre;
-    private int prix;
+    private double prix;
 
-    // Constructeur
-    public Ticket(int id, int reservationID, Date date, String numPlace, String codeBarre, int prix) {
+    public Ticket() {
+    }
+
+    public Ticket(int id, int reservationId, Date date, int numeroDePlace, String codeBarre, double prix) {
         this.id = id;
-        this.reservationID = reservationID;
+        this.reservationId = reservationId;
         this.date = date;
-        this.numPlace = numPlace;
+        this.numeroDePlace = numeroDePlace;
         this.codeBarre = codeBarre;
         this.prix = prix;
     }
 
-    public Ticket(int id, java.sql.Date date, String value, double v, boolean selected) {
-    }
+    // Getters & Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    // Getters et Setters
-    public int getId() {
-        return id;
-    }
+    public int getReservationId() { return reservationId; }
+    public void setReservationId(int reservationId) { this.reservationId = reservationId; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public Date getDate() { return date; }
+    public void setDate(Date date) { this.date = date; }
 
-    public int getReservationID() {
-        return reservationID;
-    }
+    public int getNumeroDePlace() { return numeroDePlace; }
+    public void setNumeroDePlace(int numeroDePlace) { this.numeroDePlace = numeroDePlace; }
 
-    public void setReservationID(int reservationID) {
-        this.reservationID = reservationID;
-    }
+    public String getCodeBarre() { return codeBarre; }
+    public void setCodeBarre(String codeBarre) { this.codeBarre = codeBarre; }
 
-    public Date getDate() {
-        return date;
-    }
+    public double getPrix() { return prix; }
+    public void setPrix(double prix) { this.prix = prix; }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getNumPlace() {
-        return numPlace;
-    }
-
-    public void setNumPlace(String numPlace) {
-        this.numPlace = numPlace;
-    }
-
-    public String getCodeBarre() {
-        return codeBarre;
-    }
-
-    public void setCodeBarre(String codeBarre) {
-        this.codeBarre = codeBarre;
-    }
-
-    public int getPrix() {
-        return prix;
-    }
-
-    public void setPrix(int prix) {
-        this.prix = prix;
-    }
-
-    // Méthode toString pour afficher les détails du ticket
     @Override
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
-                ", reservationID=" + reservationID +
+                ", reservationId=" + reservationId +
                 ", date=" + date +
-                ", numPlace='" + numPlace + '\'' +
+                ", numeroDePlace=" + numeroDePlace +
                 ", codeBarre='" + codeBarre + '\'' +
                 ", prix=" + prix +
                 '}';
