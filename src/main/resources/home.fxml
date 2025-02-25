@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane prefWidth="1200" prefHeight="800" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.HomeController" stylesheets="@home.css">
+
+    <!-- Navbar Section -->
+    <HBox styleClass="navbar" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+        <ImageView fitWidth="30" fitHeight="30" styleClass="navbar-logo">
+            <image>
+                <Image url="@images/logo.png" />
+            </image>
+        </ImageView>
+
+        <Label text="TuniStadium" styleClass="navbar-text" HBox.hgrow="ALWAYS">
+            <HBox.margin>
+                <Insets left="30" />
+            </HBox.margin>
+        </Label>
+
+        <Label text="Contactez-nous" styleClass="navbar-text" onMouseClicked="#goToContactPage"/>
+
+        <!-- Login Buttons Section -->
+        <HBox fx:id="loginButtons" alignment="CENTER_RIGHT" spacing="10" HBox.hgrow="ALWAYS">
+            <Button text="S'inscrire" onAction="#goToRegisterPage" styleClass="navbar-button"/>
+            <Button text="Se connecter" onAction="#goToLoginPage" styleClass="navbar-button"/>
+        </HBox>
+    </HBox>
+
+    <!-- Main Content -->
+    <ScrollPane fitToWidth="true" AnchorPane.topAnchor="80" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+        <VBox spacing="40" alignment="TOP_CENTER" style="-fx-padding: 40;">
+            <!-- Hero Section -->
+            <HBox alignment="CENTER_LEFT" spacing="60">
+                <VBox alignment="CENTER_LEFT" prefWidth="500" spacing="25">
+                    <Label text="TUNISTADIUM" styleClass="main-title"/>
+                    <Label text="Le Futur des Stades Intelligents" styleClass="subtitle"/>
+                    <Label text="Réservez, planifiez, vibrez ! Matchs, événements, snacks livrés à votre siège et parking assuré – tout est prêt pour une expérience inoubliable au stade !"
+                           styleClass="description-text" wrapText="true"/>
+                    <Button text="Commencer maintenant" styleClass="main-button" onAction="#goToAbonnements"/>
+                </VBox>
+
+                <ImageView fitWidth="500" fitHeight="350" preserveRatio="true"
+                           styleClass="image" pickOnBounds="true">
+                    <image>
+                        <Image url="@images/stadee.jpg" />
+                    </image>
+                </ImageView>
+            </HBox>
+
+            <!-- Value Proposition -->
+            <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20 0;">
+                <Label text="Votre aventure commence ici" styleClass="center-title"/>
+                <Label text="Réservation simplifiée avec un plan interactif du stade, réservation de snacks et parkings!"
+                       styleClass="center-description" maxWidth="600"/>
+            </VBox>
+
+            <!-- Features Grid -->
+            <GridPane styleClass="grid-pane" alignment="CENTER" hgap="40" vgap="40">
+                <VBox alignment="CENTER" spacing="15">
+                    <ImageView fitWidth="150" fitHeight="150" styleClass="feature-image">
+                        <image>
+                            <Image url="@images/tunisia.jpg" />
+                        </image>
+                    </ImageView>
+                    <Label text="Réservation Facile : Choisissez, Cliquez, Profitez !" styleClass="feature-title"/>
+                    <Label text="Choisissez facilement votre place grâce à notre plan interactif du stade et réservez en quelques clics pour une expérience sans stress !" styleClass="description-text"/>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="15" GridPane.columnIndex="1">
+                    <ImageView fitWidth="150" fitHeight="150" styleClass="feature-image">
+                        <image>
+                            <Image url="@images/snacks.jpg" />
+                        </image>
+                    </ImageView>
+                    <Label text="Snacks et Matchs : Régalez-vous sans interruption !" styleClass="feature-title"/>
+                    <Label text="Commandez vos snacks en quelques clics et faites-vous livrer directement à votre siège. Profitez du match sans manquer une seule action !" styleClass="description-text"/>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="15" GridPane.columnIndex="2">
+                    <ImageView fitWidth="150" fitHeight="150" styleClass="feature-image">
+                        <image>
+                            <Image url="@images/park.jpg" />
+                        </image>
+                    </ImageView>
+                    <Label text="Parking Sécurisé : Garez, Profitez, Vibrez ! " styleClass="feature-title"/>
+                    <Label text="Votre voiture est en sécurité dans notre parking surveillé, alors installez-vous et profitez pleinement du match!" styleClass="description-text"/>
+                </VBox>
+            </GridPane>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

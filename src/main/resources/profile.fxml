@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane prefWidth="400" prefHeight="500" stylesheets="register.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.ProfileController">
+
+    <!-- Titre -->
+    <Label text="Mon Profil" layoutX="150" layoutY="20" styleClass="title"/>
+
+    <!-- Champ Nom -->
+    <Label layoutX="50" layoutY="60" text="Nom:"/>
+    <TextField fx:id="nomField" layoutX="150" layoutY="55" editable="false" styleClass="text-field"/>
+
+    <!-- Champ Prénom -->
+    <Label layoutX="50" layoutY="100" text="Prénom:"/>
+    <TextField fx:id="prenomField" layoutX="150" layoutY="95" editable="false" styleClass="text-field"/>
+
+    <!-- Champ Email -->
+    <Label layoutX="50" layoutY="140" text="Email:"/>
+    <TextField fx:id="emailField" layoutX="150" layoutY="135" editable="false" styleClass="text-field"/>
+
+    <!-- Champ Numéro de téléphone -->
+    <Label layoutX="50" layoutY="180" text="Numéro de téléphone:"/>
+    <TextField fx:id="phoneField" layoutX="150" layoutY="175" editable="false" styleClass="text-field"/>
+
+    <!-- Champ Mot de passe -->
+    <Label layoutX="50" layoutY="220" text="Mot de passe:"/>
+    <PasswordField fx:id="passwordField" layoutX="150" layoutY="215" styleClass="text-field"/>
+
+    <!-- Affichage Statut Abonnement -->
+    <Label layoutX="50" layoutY="260" text="Statut de l'abonnement:"/>
+    <TextField fx:id="statutField" layoutX="150" layoutY="255" editable="false" styleClass="text-field"/>
+
+    <!-- Affichage Points de Fidélité -->
+    <Label layoutX="50" layoutY="300" text="Points de fidélité:"/>
+    <TextField fx:id="pointsFideliteField" layoutX="150" layoutY="295" editable="false" styleClass="text-field"/>
+
+    <!-- Type d'abonnement -->
+    <Label layoutX="50" layoutY="340" text="Type d'abonnement:"/>
+    <TextField fx:id="typeAbonnementField" layoutX="150" layoutY="335" editable="false" styleClass="text-field"/>
+
+    <!-- Bouton de mise à jour -->
+    <Button text="Mettre à jour" layoutX="150" layoutY="380" onAction="#updateProfile" styleClass="update-button"/>
+</AnchorPane>

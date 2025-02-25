@@ -1,13 +1,14 @@
 package entities;
 
-public enum StatutAbonnement {
-    ACTIF("Actif"),
-    SUSPENDU("Suspendu"),
-    EXPIRE("Expiré");
+public enum Role {
+    GESTIONNAIRE("Gestionnaire de stade"),
+    SPECTATEUR("Spectateur"),
+    SPONSOR("Sponsor"),
+    ANNONCEUR("Annonceur");
 
     private final String displayName;
 
-    StatutAbonnement(String displayName) {
+    Role(String displayName) {
         this.displayName = displayName;
     }
 

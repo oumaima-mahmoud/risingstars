@@ -1,40 +1,63 @@
 package controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
+import Services.UtilisateurService;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import tools.SceneManager;
+
+import java.util.Objects;
 
 public class LoginController {
+    @FXML private TextField emailField;
+    @FXML private PasswordField passwordField;
+    @FXML private ComboBox<String> roleComboBox;
+    @FXML private Button loginButton;
+
+    private final UtilisateurService utilisateurService = new UtilisateurService();
 
     @FXML
-    private ResourceBundle resources;
+    private void handleLogin() {
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        String role = roleComboBox.getValue();
 
-    @FXML
-    private URL location;
+        // Vérification des champs vides
+        if (email.isEmpty() || password.isEmpty() || role == null) {
+            showAlert("Erreur", "Veuillez remplir tous les champs !");
+            return;
+        }
 
-    @FXML
-    private ComboBox<String> cbRole;
+        // Vérification si l'utilisateur existe
+        if (!utilisateurService.checkIfUserExists(email)) {
+            showAlert("Erreur", "Aucun utilisateur trouvé avec cet email !");
+            return;
+        }
 
-
-    @FXML
-    private TextField idmail;
-
-    @FXML
-    private PasswordField idmdp;
-
-    @FXML
-    void handleLogin(ActionEvent event) {
-
+        // Authentification de l'utilisateur
+        boolean isAuthenticated = utilisateurService.authenticate(email, password, role);
+        if (isAuthenticated) {
+            showAlert("Succès", "Connexion réussie !");
+            // Redirection selon le rôle
+            redirectUser(role);
+        } else {
+            showAlert("Erreur", "Identifiants incorrects !");
+        }
     }
 
-    @FXML
-    void initialize() {
+    private void redirectUser(String role) {
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        if (Objects.equals(role, "Spectateur")) {
+            SceneManager.switchScene(stage, "/abonnement.fxml");
+        } else {
+            SceneManager.switchScene(stage, "/home.fxml");
+        }
     }
 
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

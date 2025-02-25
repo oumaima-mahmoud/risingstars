@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane prefWidth="500" prefHeight="400" stylesheets="@register.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AbonnementController">
+
+    <!-- Titre -->
+    <Label text="Choisissez votre Abonnement" layoutX="150" layoutY="20" styleClass="title"/>
+
+    <!-- Description accrocheuse -->
+    <Label text="Accédez à des services exclusifs et profitez de nos offres exceptionnelles." layoutX="50" layoutY="60" styleClass="description"/>
+
+    <!-- Formulaire d'abonnement -->
+    <VBox spacing="15" layoutX="50" layoutY="100">
+        <!-- Type d'abonnement avec options -->
+        <Label text="Sélectionnez votre abonnement :"/>
+        <HBox spacing="20">
+            <RadioButton fx:id="standardRadio" text="Standard" onAction="#updateAbonnementDetails"/>
+            <RadioButton fx:id="premiumRadio" text="Premium" onAction="#updateAbonnementDetails"/>
+            <RadioButton fx:id="vipRadio" text="VIP" onAction="#updateAbonnementDetails"/>
+        </HBox>
+
+        <!-- Date de début et de fin -->
+        <DatePicker fx:id="dateDebutField" promptText="Date de début" />
+        <DatePicker fx:id="dateFinField" promptText="Date de fin" />
+
+        <!-- Tarif (sera rempli automatiquement en fonction du type) -->
+        <TextField fx:id="tarifField" promptText="Tarif" editable="false" />
+
+        <!-- Statut : Ne pas modifier ici, sera mis à jour dans le profil utilisateur -->
+        <Label text="Statut de l'abonnement (mis à jour dans le profil utilisateur)"/>
+
+        <!-- Points de fidélité : Sera automatiquement mis à jour dans le profil de l'utilisateur -->
+        <Label text="Points de fidélité (gérés automatiquement)" />
+    </VBox>
+
+    <!-- Button Ajouter Abonnement -->
+    <Button text="Ajouter Abonnement" layoutX="150" layoutY="330" onAction="#ajouterAbonnement"/>
+
+</AnchorPane>

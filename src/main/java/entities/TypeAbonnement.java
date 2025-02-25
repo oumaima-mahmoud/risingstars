@@ -1,13 +1,13 @@
 package entities;
 
-public enum StatutAbonnement {
-    ACTIF("Actif"),
-    SUSPENDU("Suspendu"),
-    EXPIRE("Expiré");
+public enum TypeAbonnement {
+    STANDARD("Standard"),
+    PREMIUM("Premium"),
+    VIP("VIP");
 
     private final String displayName;
 
-    StatutAbonnement(String displayName) {
+    TypeAbonnement(String displayName) {
         this.displayName = displayName;
     }
 

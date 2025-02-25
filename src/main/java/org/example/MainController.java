@@ -1,13 +1,11 @@
-package controllers;
+package org.example;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.rmi.RemoteException;
 
 public class MainController extends Application {
 
@@ -18,7 +16,7 @@ public class MainController extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         // loader feha l url du fichier xml
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/user-form.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
         try {
             // loader pour charger le fichier
             AnchorPane root = loader.load();
