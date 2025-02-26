@@ -25,11 +25,40 @@ public class ReponseService {
             stmt.setString(5, reponse.getFichierJoint());
             stmt.setInt(6, reponse.getPriorite());
             stmt.executeUpdate();
+            System.out.println("Réponse ajoutée avec succès !");
+
+            // Fetch the phone number associated with the reclamation
+            String phoneNumber = getPhoneNumberByReclamationId(reponse.getIdReclamation());
+            if (phoneNumber != null) {
+                // Send SMS notification
+                String smsBody = "Une nouvelle réponse a été ajoutée à votre réclamation:\n" +
+                        "Contenu: " + reponse.getContenu() + "\n" +
+                        "Date: " + reponse.getDateReponse() + "\n" +
+                        "Type: " + reponse.getType();
+                TwilioService.sendSMS(phoneNumber, smsBody);
+            } else {
+                System.out.println("Aucun numéro de téléphone trouvé pour cette réclamation.");
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
+    public String getPhoneNumberByReclamationId(int reclamationId) {
+        String phoneNumber = null;
+        String query = "SELECT phone_number FROM reclamation WHERE id = ?"; // Adjust the column name if necessary
+        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
+            stmt.setInt(1, reclamationId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    phoneNumber = rs.getString("phone_number");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return phoneNumber;
+    }
     public List<Reponse> getAllReponses() {
         List<Reponse> responses = new ArrayList<>();
         String query = "SELECT * FROM reponse";
@@ -101,5 +130,20 @@ public class ReponseService {
             e.printStackTrace();
         }
         return responses;
+    }
+    public void ajouterAutoReponse(int idReclamation, String contenu, String type) {
+        String query = "INSERT INTO reponse (id_reclamation, contenu, date_reponse, type, fichier_joint, priorite) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
+            stmt.setInt(1, idReclamation);
+            stmt.setString(2, contenu);
+            stmt.setString(3, new java.sql.Timestamp(System.currentTimeMillis()).toString()); // Current timestamp
+            stmt.setString(4, type);
+            stmt.setString(5, ""); // No attachment for auto-response
+            stmt.setInt(6, 1); // Default priority for auto-response
+            stmt.executeUpdate();
+            System.out.println("Auto-réponse ajoutée avec succès !");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

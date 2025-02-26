@@ -14,20 +14,34 @@ import tools.DataSource;
 
 public class ReclamationService implements IService<Reclamation> {
     private Connection cnx;
+    private HuggingFaceAPI huggingFaceAPI;
 
     public ReclamationService() {
         this.cnx = DataSource.getInstance().getConnection();
+        this.huggingFaceAPI = new HuggingFaceAPI();
+
+
     }
+
 
     @Override
     public void ajouter(Reclamation reclamation) {
-        String query = "INSERT INTO reclamation (user_id, type, description, objet, etat) VALUES (?, ?, ?, ?, ?)";
+        // Analyze sentiment of the reclamation description
+        String sentiment = huggingFaceAPI.analyzeSentiment(reclamation.getDescription());
+        String autoResponse = huggingFaceAPI.generateAutoResponse(sentiment);
+
+        // Print the auto-response (or handle it as needed)
+        System.out.println("Auto-Response: " + autoResponse);
+
+        // Save the reclamation to the database (unchanged)
+        String query = "INSERT INTO reclamation (user_id, type, description, objet, etat, phone_number) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
             ps.setInt(1, reclamation.getUserId());
             ps.setString(2, reclamation.getType());
             ps.setString(3, reclamation.getDescription());
             ps.setString(4, reclamation.getObjet());
             ps.setString(5, reclamation.getEtat());
+            ps.setString(6, reclamation.getPhoneNumber());
             ps.executeUpdate();
             System.out.println("Reclamation ajoutée !");
         } catch (SQLException e) {
@@ -35,15 +49,19 @@ public class ReclamationService implements IService<Reclamation> {
         }
     }
 
+
     @Override
     public void modifier(Reclamation reclamation) {
-        String query = "UPDATE reclamation SET type = ?, description = ?, objet = ?, etat = ? WHERE id = ?";
+
+        // Update the reclamation in the database
+        String query = "UPDATE reclamation SET type = ?, description = ?, objet = ?, etat = ?, phone_number = ? WHERE id = ?";
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
             ps.setString(1, reclamation.getType());
             ps.setString(2, reclamation.getDescription());
             ps.setString(3, reclamation.getObjet());
             ps.setString(4, reclamation.getEtat());
-            ps.setInt(5, reclamation.getId());
+            ps.setString(5, reclamation.getPhoneNumber());
+            ps.setInt(6, reclamation.getId());
             ps.executeUpdate();
             System.out.println("Reclamation modifiée !");
         } catch (SQLException e) {
@@ -75,7 +93,8 @@ public class ReclamationService implements IService<Reclamation> {
                         rs.getString("type"),
                         rs.getString("description"),
                         rs.getString("objet"),
-                        rs.getString("etat")
+                        rs.getString("etat"),
+                        rs.getString("phone_number")
                 );
             }
         } catch (SQLException e) {
@@ -97,7 +116,8 @@ public class ReclamationService implements IService<Reclamation> {
                         rs.getString("type"),
                         rs.getString("description"),
                         rs.getString("objet"),
-                        rs.getString("etat")
+                        rs.getString("etat"),
+                        rs.getString("phone_number")
                 );
                 rec.setId(rs.getInt("id"));
                 rec.setDateReclamation(rs.getString("date_reclamation"));
@@ -105,6 +125,91 @@ public class ReclamationService implements IService<Reclamation> {
             }
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la récupération des réclamations : " + ex.getMessage());
+        }
+        return reclamations;
+    }
+
+
+    // New method for search and filtering
+    public List<Reclamation> searchReclamations(String keyword, String type, String etat) {
+        List<Reclamation> reclamations = new ArrayList<>();
+        // Base query
+        String query = "SELECT * FROM reclamation WHERE 1=1";
+
+        // Add filters dynamically based on input
+        if (type != null && !type.isEmpty()) {
+            query += " AND type LIKE ?";
+        }
+        if (etat != null && !etat.isEmpty()) {
+            query += " AND etat LIKE ?";
+        }
+        if (keyword != null && !keyword.isEmpty()) {
+            query += " AND (description LIKE ? OR objet LIKE ?)";
+        }
+
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            int parameterIndex = 1;
+
+            // Set parameters for type
+            if (type != null && !type.isEmpty()) {
+                ps.setString(parameterIndex++, "%" + type + "%");
+            }
+
+            // Set parameters for etat
+            if (etat != null && !etat.isEmpty()) {
+                ps.setString(parameterIndex++, "%" + etat + "%");
+            }
+
+            // Set parameters for keyword
+            if (keyword != null && !keyword.isEmpty()) {
+                ps.setString(parameterIndex++, "%" + keyword + "%");
+                ps.setString(parameterIndex++, "%" + keyword + "%");
+            }
+
+            // Execute the query
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Reclamation rec = new Reclamation(
+                        rs.getInt("user_id"),
+                        rs.getString("type"),
+                        rs.getString("description"),
+                        rs.getString("objet"),
+                        rs.getString("etat"),
+                        rs.getString("phone_number") // New field
+                );
+                rec.setId(rs.getInt("id"));
+                rec.setDateReclamation(rs.getString("date_reclamation"));
+                reclamations.add(rec);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la recherche : " + e.getMessage());
+        }
+        return reclamations;
+    }
+
+    // New method for pagination
+    public List<Reclamation> getReclamationsPaginated(int offset, int limit) {
+        List<Reclamation> reclamations = new ArrayList<>();
+        String query = "SELECT * FROM reclamation LIMIT ? OFFSET ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, limit);
+            ps.setInt(2, offset);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Reclamation rec = new Reclamation(
+                        rs.getInt("user_id"),
+                        rs.getString("type"),
+                        rs.getString("description"),
+                        rs.getString("objet"),
+                        rs.getString("etat"),
+                        rs.getString("phone_number") // New field
+                );
+                rec.setId(rs.getInt("id"));
+                rec.setDateReclamation(rs.getString("date_reclamation"));
+                reclamations.add(rec);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la pagination : " + e.getMessage());
         }
         return reclamations;
     }
@@ -121,7 +226,8 @@ public class ReclamationService implements IService<Reclamation> {
                         rs.getString("type"),
                         rs.getString("description"),
                         rs.getString("objet"),
-                        rs.getString("etat")
+                        rs.getString("etat"),
+                        rs.getString("phone_number") // New field
                 );
                 rec.setId(rs.getInt("id"));
                 rec.setDateReclamation(rs.getString("date_reclamation"));

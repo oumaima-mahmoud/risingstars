@@ -35,6 +35,13 @@ public class AddResponseController {
     private int reclamationId; // This ID should be passed when opening the window
     private String imageFilePath = "";  // Variable to store the selected image file path
 
+    private AdminReponseController adminReponseController; // Reference to AdminReponseController
+
+    // Setter for AdminReponseController
+    public void setAdminReponseController(AdminReponseController adminReponseController) {
+        this.adminReponseController = adminReponseController;
+    }
+
     public void setReclamationId(int reclamationId) {
         this.reclamationId = reclamationId;
     }
@@ -76,6 +83,12 @@ public class AddResponseController {
 
             // Adding the response using the service
             reponseService.ajouterReponse(reponse);
+
+            // Notify AdminReponseController to refresh the responses list
+            if (adminReponseController != null) {
+                adminReponseController.refreshReponseList();
+            }
+
             closeWindow();
         }
     }

@@ -97,7 +97,7 @@ public class UpdateReponseController {
 
         // Notify AdminReponseController to refresh the responses list
         if (adminReponseController != null) {
-            adminReponseController.loadReponses();
+            adminReponseController.refreshReponseList(); // Call the correct method
         }
     }
 

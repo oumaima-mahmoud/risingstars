@@ -22,6 +22,8 @@ public class ModifierReclamationController {
     private TextField etatField;
     @FXML
     private TextField dateReclamationField;
+    @FXML
+    private TextField phoneNumberField; // New field for phone number
 
     private ReclamationService reclamationService = new ReclamationService();
     private Reclamation reclamation;
@@ -34,6 +36,7 @@ public class ModifierReclamationController {
         descriptionField.setText(reclamation.getDescription());
         objetField.setText(reclamation.getObjet());
         etatField.setText(reclamation.getEtat());
+        phoneNumberField.setText(reclamation.getPhoneNumber()); // Set phone number
 
         try {
             // Date field is read-only, no editing here
@@ -53,13 +56,26 @@ public class ModifierReclamationController {
     private void modifierReclamation(ActionEvent event) {
         if (reclamation != null) {
             try {
-                // Update the fields with the new values, except the date
-                reclamation.setType(typeField.getText());
-                reclamation.setDescription(descriptionField.getText());
-                reclamation.setObjet(objetField.getText());
-                reclamation.setEtat(etatField.getText());
+                // Get the updated values
+                String type = typeField.getText().trim();
+                String description = descriptionField.getText().trim();
+                String objet = objetField.getText().trim();
+                String etat = etatField.getText().trim();
+                String phoneNumber = phoneNumberField.getText().trim();
 
-                // Update the reclamation
+                // Validate all fields
+                if (!validateInput(type, description, objet, etat, phoneNumber)) {
+                    return; // Stop if validation fails
+                }
+
+                // Update the reclamation object
+                reclamation.setType(type);
+                reclamation.setDescription(description);
+                reclamation.setObjet(objet);
+                reclamation.setEtat(etat);
+                reclamation.setPhoneNumber(phoneNumber);
+
+                // Update the reclamation in the database
                 reclamationService.modifier(reclamation);
                 showAlert("Succès", "Réclamation modifiée avec succès.");
 
@@ -85,8 +101,48 @@ public class ModifierReclamationController {
         stage.close();
     }
 
+    private boolean validateInput(String type, String description, String objet, String etat, String phoneNumber) {
+        // Validate required fields
+        if (type.isEmpty() || description.isEmpty() || objet.isEmpty() || etat.isEmpty() || phoneNumber.isEmpty()) {
+            showAlert("Erreur", "Tous les champs doivent être remplis.");
+            return false;
+        }
+
+        // Validate type
+        if (!type.matches("[A-Z][a-zA-Z\\s]+")) {
+            showAlert("Erreur de saisie", "Le type doit commencer par une majuscule et ne contenir que des lettres et des espaces.");
+            return false;
+        }
+
+        // Validate description length
+        if (description.length() < 10) {
+            showAlert("Erreur de saisie", "La description doit contenir au moins 10 caractères.");
+            return false;
+        }
+
+        // Validate objet
+        if (!objet.matches("[a-zA-Z\\s]+")) {
+            showAlert("Erreur de saisie", "L'objet ne doit contenir que des lettres et des espaces.");
+            return false;
+        }
+
+        // Validate etat
+        if (!etat.matches("[a-zA-Z_]+")) {
+            showAlert("Erreur de saisie", "L'état ne doit contenir que des lettres et des caractères de soulignement (_).");
+            return false;
+        }
+
+        // Validate phone number
+        if (!phoneNumber.matches("\\+216\\d{8}")) {
+            showAlert("Erreur de saisie", "Le numéro de téléphone doit commencer par +216 et contenir 8 chiffres supplémentaires.");
+            return false;
+        }
+
+        return true;
+    }
+
     private void showAlert(String title, String content) {
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);

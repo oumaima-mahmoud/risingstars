@@ -8,7 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ButtonType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,42 +18,70 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class AdminReponseController {
 
     @FXML
     private ListView<Reponse> reponseListView;
 
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private ComboBox<String> filterPriorityComboBox;
+
     private ReponseService reponseService = new ReponseService();
     private int reclamationId;
+    private ObservableList<Reponse> allReponses;
 
     public void setReclamationId(int reclamationId) {
         this.reclamationId = reclamationId;
-        loadReponses();
+        refreshReponseList(); // Load responses when reclamationId is set
     }
 
-    public void loadReponses() {
+    // Refresh method to reload responses
+    public void refreshReponseList() {
         List<Reponse> reponses = reponseService.getReponsesByReclamationId(reclamationId);
-        ObservableList<Reponse> observableReponses = FXCollections.observableArrayList(reponses);
-        reponseListView.setItems(observableReponses);
+        allReponses = FXCollections.observableArrayList(reponses);
+        reponseListView.setItems(allReponses);
+    }
+
+    @FXML
+    private void handleSearch() {
+        String searchText = searchField.getText().toLowerCase();
+        int selectedPriority = filterPriorityComboBox.getSelectionModel().getSelectedIndex();
+
+        List<Reponse> filteredReponses = allReponses.stream()
+                .filter(reponse -> reponse.getType().toLowerCase().contains(searchText))
+                .filter(reponse -> selectedPriority == 0 || reponse.getPriorite() == selectedPriority)
+                .collect(Collectors.toList());
+
+        reponseListView.setItems(FXCollections.observableArrayList(filteredReponses));
+    }
+
+    @FXML
+    private void handleSortByDate() {
+        List<Reponse> sortedReponses = allReponses.stream()
+                .sorted((r1, r2) -> r2.getDateReponse().compareTo(r1.getDateReponse())) // Sort by date descending
+                .collect(Collectors.toList());
+
+        reponseListView.setItems(FXCollections.observableArrayList(sortedReponses));
     }
 
     @FXML
     private void addResponse() {
-        // Load the AddResponse FXML
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddReponse.fxml"));
             AnchorPane addResponseWindow = loader.load();
 
-            // Get the controller and set the reclamationId
             AddResponseController controller = loader.getController();
             controller.setReclamationId(reclamationId);
+            controller.setAdminReponseController(this); // Pass this controller for refreshing
 
-            // Create the scene and stage for the new window
-            Scene scene = new Scene(addResponseWindow);
             Stage stage = new Stage();
             stage.setTitle("Ajouter une réponse");
-            stage.setScene(scene);
+            stage.setScene(new Scene(addResponseWindow));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,27 +93,33 @@ public class AdminReponseController {
         Reponse selectedReponse = reponseListView.getSelectionModel().getSelectedItem();
         if (selectedReponse != null) {
             try {
-                // Load the UpdateReponse FXML
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditReponse.fxml"));
                 AnchorPane updateResponseWindow = loader.load();
 
-                // Get the controller and set the reponseToEdit
                 UpdateReponseController controller = loader.getController();
                 controller.setReponseToEdit(selectedReponse);
-                controller.setAdminReponseController(this); // Pass AdminReponseController
+                controller.setAdminReponseController(this); // Pass this controller for refreshing
 
-                // Create the scene and stage for the update window
-                Scene scene = new Scene(updateResponseWindow);
                 Stage stage = new Stage();
                 stage.setTitle("Modifier la réponse");
-                stage.setScene(scene);
+                stage.setScene(new Scene(updateResponseWindow));
                 stage.show();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             showAlert("Erreur", "Veuillez sélectionner une réponse à modifier.");
+        }
+    }
+
+    @FXML
+    private void deleteResponse() {
+        Reponse selectedReponse = reponseListView.getSelectionModel().getSelectedItem();
+        if (selectedReponse != null) {
+            reponseService.supprimerReponse(selectedReponse.getId());
+            refreshReponseList(); // Refresh the list after deletion
+        } else {
+            showAlert("Erreur", "Veuillez sélectionner une réponse à supprimer.");
         }
     }
 
@@ -95,15 +130,4 @@ public class AdminReponseController {
         alert.setContentText(content);
         alert.showAndWait();
     }
-    @FXML
-    private void deleteResponse() {
-        Reponse selectedReponse = reponseListView.getSelectionModel().getSelectedItem();
-        if (selectedReponse != null) {
-            reponseService.supprimerReponse(selectedReponse.getId());
-            loadReponses(); // Refresh the list after deletion
-        } else {
-            showAlert("Erreur", "Veuillez sélectionner une réponse à supprimer.");
-        }
-    }
-
 }

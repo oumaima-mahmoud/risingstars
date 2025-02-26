@@ -1,7 +1,6 @@
 package entite;
+
 public class Reclamation {
-
-
     private int id;
     private int userId;
     private String type;
@@ -9,14 +8,16 @@ public class Reclamation {
     private String objet;
     private String dateReclamation;
     private String etat; // "en_attente", "en_cours", "termine"
+    private String phoneNumber; // New field
 
     // Constructor with parameters
-    public Reclamation(int userId, String type, String description, String objet, String etat) {
+    public Reclamation(int userId, String type, String description, String objet, String etat, String phoneNumber) {
         this.userId = userId;
         this.type = type;
         this.description = description;
         this.objet = objet;
         this.etat = etat;
+        this.phoneNumber = phoneNumber;
     }
 
     // No-argument constructor (added)
@@ -28,6 +29,7 @@ public class Reclamation {
         this.objet = "";
         this.etat = "en_attente";  // Default state
         this.dateReclamation = "";
+        this.phoneNumber = ""; // Default phone number
     }
 
     // Getters and Setters
@@ -87,6 +89,14 @@ public class Reclamation {
         this.etat = etat;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public String toString() {
         return "Reclamation{" +
@@ -97,6 +107,7 @@ public class Reclamation {
                 ", objet='" + objet + '\'' +
                 ", dateReclamation='" + dateReclamation + '\'' +
                 ", etat='" + etat + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }
