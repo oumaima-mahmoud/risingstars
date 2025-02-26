@@ -1,0 +1,45 @@
+/* Root style for the entire application */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #0077b6, #00b4d8);
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Title label style */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* ListView style */
+.response-list {
+    -fx-background-color: white;
+    -fx-border-color: #0077b6;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 0);
+}
+
+/* Action buttons */
+.action-button {
+    -fx-background-color: #0077b6;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 1);
+}
+
+.action-button:hover {
+    -fx-background-color: #023e8a;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 8, 0, 0, 2);
+}
+
+.action-button:pressed {
+    -fx-background-color: #03045e;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 1);
+}
