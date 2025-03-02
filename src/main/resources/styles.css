@@ -130,3 +130,23 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0.5, 0, 5);
     -fx-padding: 20px;
 }
+/* styles.css */
+
+/* Change the font of the pie chart labels */
+/* styles.css */
+
+/* Change the font of the pie chart labels */
+.chart-pie-label {
+    -fx-font-family: "Arial"; /* Change to your desired font */
+    -fx-font-size: 14px; /* Adjust the font size */
+    -fx-font-weight: bold; /* Make the text bold */
+    -fx-text-fill: #333333; /* Change the text color */
+}
+
+/* Change the color of the pie chart title */
+.chart-title {
+    -fx-font-family: "Arial"; /* Change to your desired font */
+    -fx-font-size: 20px; /* Adjust the font size */
+    -fx-font-weight: bold; /* Make the text bold */
+    -fx-text-fill: #008080; /* Change the title color (teal) */
+}

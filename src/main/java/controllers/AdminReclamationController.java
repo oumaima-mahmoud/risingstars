@@ -2,6 +2,7 @@ package controllers;
 
 import entite.Reclamation;
 import java.io.IOException;
+import services.PDFExportService;
 import services.ReclamationService;
 import services.ReponseService;
 import services.HuggingFaceAPI;
@@ -23,7 +24,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.stage.FileChooser;
+import java.io.File;
 import java.util.List;
 
 public class AdminReclamationController {
@@ -67,7 +69,7 @@ public class AdminReclamationController {
 
 
 
-
+    private PDFExportService pdfExportService = new PDFExportService();
     private ReclamationService reclamationService = new ReclamationService();
     private HuggingFaceAPI huggingFaceAPI = new HuggingFaceAPI();
     private int currentPage = 0;
@@ -242,6 +244,28 @@ public class AdminReclamationController {
             showAlert("Erreur", "Impossible d'ouvrir la fenêtre d'ajout.");
         }
     }
+    @FXML
+    private void showStatistics(ActionEvent event) {
+        try {
+            // Load the FXML file for the statistics window
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/StatisticsView.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller and initialize statistics
+            StatisticsController statisticsController = loader.getController();
+            statisticsController.initializeStatistics();
+
+            // Create a new stage for the statistics window
+            Stage stage = new Stage();
+            stage.setTitle("Statistiques Avancées");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL); // Make it modal
+            stage.show();
+        } catch (IOException e) {
+            showAlert("Erreur", "Impossible d'ouvrir la fenêtre des statistiques.");
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void ajouterAutoReponse(ActionEvent event) {
@@ -299,6 +323,30 @@ public class AdminReclamationController {
         }
     }
     @FXML
+    private void exportToPDF(ActionEvent event) {
+        // Get the selected reclamation
+        Reclamation selectedReclamation = reclamationListView.getSelectionModel().getSelectedItem();
+
+        if (selectedReclamation != null) {
+            // Open a file chooser to select the save location
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save PDF");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            File file = fileChooser.showSaveDialog(null);
+
+            if (file != null) {
+                // Export the selected reclamation to the selected file
+                pdfExportService.exportReclamationToPDF(selectedReclamation, file.getAbsolutePath());
+
+                // Show a success message
+                showAlert( "PDF Exported", "The PDF has been successfully exported to: " + file.getAbsolutePath());
+            }
+        } else {
+            showAlert("No Reclamation Selected", "Please select a reclamation to export.");
+        }
+    }
+
+    @FXML
     private void generateImage(ActionEvent event) {
         Reclamation selectedReclamation = reclamationListView.getSelectionModel().getSelectedItem();
         if (selectedReclamation != null) {
@@ -323,6 +371,22 @@ public class AdminReclamationController {
             }
         } else {
             showAlert("Erreur", "Veuillez sélectionner une réclamation pour générer une image.");
+        }
+    }
+    @FXML
+    private void openChatbox() {
+        try {
+            // Load the chatbox FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatboxView.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the chatbox
+            Stage stage = new Stage();
+            stage.setTitle("Chatbox");
+            stage.setScene(new Scene(root, 400, 300));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

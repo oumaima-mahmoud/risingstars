@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import entite.Reclamation;
 import tools.DataSource;
+import java.util.Map;
+import java.util.HashMap;
 
 public class ReclamationService implements IService<Reclamation> {
     private Connection cnx;
@@ -213,6 +215,20 @@ public class ReclamationService implements IService<Reclamation> {
         }
         return reclamations;
     }
+    public Map<String, Integer> getReclamationsByEtat() {
+        Map<String, Integer> reclamationsByEtat = new HashMap<>();
+        String query = "SELECT etat, COUNT(*) as count FROM reclamation GROUP BY etat";
+        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                String etat = rs.getString("etat");
+                int count = rs.getInt("count");
+                reclamationsByEtat.put(etat, count);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération des réclamations par état : " + e.getMessage());
+        }
+        return reclamationsByEtat;
+    }
 
     public ObservableList<Reclamation> afficherReclamation() {
         ObservableList<Reclamation> recList = FXCollections.observableArrayList();
@@ -237,5 +253,7 @@ public class ReclamationService implements IService<Reclamation> {
             System.out.println("Erreur lors de l'affichage : " + e.getMessage());
         }
         return recList;
+
     }
+
 }
