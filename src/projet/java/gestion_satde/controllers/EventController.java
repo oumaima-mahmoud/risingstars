@@ -1,5 +1,9 @@
 package gestion_satde.controllers;
-
+import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +17,8 @@ import javafx.scene.layout.VBox;
 import gestion_satde.entities.evenement;
 import gestion_satde.services.serviceEvenement;
 import org.controlsfx.control.Notifications;
+
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -41,20 +47,71 @@ public class EventController implements Initializable {
     @FXML private TextField organisateurEventUpdate;
     @FXML private TextField participantsEventUpdate;
     @FXML private TextField stadeIdEventUpdate;
-
+    @FXML
+    private VBox eventInterfaces;
+    @FXML private TextField searchField;
      serviceEvenement se = new serviceEvenement();
     private int currentEventId;
-
+    private StadeController stadeController;
+    private ObservableList<evenement> observableEventList;
+    private FilteredList<evenement> filteredEventList;
+    public void setStadeController(StadeController stadeController) {
+        this.stadeController = stadeController;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Initialize the observable list with data from the database
+        observableEventList = FXCollections.observableArrayList(se.getAll());
+
+        // Initialize the filtered list
+        filteredEventList = new FilteredList<>(observableEventList, b -> true);
+
+        // Initialize the search functionality
+        setupSearch();
+
+        // Load the initial data
         loadEvents();
     }
+    private void setupSearch() {
+        // Bind the search field to the filtered list
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredEventList.setPredicate(event -> {
+                // If the search field is empty, show all events
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
 
+                // Convert the search text to lowercase for case-insensitive comparison
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // Check if the event's name, type, or organizer contains the search text
+                if (event.getNom().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches the event's name
+                } else if (event.getType().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches the event's type
+                } else if (event.getOraganisateur().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches the event's organizer
+                }
+
+                return false; // No match
+            });
+
+            // Update the UI with the filtered list
+            updateEventList();
+        });
+    }
+    private void updateEventList() {
+        eventBox.getChildren().clear(); // Clear the current list
+
+        // Add the filtered events to the UI
+        for (evenement event : filteredEventList) {
+            VBox eventCard = createEventCard(event);
+            eventBox.getChildren().add(eventCard);
+        }
+    }
     private void loadEvents() {
         eventBox.getChildren().clear();
-        List<evenement> events = se.getAll();
-
-        for(evenement event : events) {
+        for(evenement event : filteredEventList) {
             VBox eventCard = createEventCard(event);
             eventBox.getChildren().add(eventCard);
         }
@@ -121,6 +178,7 @@ public class EventController implements Initializable {
             );
 
             se.ajouter(newEvent);
+            observableEventList.add(newEvent);
             clearAddForm();
             loadEvents();
             showNotification("Succès", "Événement ajouté avec succès");
@@ -141,6 +199,8 @@ public class EventController implements Initializable {
             );
 
             se.modifier(updatedEvent, currentEventId);
+            observableEventList.add(updatedEvent);
+
             System.out.println(se);
             clearUpdateForm();
             loadEvents();
@@ -156,13 +216,37 @@ public class EventController implements Initializable {
         EventInterfaces.setVisible(false);
         AddEventPage.setVisible(true);
     }
-
+    public void showEventInterface() {
+        AddEventPage.setVisible(false);
+        EventInterfaces.setVisible(true);
+        UpdateEventPage.setVisible(false);
+    }
     @FXML
-    private void showEventList() {
+    void showEventList() {
         clearAllForms();
         AddEventPage.setVisible(false);
         UpdateEventPage.setVisible(false);
         EventInterfaces.setVisible(true);
+
+    }
+    @FXML
+    void showStadeInterface(ActionEvent event) {
+        try {
+            // Load the StadeInterface.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/StadeInterface.fxml"));
+            Parent stadeRoot = loader.load();
+
+            // Get the current stage (window)
+            Stage stage = (Stage) eventInterfaces.getScene().getWindow();
+
+            // Set the new scene (StadeInterface)
+            Scene scene = new Scene(stadeRoot);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Failed to load StadeInterface.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     // Validation Methods

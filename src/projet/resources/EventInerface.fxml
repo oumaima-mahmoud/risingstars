@@ -12,6 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import java.lang.String?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
 <VBox fx:id="eventInterfaces" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6000.0" prefWidth="1331.0" stylesheets="@css/product.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestion_satde.controllers.EventController">
 
    <children>
@@ -29,7 +32,7 @@
                            </children></VBox>
                      </content>
                   </ScrollPane>
-                  <TextField layoutX="191.0" layoutY="10.0" prefHeight="37.0" prefWidth="265.0" styleClass="search-field" stylesheets="@css/product.css" />
+                  <TextField  fx:id="searchField" layoutX="191.0" layoutY="10.0" prefHeight="37.0" prefWidth="265.0" styleClass="search-field" stylesheets="@css/product.css" />
                   <Label layoutX="31.0" layoutY="6.0" prefHeight="37.0" prefWidth="115.0" styleClass="label-style" text="Rechercher" />
                   <Button layoutX="528.0" layoutY="12.0" mnemonicParsing="false" onAction="#showAddForm" styleClass="UpperSectionBtn">
                      <graphic>
@@ -40,7 +43,15 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="693.0" layoutY="11.0" mnemonicParsing="false" onAction="#showEventList" text="Stades">
+                  <ComboBox fx:id="sortComboBox" prefWidth="200" layoutX="391.0" layoutY="50.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Sort by Name"/>
+                           <String fx:value="Sort by Capacity"/>
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+                  <Button layoutX="693.0" layoutY="11.0" mnemonicParsing="false" onAction="#showStadeInterface" text="Stades">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0">
                            <image>

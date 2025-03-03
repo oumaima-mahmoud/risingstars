@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gestion_satde.controllers.MapViewController">
+
+    <WebView fx:id="mapView" prefWidth="600" prefHeight="400"/>
+    <Button text="Close" onAction="#handleClose"/>
+</VBox>

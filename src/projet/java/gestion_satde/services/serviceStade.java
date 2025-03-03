@@ -17,13 +17,15 @@ public class serviceStade implements Iservice <Stade> {
 
     @Override
     public void ajouter(Stade t) {
-        String req = "INSERT INTO stade (nom, capacite, image) VALUES (?, ?, ?)";
+        String req = "INSERT INTO stade (nom, capacite, image,latitude,longitude) VALUES (?, ?, ?,?,?)";
 
         try  {
             pst= cnx.prepareStatement(req);
             pst.setString(1, t.getNom());
             pst.setDouble(2, t.getcapacite());
             pst.setString(3, t.getImage());
+            pst.setDouble(4,t.getLatitude());
+            pst.setDouble(5,t.getLongitude());
 
             pst.executeUpdate();
             System.out.println("Stade ajouté avec succès !");
@@ -104,6 +106,9 @@ public class serviceStade implements Iservice <Stade> {
                 p.setNom(rs.getString("nom"));
                 p.setcapacite(rs.getFloat("capacite"));  // Assuming 'capacite' is the correct column name
                 p.setImage(rs.getString("image"));
+                p.setLatitude(rs.getDouble("latitude"));
+                p.setLongitude(rs.getDouble("longitude"));
+
                 Stades.add(p);
             }
         } catch (SQLException ex) {

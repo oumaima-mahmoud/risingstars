@@ -5,15 +5,19 @@ public class Stade {
     private String nom;
     private Double capacite;
     private String image;
+    private double latitude;
+    private double longitude;
 
     public Stade(){
 
     }
 
-    public Stade(String nom, double capacite, String image) {
+    public Stade(String nom, double capacite, String image, double latitude, double longitude) {
         this.nom = nom;
         this.capacite = capacite;
         this.image = image;
+        this.latitude = latitude;
+        this.longitude = longitude;
 
     }
 
@@ -23,7 +27,11 @@ public class Stade {
         this.capacite = capacite;
         this.image=image;
     }
+    public double getLatitude() { return latitude; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
 
+    public double getLongitude() { return longitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
     public int getId() {
         return id_stade;
     }
@@ -58,7 +66,7 @@ public class Stade {
 
     @Override
     public String toString() {
-        return "Stade{" + "nom=" + nom + ", capacite=" + capacite + '}';
+        return "Stade{" + "nom=" + nom + ", capacite=" + capacite + ", image=" + image + ", latitude=" + latitude + ", longitude=" + longitude+ '}';
     }
 
     @Override
