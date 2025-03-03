@@ -18,10 +18,10 @@ import java.util.logging.Logger;
 public class DataSource {
     private Connection cnx;
     private static DataSource instance;
-    
-    private String url = "jdbc:mysql://localhost:3306/tunistade";
-    private String user = "root";
-    private String password = "";
+
+    final String url = "jdbc:mariadb://127.0.0.1:3306/tunistade?useSSL=false&serverTimezone=UTC";
+    final String user = "root";
+    final String password = "";
     
     private DataSource(){
         try {

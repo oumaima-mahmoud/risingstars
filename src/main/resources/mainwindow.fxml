@@ -12,4 +12,8 @@
     <Button text="Gestion des Offres" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 16px;" onAction="#openOffre"/>
 
     <Button text="Gestion des Publicités" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-size: 16px;" onAction="#openPublicite"/>
+
+    <Button text="Gestion des Paniers" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 16px;" onAction="#openGestionPanier"/>
+
+    <Button text="Gestion des Commandes" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 16px;" onAction="#openGestionCommande"/>
 </VBox>

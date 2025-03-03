@@ -1,4 +1,5 @@
-package org.example; import javafx.application.Application;
+package org.example;
+import javafx.application.Application;
 
 
 
@@ -11,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Charger le fichier FXML
-        Parent root = FXMLLoader.load(getClass().getResource("reclamation.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/mainwindow.fxml"));
         primaryStage.setTitle("Gestion des Réclamations");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();

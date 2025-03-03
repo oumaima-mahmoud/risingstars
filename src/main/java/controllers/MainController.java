@@ -12,6 +12,7 @@ public class MainController {
 
     @FXML
     public void openGestionReclamation() {
+
         openWindow("/adminReclamation.fxml", "Gestion des Réclamations");
     }
 
@@ -37,5 +38,16 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    public void openGestionPanier() {
+
+        openWindow("/AjouterPanier.fxml", "Gestion des Paniers");
+    }
+
+    @FXML
+    public void openGestionCommande() {
+
+        openWindow("/AjouterCommande.fxml", "Gestion des Commandes");
     }
 }

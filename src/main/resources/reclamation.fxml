@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="bord" prefHeight="600.0" prefWidth="976.0" xmlns="http://javafx.com/javafx/17.0.8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReclamationController">
+<AnchorPane id="AnchorPane" fx:id="bord" prefHeight="600.0" prefWidth="976.0" xmlns="http://javafx.com/javafx/17.0.8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReclamationDetailsController">
     <children>
         <Pane layoutX="573.0" layoutY="16.0" prefHeight="94.0" prefWidth="394.0" style="-fx-background-radius: 20 20 0 0; -fx-background-color: linear-gradient(to right, #008080, #00bfae);" stylesheets="@styles.css">
             <children>
