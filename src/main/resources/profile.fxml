@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<AnchorPane prefWidth="400" prefHeight="500" stylesheets="register.css"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.ProfileController">
-
+<VBox styleClass="container" prefWidth="400" prefHeight="600" spacing="20" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.ProfileController" stylesheets="@profile.css">
     <!-- Titre -->
-    <Label text="Mon Profil" layoutX="150" layoutY="20" styleClass="title"/>
+    <Label text="Mon Profil" styleClass="title"/>
 
-    <!-- Champ Nom -->
-    <Label layoutX="50" layoutY="60" text="Nom:"/>
-    <TextField fx:id="nomField" layoutX="150" layoutY="55" editable="false" styleClass="text-field"/>
+    <!-- Formulaire -->
+    <GridPane styleClass="profile-form" hgap="10" vgap="10" alignment="CENTER">
+        <!-- Champ Nom -->
+        <Label text="Nom:" styleClass="label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="nomField" styleClass="input" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-    <!-- Champ Prénom -->
-    <Label layoutX="50" layoutY="100" text="Prénom:"/>
-    <TextField fx:id="prenomField" layoutX="150" layoutY="95" editable="false" styleClass="text-field"/>
+        <!-- Champ Prénom -->
+        <Label text="Prénom:" styleClass="label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="prenomField" styleClass="input" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-    <!-- Champ Email -->
-    <Label layoutX="50" layoutY="140" text="Email:"/>
-    <TextField fx:id="emailField" layoutX="150" layoutY="135" editable="false" styleClass="text-field"/>
+        <!-- Champ Email -->
+        <Label text="Email:" styleClass="label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="emailField" styleClass="input" editable="false" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-    <!-- Champ Numéro de téléphone -->
-    <Label layoutX="50" layoutY="180" text="Numéro de téléphone:"/>
-    <TextField fx:id="phoneField" layoutX="150" layoutY="175" editable="false" styleClass="text-field"/>
+        <!-- Champ Numéro de téléphone -->
+        <Label text="Numéro de téléphone:" styleClass="label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="phoneNumberField" styleClass="input" editable="false" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-    <!-- Champ Mot de passe -->
-    <Label layoutX="50" layoutY="220" text="Mot de passe:"/>
-    <PasswordField fx:id="passwordField" layoutX="150" layoutY="215" styleClass="text-field"/>
+        <!-- Champ Mot de passe -->
+        <Label text="Mot de passe:" styleClass="label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <PasswordField fx:id="passwordField" styleClass="input" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
-    <!-- Affichage Statut Abonnement -->
-    <Label layoutX="50" layoutY="260" text="Statut de l'abonnement:"/>
-    <TextField fx:id="statutField" layoutX="150" layoutY="255" editable="false" styleClass="text-field"/>
+        <!-- Affichage Statut Abonnement -->
+        <Label text="Statut de l'abonnement:" styleClass="label" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="statutField" styleClass="input" editable="false" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
 
-    <!-- Affichage Points de Fidélité -->
-    <Label layoutX="50" layoutY="300" text="Points de fidélité:"/>
-    <TextField fx:id="pointsFideliteField" layoutX="150" layoutY="295" editable="false" styleClass="text-field"/>
+        <!-- Affichage Points de Fidélité -->
+        <Label text="Points de fidélité:" styleClass="label" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <TextField fx:id="pointsFideliteField" styleClass="input" editable="false" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
-    <!-- Type d'abonnement -->
-    <Label layoutX="50" layoutY="340" text="Type d'abonnement:"/>
-    <TextField fx:id="typeAbonnementField" layoutX="150" layoutY="335" editable="false" styleClass="text-field"/>
+        <!-- Type d'abonnement -->
+        <Label text="Type d'abonnement:" styleClass="label" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <TextField fx:id="typeAbonnementField" styleClass="input" editable="false" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
 
-    <!-- Bouton de mise à jour -->
-    <Button text="Mettre à jour" layoutX="150" layoutY="380" onAction="#updateProfile" styleClass="update-button"/>
-</AnchorPane>
+        <!-- Rôle (Ajouter ComboBox pour les rôles) -->
+        <Label text="Rôle:" styleClass="label" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="roleComboBox" styleClass="input" editable="false" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Boutons -->
+    <VBox spacing="10" alignment="CENTER">
+        <Button text="Mettre à jour" onAction="#updateProfile" styleClass="update-button"/>
+        <Button fx:id="addAbonnementButton" text="Ajouter Abonnement" layoutX="150" layoutY="330" onAction="#addAbonnement" styleClass="button"/>
+
+
+        <Button text="Supprimer Mon Compte" onAction="#deleteAccount" styleClass="delete-button"/>
+        <Button fx:id="logoutButton" text="Se déconnecter" onAction="#logout" styleClass="logout-button"/>
+    </VBox>
+</VBox>

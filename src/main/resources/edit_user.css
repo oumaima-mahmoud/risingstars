@@ -1,0 +1,97 @@
+/* General Layout */
+.container {
+    -fx-background-color: #F0F4F8;
+    -fx-padding: 30px;
+    -fx-alignment: center;
+    -fx-pref-width: 600px;
+    -fx-pref-height: 400px;
+}
+
+/* Title Style */
+.title {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #003366;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+/* Form Container Style */
+.form-container {
+    -fx-spacing: 15px;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1px;
+    -fx-pref-width: 350px; /* Control width of the form */
+}
+
+/* Label Style */
+.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+}
+
+/* Input Text Fields */
+.input {
+    -fx-pref-width: 300px;
+    -fx-padding: 10px;
+    -fx-border-color: #007FFF;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+}
+
+/* Focused Input Fields */
+.input:focused {
+    -fx-border-color: #00BFFF;
+    -fx-background-color: #F8F8F8;
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-pref-width: 300px;
+    -fx-padding: 10px;
+    -fx-border-color: #007FFF;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+}
+
+/* Button Style */
+.button {
+    -fx-background-color: #007FFF;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-pref-width: 150px; /* Control button width */
+}
+
+/* Button Hover Effect */
+.button:hover {
+    -fx-background-color: #005F73;
+    -fx-cursor: hand;
+}
+
+/* Back Button Style */
+.back-button {
+    -fx-background-color: #FF5722;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-pref-width: 150px; /* Control button width */
+}
+
+/* Hover Effect for Back Button */
+.back-button:hover {
+    -fx-background-color: #D84315;
+    -fx-cursor: hand;
+}

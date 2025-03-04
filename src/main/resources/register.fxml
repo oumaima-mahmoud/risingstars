@@ -51,8 +51,10 @@
             <ComboBox fx:id="roleComboBox" promptText="Sélectionnez un rôle" styleClass="input" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
             <!-- Type d'abonnement -->
-            <Label text="Type d'abonnement :" styleClass="label" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-            <ComboBox fx:id="typeAbonnementComboBox" promptText="Sélectionnez un type d'abonnement" styleClass="input" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+            <!--
+                        <Label text="Type d'abonnement :" styleClass="label" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="typeAbonnementComboBox" promptText="Sélectionnez un type d'abonnement" styleClass="input" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+            -->
 
         </GridPane>
 

@@ -1,12 +1,12 @@
 /* Global Styles */
 .root {
     -fx-font-family: 'Segoe UI', Arial, sans-serif;
-    -fx-background-color: #f8f9fa;
+    -fx-background-color: white; /* White background for the entire page */
 }
 
 /* Navbar Styling */
 .navbar {
-    -fx-background-color: linear-gradient(to right, #2c3e50, #3498db);
+    -fx-background-color: linear-gradient(to right, #3498db, #ffffff); /* Blue to white gradient */
     -fx-padding: 15 30;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);
 }
@@ -14,12 +14,14 @@
 .navbar-text {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #2c3e50; /* Dark text for contrast */
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0.5, 0, 1);
 }
 
 .navbar-logo {
-    -fx-margin-right: 10px;
+    -fx-fit-width: 60; /* Larger logo */
+    -fx-fit-height: 60; /* Larger logo */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0.5, 0, 1);
 }
 
 .navbar-button {
@@ -31,10 +33,13 @@
     -fx-background-radius: 20;
     -fx-cursor: hand;
     -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0.5, 0, 2);
+    -fx-transition: all 0.3s;
 }
 
 .navbar-button:hover {
     -fx-background-color: #2980b9;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
 }
 
 /* Main Content Styling */
@@ -55,6 +60,7 @@
     -fx-font-size: 16px;
     -fx-text-fill: #95a5a6;
     -fx-line-spacing: 1.5;
+    -fx-wrap-text: true; /* Ensure text wraps properly */
 }
 
 .main-button {
@@ -67,10 +73,12 @@
     -fx-background-radius: 25px;
     -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.3), 10, 0.5, 0, 2);
     -fx-cursor: hand;
+    -fx-transition: all 0.3s;
 }
 
 .main-button:hover {
     -fx-background-color: linear-gradient(to right, #2980b9, #3498db);
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.5), 15, 0.5, 0, 4);
 }
 
 .center-title {
@@ -89,22 +97,25 @@
 
 /* Features Section */
 .feature-title {
-    -fx-font-size: 18px;
+    -fx-font-size: 20px;
     -fx-font-weight: 600;
     -fx-text-fill: #2c3e50;
+    -fx-wrap-text: true; /* Ensure text wraps properly */
 }
 
 .feature-image {
-    -fx-border-radius: 15px;
-    -fx-background-radius: 15px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 3);
-    -fx-transition: all 0.3s;
+    -fx-fit-width: 200;
+    -fx-fit-height: 200;
+    -fx-border-radius: 15px; /* Border radius for images */
+    -fx-background-radius: 15px; /* Border radius for images */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 3); /* Shadow effect */
+    -fx-transition: all 0.3s; /* Smooth transition for hover effects */
 }
 
 .feature-image:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0.5, 0, 5);
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0.5, 0, 5); /* Enhanced shadow on hover */
+    -fx-scale-x: 1.05; /* Slight scale-up on hover */
+    -fx-scale-y: 1.05; /* Slight scale-up on hover */
 }
 
 /* Additional Spacing and Layout */
@@ -114,10 +125,40 @@ VBox, HBox {
 }
 
 AnchorPane {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white; /* White background for the AnchorPane */
 }
 
 .grid-pane {
     -fx-hgap: 30;
     -fx-vgap: 30;
+    -fx-padding: 20;
+}
+
+/* Enhancements for better readability and interaction */
+.label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: 500;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s;
+}
+
+.button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 4);
+}
+
+/* Ensure images have a consistent border and shadow */
+.image {
+    -fx-border-radius: 15px; /* Border radius for images */
+    -fx-background-radius: 15px; /* Border radius for images */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.5, 0, 3); /* Shadow effect */
+    -fx-transition: all 0.3s; /* Smooth transition for hover effects */
+}
+
+.image:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0.5, 0, 5); /* Enhanced shadow on hover */
+    -fx-scale-x: 1.03; /* Slight scale-up on hover */
+    -fx-scale-y: 1.03; /* Slight scale-up on hover */
 }

@@ -1,42 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 
-<AnchorPane prefWidth="500" prefHeight="400" stylesheets="@register.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AbonnementController">
+<AnchorPane prefWidth="600" prefHeight="600" stylesheets="@abonnement.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AbonnementController">
 
-    <!-- Titre -->
-    <Label text="Choisissez votre Abonnement" layoutX="150" layoutY="20" styleClass="title"/>
+    <!-- Title -->
+    <VBox alignment="CENTER" spacing="20" prefWidth="600" prefHeight="600" styleClass="container">
+        <Label text="Choisissez votre Abonnement" styleClass="title"/>
+        <Label text="Accédez à des services exclusifs et profitez de nos offres exceptionnelles."
+               styleClass="description"/>
 
-    <!-- Description accrocheuse -->
-    <Label text="Accédez à des services exclusifs et profitez de nos offres exceptionnelles." layoutX="50" layoutY="60" styleClass="description"/>
+        <!-- Subscription Form -->
+        <VBox spacing="20" alignment="CENTER">
+            <!-- Subscription Type -->
+            <Label text="Sélectionnez votre abonnement :" styleClass="label"/>
+            <HBox spacing="20" alignment="CENTER">
+                <RadioButton fx:id="standardRadio" text="Standard" onAction="#updateAbonnementDetails"/>
+                <RadioButton fx:id="premiumRadio" text="Premium" onAction="#updateAbonnementDetails"/>
+                <RadioButton fx:id="vipRadio" text="VIP" onAction="#updateAbonnementDetails"/>
+            </HBox>
 
-    <!-- Formulaire d'abonnement -->
-    <VBox spacing="15" layoutX="50" layoutY="100">
-        <!-- Type d'abonnement avec options -->
-        <Label text="Sélectionnez votre abonnement :"/>
-        <HBox spacing="20">
-            <RadioButton fx:id="standardRadio" text="Standard" onAction="#updateAbonnementDetails"/>
-            <RadioButton fx:id="premiumRadio" text="Premium" onAction="#updateAbonnementDetails"/>
-            <RadioButton fx:id="vipRadio" text="VIP" onAction="#updateAbonnementDetails"/>
-        </HBox>
+            <!-- Dates -->
+            <HBox spacing="20" alignment="CENTER">
+                <DatePicker fx:id="dateDebutField" promptText="Date de début" styleClass="input"/>
+                <DatePicker fx:id="dateFinField" promptText="Date de fin" styleClass="input"/>
+            </HBox>
 
-        <!-- Date de début et de fin -->
-        <DatePicker fx:id="dateDebutField" promptText="Date de début" />
-        <DatePicker fx:id="dateFinField" promptText="Date de fin" />
+            <!-- Tarif -->
+            <TextField fx:id="tarifField" promptText="Tarif" editable="false" styleClass="input"/>
 
-        <!-- Tarif (sera rempli automatiquement en fonction du type) -->
-        <TextField fx:id="tarifField" promptText="Tarif" editable="false" />
-
-        <!-- Statut : Ne pas modifier ici, sera mis à jour dans le profil utilisateur -->
-        <Label text="Statut de l'abonnement (mis à jour dans le profil utilisateur)"/>
-
-        <!-- Points de fidélité : Sera automatiquement mis à jour dans le profil de l'utilisateur -->
-        <Label text="Points de fidélité (gérés automatiquement)" />
+            <!-- Add Subscription Button -->
+            <Button fx:id="addAbonnementButton" text="Ajouter Abonnement" layoutX="150" layoutY="330" onAction="#addAbonnement" styleClass="button"/>
+        </VBox>
     </VBox>
-
-    <!-- Button Ajouter Abonnement -->
-    <Button text="Ajouter Abonnement" layoutX="150" layoutY="330" onAction="#ajouterAbonnement"/>
-
 </AnchorPane>

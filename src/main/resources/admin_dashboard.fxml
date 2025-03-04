@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminDashboardController"
+            prefHeight="600" prefWidth="800" stylesheets="@admin_dashboard.css">
+    <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <!-- Title -->
+        <Label text="Tableau de bord de l'Admin" styleClass="title"/>
+
+        <!-- Search Field -->
+        <TextField fx:id="searchField" promptText="Rechercher par nom" onKeyReleased="#searchUser" styleClass="search-field"/>
+
+        <!-- Users Table -->
+        <TableView fx:id="userTable" prefHeight="400" prefWidth="750" styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="nomColumn" text="Nom" />
+                <TableColumn fx:id="prenomColumn" text="Prénom" />
+                <TableColumn fx:id="emailColumn" text="Email" />
+                <TableColumn fx:id="roleColumn" text="Rôle" />
+                <TableColumn fx:id="statutAbonnementColumn" text="Statut Abonnement" />
+            </columns>
+        </TableView>
+
+        <!-- Buttons -->
+        <HBox spacing="20" alignment="CENTER">
+            <Button fx:id="editUserButton" text="Modifier Utilisateur" onAction="#editUser" styleClass="button"/>
+            <Button fx:id="viewProfileButton" text="Consulter Profil" onAction="#viewUserProfile" styleClass="button"/>
+            <Button fx:id="deleteUserButton" text="Supprimer Utilisateur" onAction="#deleteUser" styleClass="button delete-button"/>
+            <Button fx:id="exportButton" text="Exporter en PDF" onAction="#exportToPDF" styleClass="button"/>
+            <Button fx:id="logoutButton" text="Déconnecter" onAction="#logout" styleClass="logout-button"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

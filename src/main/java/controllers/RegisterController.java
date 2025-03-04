@@ -8,10 +8,13 @@ import entities.Utilisateur;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.sql.SQLException;  // Import SQLException
+import Services.SMSService;
+
 public class RegisterController {
     @FXML private TextField nomField, prenomField, emailField, numeroTelephoneField;
     @FXML private PasswordField passwordField, confirmPasswordField;
-    @FXML private ComboBox<String> roleComboBox, typeAbonnementComboBox;  // ComboBox for role and typeAbonnement selection
+    @FXML private ComboBox<String> roleComboBox;  // ComboBox for role selection
     @FXML private Button registerButton;
 
     private final UtilisateurService utilisateurService = new UtilisateurService();
@@ -23,17 +26,10 @@ public class RegisterController {
                 Role.SPECTATEUR.getDisplayName(),
                 Role.GESTIONNAIRE.getDisplayName(),
                 Role.ANNONCEUR.getDisplayName(),
-                Role.SPONSOR.getDisplayName()
+                Role.SPONSOR.getDisplayName(),
+                Role.ADMIN.getDisplayName()
         );
         roleComboBox.setPromptText("Sélectionnez un rôle");
-
-        // Adding available abonnement types to ComboBox
-        typeAbonnementComboBox.getItems().addAll(
-                TypeAbonnement.STANDARD.name(),
-                TypeAbonnement.PREMIUM.name(),
-                TypeAbonnement.VIP.name()
-        );
-        typeAbonnementComboBox.setPromptText("Sélectionnez un type d'abonnement");
     }
 
     @FXML
@@ -41,16 +37,21 @@ public class RegisterController {
         String nom = nomField.getText().trim();
         String prenom = prenomField.getText().trim();
         String email = emailField.getText().trim();
-        String numeroTelephone = numeroTelephoneField.getText().trim();
+        String numeroTelephone = numeroTelephoneField.getText().trim();  // User's phone number
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
         String roleString = roleComboBox.getValue();
-        String typeAbonnementString = typeAbonnementComboBox.getValue();
 
         // Vérification des champs vides
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ||
-                numeroTelephone.isEmpty() || roleString == null || typeAbonnementString == null) {
+                numeroTelephone.isEmpty() || roleString == null) {
             showAlert("Erreur", "Tous les champs doivent être remplis !");
+            return;
+        }
+
+        // Ensure the phone number is in the correct format
+        if (!numeroTelephone.matches("^\\+\\d{1,3}\\d{4,}$")) {  // Basic check for international number format
+            showAlert("Erreur", "Numéro de téléphone invalide. Assurez-vous d'inclure le code pays.");
             return;
         }
 
@@ -66,20 +67,28 @@ public class RegisterController {
             return;
         }
 
-        // Convertir en enum Role et TypeAbonnement
-        Role role = Role.valueOf(roleString.toUpperCase().replace(" ", "_"));
-        TypeAbonnement typeAbonnement = TypeAbonnement.valueOf(typeAbonnementString.toUpperCase());
+        // Convertir en enum Role using the updated fromString() method
+        Role role = Role.fromString(roleString);
 
         // Créer un utilisateur avec les données saisies
         Utilisateur utilisateur = new Utilisateur(
                 0, nom, prenom, email, password, role,
                 numeroTelephone, StatutAbonnement.SUSPENDU, // Statut par défaut SUSPENDU
-                typeAbonnement, 0 // No pointsFidelite
+                TypeAbonnement.STANDARD, 0 // Utilisation du typeAbonnement par défaut
         );
 
-        // Ajouter l'utilisateur
-        utilisateurService.ajouter(utilisateur);
-        showAlert("Succès", "Inscription réussie !");
+        // Ajouter l'utilisateur avec exception handling
+        try {
+            utilisateurService.ajouter(utilisateur);
+            showAlert("Succès", "Inscription réussie !");
+
+            // Send welcome message via SMS using the user's details
+            SMSService smsService = new SMSService();
+            smsService.sendWelcomeMessage(numeroTelephone, nom, prenom);  // Pass dynamic values to the method
+
+        } catch (SQLException e) {
+            showAlert("Erreur", "Une erreur s'est produite lors de l'inscription : " + e.getMessage());
+        }
     }
 
     private void showAlert(String title, String message) {

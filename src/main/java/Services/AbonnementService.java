@@ -2,15 +2,16 @@ package Services;
 
 import entities.Abonnement;
 import entities.StatutAbonnement;
+import entities.TypeAbonnement;
 import tools.DataSource;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AbonnementService implements IService<Abonnement> {
     private final Connection cnx = DataSource.getInstance().getConnection();
 
-    // Méthode pour obtenir un abonnement par ID utilisateur
     public Abonnement getAbonnementByUserId(int userId) {
         String query = "SELECT * FROM abonnement WHERE id_user=?";
         try (PreparedStatement ps = cnx.prepareStatement(query)) {
@@ -19,10 +20,10 @@ public class AbonnementService implements IService<Abonnement> {
             if (rs.next()) {
                 return new Abonnement(
                         rs.getInt("id_abonnement"),
-                        rs.getString("type_abonnement"),
+                        TypeAbonnement.valueOf(rs.getString("type_abonnement")),
                         rs.getDate("date_debut"),
                         rs.getDate("date_fin"),
-                        rs.getString("tarif"), // Récupérer comme String
+                        rs.getString("tarif"),
                         StatutAbonnement.valueOf(rs.getString("statut")),
                         rs.getInt("point_fidelite"),
                         rs.getInt("id_user")
@@ -31,33 +32,74 @@ public class AbonnementService implements IService<Abonnement> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Aucun abonnement trouvé
-    }
-
-    @Override
-    public void ajouter(Abonnement abonnement) throws SQLException {
-
-    }
-
-    @Override
-    public void modifier(Abonnement abonnement) throws SQLException {
-
-    }
-
-    @Override
-    public void supprimer(int id) throws SQLException {
-
-    }
-
-    @Override
-    public Abonnement getOne(int id) throws SQLException {
         return null;
     }
 
     @Override
-    public List<Abonnement> getAll() throws SQLException {
-        return List.of();
+    public void ajouter(Abonnement abonnement) throws SQLException {
+        String query = "INSERT INTO abonnement (type_abonnement, date_debut, date_fin, tarif, statut, point_fidelite, id_user) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, abonnement.getTypeAbonnement().name());
+            ps.setDate(2, new java.sql.Date(abonnement.getDateDebut().getTime()));
+            ps.setDate(3, new java.sql.Date(abonnement.getDateFin().getTime()));
+            ps.setString(4, abonnement.getTarif());
+            ps.setString(5, abonnement.getStatut().name());
+            ps.setInt(6, abonnement.getPointFidelite());
+            ps.setInt(7, abonnement.getIdUser());
+            ps.executeUpdate();
+        }
     }
 
-    // Autres méthodes de service...
+    @Override
+    public void modifier(Abonnement abonnement) throws SQLException {
+        String query = "UPDATE abonnement SET type_abonnement=?, date_debut=?, date_fin=?, tarif=?, statut=?, point_fidelite=? WHERE id_abonnement=?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, abonnement.getTypeAbonnement().name());
+            ps.setDate(2, new java.sql.Date(abonnement.getDateDebut().getTime()));
+            ps.setDate(3, new java.sql.Date(abonnement.getDateFin().getTime()));
+            ps.setString(4, abonnement.getTarif());
+            ps.setString(5, abonnement.getStatut().name());
+            ps.setInt(6, abonnement.getPointFidelite());
+            ps.setInt(7, abonnement.getIdAbonnement());
+            ps.executeUpdate();
+        }
+    }
+
+    @Override
+    public void supprimer(int id) throws SQLException {
+        String query = "DELETE FROM abonnement WHERE id_abonnement=?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
+
+    @Override
+    public Abonnement getOne(int id) throws SQLException {
+        return null; // Implement if needed
+    }
+
+    @Override
+    public List<Abonnement> getAll() throws SQLException {
+        List<Abonnement> abonnements = new ArrayList<>();
+        String query = "SELECT * FROM abonnement";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                abonnements.add(new Abonnement(
+                        rs.getInt("id_abonnement"),
+                        TypeAbonnement.valueOf(rs.getString("type_abonnement")),
+                        rs.getDate("date_debut"),
+                        rs.getDate("date_fin"),
+                        rs.getString("tarif"),
+                        StatutAbonnement.valueOf(rs.getString("statut")),
+                        rs.getInt("point_fidelite"),
+                        rs.getInt("id_user")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return abonnements;
+    }
 }

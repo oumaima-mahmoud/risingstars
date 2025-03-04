@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EditUserController"
+            prefHeight="400" prefWidth="600" stylesheets="/edit_user.css">
+    <VBox spacing="20" alignment="CENTER" styleClass="container" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+        <Label text="Modifier Utilisateur" styleClass="title"/>
+
+        <VBox styleClass="form-container">
+            <Label text="Nom:" styleClass="label"/>
+            <TextField fx:id="nomField" styleClass="input"/>
+
+            <Label text="Prénom:" styleClass="label"/>
+            <TextField fx:id="prenomField" styleClass="input"/>
+
+            <Label text="Email:" styleClass="label"/>
+            <TextField fx:id="emailField" styleClass="input"/>
+
+            <Label text="Rôle:" styleClass="label"/>
+            <ComboBox fx:id="roleComboBox" styleClass="combo-box"/>
+
+            <HBox spacing="20" alignment="CENTER">
+                <Button fx:id="updateButton" text="Mettre à jour" onAction="#updateUser" styleClass="button"/>
+                <Button fx:id="backButton" text="Retour" onAction="#goBack" styleClass="back-button"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</AnchorPane>

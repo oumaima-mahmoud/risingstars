@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserProfileController"
+            prefHeight="400" prefWidth="600" stylesheets="/user_profile.css">
+    <VBox alignment="CENTER" spacing="20" prefWidth="600" styleClass="container">
+        <!-- Title -->
+        <Label text="Profil Utilisateur" styleClass="title"/>
+
+        <!-- User Profile Fields -->
+        <VBox spacing="15" alignment="CENTER" styleClass="profile-info">
+            <!-- Labels for user data -->
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Nom:" styleClass="label"/>
+                <Label fx:id="nomLabel" styleClass="profile-text"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Prénom:" styleClass="label"/>
+                <Label fx:id="prenomLabel" styleClass="profile-text"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Email:" styleClass="label"/>
+                <Label fx:id="emailLabel" styleClass="profile-text"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Rôle:" styleClass="label"/>
+                <Label fx:id="roleLabel" styleClass="profile-text"/>
+            </HBox>
+        </VBox>
+
+        <!-- Button -->
+        <HBox spacing="20" alignment="CENTER">
+            <Button fx:id="backButton" text="Retour" onAction="#goBack" styleClass="button"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

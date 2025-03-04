@@ -1,5 +1,8 @@
 package entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public enum StatutAbonnement {
     ACTIF("Actif"),
     SUSPENDU("Suspendu"),
@@ -13,5 +16,10 @@ public enum StatutAbonnement {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    // Method to return the display name as a StringProperty for table binding
+    public StringProperty getDisplayNameProperty() {
+        return new SimpleStringProperty(displayName);
     }
 }

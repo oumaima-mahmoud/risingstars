@@ -14,4 +14,12 @@ public enum TypeAbonnement {
     public String getDisplayName() {
         return displayName;
     }
+
+    public static TypeAbonnement fromString(String typeAbonnementString) {
+        try {
+            return TypeAbonnement.valueOf(typeAbonnementString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return STANDARD;
+        }
+    }
 }

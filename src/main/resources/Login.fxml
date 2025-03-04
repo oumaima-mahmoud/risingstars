@@ -41,6 +41,7 @@
                   <String fx:value="Gestionnaire"/>
                   <String fx:value="Annonceur"/>
                   <String fx:value="Sponsor"/>
+                  <String fx:value="Admin"/>
                </FXCollections>
             </items>
          </ComboBox>
@@ -48,6 +49,7 @@
 
       <!-- Login Button -->
       <Button text="Se connecter" fx:id="loginButton" styleClass="button" onAction="#handleLogin"/>
+
 
    </VBox>
 </AnchorPane>

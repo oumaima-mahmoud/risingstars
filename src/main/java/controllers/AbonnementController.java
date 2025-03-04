@@ -1,25 +1,21 @@
 package controllers;
 
+import Services.AbonnementService;
 import entities.Abonnement;
+import entities.TypeAbonnement;
 import entities.StatutAbonnement;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import Services.AbonnementService;
+import javafx.stage.Stage;
+import tools.SessionManager;
 
-import java.util.Date;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class AbonnementController {
-
-    // Déclaration du ToggleGroup pour les RadioButton
-    @FXML
-    private ToggleGroup abonnementType;
-
-    @FXML
-    private RadioButton standardRadio;
-    @FXML
-    private RadioButton premiumRadio;
-    @FXML
-    private RadioButton vipRadio;
 
     @FXML
     private DatePicker dateDebutField;
@@ -27,96 +23,92 @@ public class AbonnementController {
     private DatePicker dateFinField;
     @FXML
     private TextField tarifField;
-
     @FXML
-    private Button ajouterButton;
+    private Button addAbonnementButton;
+    @FXML
+    private RadioButton standardRadio;
+    @FXML
+    private RadioButton premiumRadio;
+    @FXML
+    private RadioButton vipRadio;
 
-    private String tarifStandard = "20DT"; // Nouveau tarif en String
-    private String tarifPremium = "50DT"; // Nouveau tarif en String
-    private String tarifVIP = "75DT"; // Nouveau tarif en String
-
-    private AbonnementService abonnementService = new AbonnementService();
+    private final AbonnementService abonnementService = new AbonnementService();
 
     @FXML
     public void initialize() {
-        abonnementType = new ToggleGroup();
-
-        standardRadio.setToggleGroup(abonnementType);
-        premiumRadio.setToggleGroup(abonnementType);
-        vipRadio.setToggleGroup(abonnementType);
-
-        standardRadio.setSelected(true); // Par défaut, sélectionne "Standard"
-        updateAbonnementDetails(); // Met à jour les détails en fonction du type sélectionné
+        // Ensure only one radio button is selected at a time
+        standardRadio.setSelected(true); // By default select "Standard"
+        updateAbonnementDetails();  // Set default tarif for Standard
     }
 
-    /**
-     * Met à jour les informations de l'abonnement en fonction du type sélectionné
-     */
     @FXML
     private void updateAbonnementDetails() {
+        // Update the subscription details based on the selected radio button
         if (standardRadio.isSelected()) {
-            tarifField.setText(tarifStandard); // Mise à jour avec String
+            tarifField.setText("20");  // Price for "Standard"
         } else if (premiumRadio.isSelected()) {
-            tarifField.setText(tarifPremium); // Mise à jour avec String
+            tarifField.setText("50"); // Price for "Premium"
         } else if (vipRadio.isSelected()) {
-            tarifField.setText(tarifVIP); // Mise à jour avec String
+            tarifField.setText("100"); // Price for "VIP"
         }
     }
 
-    /**
-     * Ajoute un abonnement pour l'utilisateur connecté
-     */
     @FXML
-    private void ajouterAbonnement() {
+    private void addAbonnement() {
         try {
-            // Vérifier que la date de début est avant la date de fin
-            if (dateDebutField.getValue().isAfter(dateFinField.getValue())) {
-                showAlert("Erreur", "La date de début doit être avant la date de fin.", Alert.AlertType.ERROR);
+            // Check if all fields are filled
+            if (dateDebutField.getValue() == null || dateFinField.getValue() == null || tarifField.getText().isEmpty()) {
+                showAlert("Erreur", "Veuillez remplir tous les champs !");
                 return;
             }
 
-            String typeAbonnement = "Standard"; // Par défaut
+            // Determine abonnement type based on selected radio button
+            TypeAbonnement typeAbonnement = TypeAbonnement.STANDARD;
             if (premiumRadio.isSelected()) {
-                typeAbonnement = "Premium";
+                typeAbonnement = TypeAbonnement.PREMIUM;
             } else if (vipRadio.isSelected()) {
-                typeAbonnement = "VIP";
+                typeAbonnement = TypeAbonnement.VIP;
             }
 
-            Date dateDebut = java.sql.Date.valueOf(dateDebutField.getValue());
-            Date dateFin = java.sql.Date.valueOf(dateFinField.getValue());
-            String tarif = tarifField.getText(); // Traitement en String
+            // Define status and points
+            StatutAbonnement statut = StatutAbonnement.ACTIF;
+            int pointsFidelite = 100; // Example points
+            int idUser = SessionManager.getCurrentUserId();  // Assuming we get the current logged-in user's ID
 
-            // L'ID de l'utilisateur sera récupéré depuis le profil ou la session de l'utilisateur connecté
-            int idUser = getCurrentUserId();
+            // Create new abonnement
+            Abonnement abonnement = new Abonnement(
+                    0, typeAbonnement, java.sql.Date.valueOf(dateDebutField.getValue()),
+                    java.sql.Date.valueOf(dateFinField.getValue()), tarifField.getText(),
+                    statut, pointsFidelite, idUser
+            );
 
-            // L'abonnement est ajouté pour l'utilisateur actuel
-            Abonnement abonnement = new Abonnement(0, typeAbonnement, dateDebut, dateFin, tarif, StatutAbonnement.ACTIF, 0, idUser);
+            // Add abonnement
             abonnementService.ajouter(abonnement);
 
-            // Mettre à jour le statut et les points de fidélité dans le profil utilisateur
-            updateUserProfile(idUser);
+            // Show success alert
+            showAlert("Succès", "Abonnement ajouté avec succès !");
 
-            // Nettoyer les champs après ajout
-            dateDebutField.setValue(null);
-            dateFinField.setValue(null);
-            tarifField.clear();
+            // After adding, automatically save the data to the profile
+            SessionManager.getCurrentUser().setTypeAbonnement(typeAbonnement);
+            SessionManager.getCurrentUser().setPointsFidelite(pointsFidelite);
+            // Assume profile is updated in session
 
-            showAlert("Succès", "Abonnement ajouté avec succès", Alert.AlertType.INFORMATION);
-        } catch (Exception e) {
-            showAlert("Erreur", "Veuillez vérifier les données saisies.", Alert.AlertType.ERROR);
+            // Redirect to profile page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/profile.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) addAbonnementButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (SQLException | IOException e) {
+            showAlert("Erreur", "Une erreur est survenue lors de l'ajout de l'abonnement.");
+            e.printStackTrace();
         }
     }
 
-    private int getCurrentUserId() {
-        return 1; // Remplace cette valeur par la logique réelle
-    }
-
-    private void updateUserProfile(int userId) {
-        // Logique de mise à jour du profil utilisateur
-    }
-
-    private void showAlert(String title, String message, Alert.AlertType type) {
-        Alert alert = new Alert(type);
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();

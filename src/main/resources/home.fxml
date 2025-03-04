@@ -9,7 +9,7 @@
 
     <!-- Navbar Section -->
     <HBox styleClass="navbar" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-        <ImageView fitWidth="30" fitHeight="30" styleClass="navbar-logo">
+        <ImageView fitWidth="60" fitHeight="60" styleClass="navbar-logo">
             <image>
                 <Image url="@images/logo.png" />
             </image>
@@ -24,9 +24,9 @@
         <Label text="Contactez-nous" styleClass="navbar-text" onMouseClicked="#goToContactPage"/>
 
         <!-- Login Buttons Section -->
-        <HBox fx:id="loginButtons" alignment="CENTER_RIGHT" spacing="10" HBox.hgrow="ALWAYS">
-            <Button text="S'inscrire" onAction="#goToRegisterPage" styleClass="navbar-button"/>
-            <Button text="Se connecter" onAction="#goToLoginPage" styleClass="navbar-button"/>
+        <HBox fx:id="loginButtons" alignment="CENTER_RIGHT" spacing="10" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 10 0;">
+            <Button text="S'inscrire" fx:id="registerButton" onAction="#goToRegisterPage" styleClass="navbar-button"/>
+            <Button text="Se connecter" fx:id="loginButton" onAction="#goToLoginPage" styleClass="navbar-button"/>
         </HBox>
     </HBox>
 
@@ -62,33 +62,33 @@
             <!-- Features Grid -->
             <GridPane styleClass="grid-pane" alignment="CENTER" hgap="40" vgap="40">
                 <VBox alignment="CENTER" spacing="15">
-                    <ImageView fitWidth="150" fitHeight="150" styleClass="feature-image">
+                    <ImageView fitWidth="200" fitHeight="200" styleClass="feature-image">
                         <image>
                             <Image url="@images/tunisia.jpg" />
                         </image>
                     </ImageView>
-                    <Label text="Réservation Facile : Choisissez, Cliquez, Profitez !" styleClass="feature-title"/>
-                    <Label text="Choisissez facilement votre place grâce à notre plan interactif du stade et réservez en quelques clics pour une expérience sans stress !" styleClass="description-text"/>
+                    <Label text="Réservation Facile : Choisissez, Cliquez, Profitez !" styleClass="feature-title" wrapText="true"/>
+                    <Label text="Choisissez facilement votre place grâce à notre plan interactif du stade et réservez en quelques clics pour une expérience sans stress !" styleClass="description-text" wrapText="true"/>
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="15" GridPane.columnIndex="1">
-                    <ImageView fitWidth="150" fitHeight="150" styleClass="feature-image">
+                    <ImageView fitWidth="200" fitHeight="200" styleClass="feature-image">
                         <image>
                             <Image url="@images/snacks.jpg" />
                         </image>
                     </ImageView>
-                    <Label text="Snacks et Matchs : Régalez-vous sans interruption !" styleClass="feature-title"/>
-                    <Label text="Commandez vos snacks en quelques clics et faites-vous livrer directement à votre siège. Profitez du match sans manquer une seule action !" styleClass="description-text"/>
+                    <Label text="Snacks et Matchs : Régalez-vous sans interruption !" styleClass="feature-title" wrapText="true"/>
+                    <Label text="Commandez vos snacks en quelques clics et faites-vous livrer directement à votre siège. Profitez du match sans manquer une seule action !" styleClass="description-text" wrapText="true"/>
                 </VBox>
 
                 <VBox alignment="CENTER" spacing="15" GridPane.columnIndex="2">
-                    <ImageView fitWidth="150" fitHeight="150" styleClass="feature-image">
+                    <ImageView fitWidth="200" fitHeight="200" styleClass="feature-image">
                         <image>
                             <Image url="@images/park.jpg" />
                         </image>
                     </ImageView>
-                    <Label text="Parking Sécurisé : Garez, Profitez, Vibrez ! " styleClass="feature-title"/>
-                    <Label text="Votre voiture est en sécurité dans notre parking surveillé, alors installez-vous et profitez pleinement du match!" styleClass="description-text"/>
+                    <Label text="Parking Sécurisé : Garez, Profitez, Vibrez !" styleClass="feature-title" wrapText="true"/>
+                    <Label text="Votre voiture est en sécurité dans notre parking surveillé, alors installez-vous et profitez pleinement du match !" styleClass="description-text" wrapText="true"/>
                 </VBox>
             </GridPane>
         </VBox>

@@ -5,19 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.control.ComboBox;
-
 import java.io.IOException;
 
 public class HomeController {
 
-    @FXML
-    private ComboBox<String> userDropdown;
+    // Removed the ComboBox, as it is not needed for page switching
 
     @FXML
     public void initialize() {
-        // Make sure ComboBox is initialized here if needed
-        // This is optional if ComboBox is just for visual display
+        // This can be used for initialization if needed.
     }
 
     @FXML
@@ -50,9 +46,11 @@ public class HomeController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             AnchorPane root = loader.load();
 
+            // Get the current stage using the Stage constructor
+            Stage primaryStage = new Stage();  // This creates a new stage if no current one exists
+
             // Create a new scene and set it on the primary stage
             Scene scene = new Scene(root);
-            Stage primaryStage = (Stage) userDropdown.getScene().getWindow(); // Get the current stage from the ComboBox's scene
             primaryStage.setTitle(pageTitle); // Set the window title
             primaryStage.setScene(scene); // Set the new scene
             primaryStage.show(); // Show the stage with the new scene
