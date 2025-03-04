@@ -1,13 +1,17 @@
 package Controllers;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.Node;
 import services.ServiceCommande;
 import models.Commande;
 
@@ -29,7 +33,6 @@ public class AjouterCommande {
 
     @FXML
     void ajouterCommande(ActionEvent event) {
-        // Vérification et récupération des valeurs
         int idPanier = validerIdPanier();
         if (idPanier == -1) return;
 
@@ -42,10 +45,8 @@ public class AjouterCommande {
         Date date = validerDate();
         if (date == null) return;
 
-        // Création de la commande
         Commande nouvelleCommande = new Commande(quantiteValue, date, prixValue, idPanier);
 
-        // Ajout via le service
         try {
             commandeService.ajouterCommande(nouvelleCommande);
             afficherAlerte(Alert.AlertType.INFORMATION, "Succès", "Commande ajoutée avec succès !");
@@ -124,5 +125,40 @@ public class AjouterCommande {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    // ======== MÉTHODES POUR CHANGER DE VUE ========
+
+    @FXML
+    void AfficherCommande(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCommande.fxml"));
+            Parent root = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(root);
+        } catch (IOException e) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement de la vue : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void ModifierCommande(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierCommande.fxml"));
+            Parent root = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(root);
+        } catch (IOException e) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement de la vue : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void SupprimerCommande(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SupprimerCommande.fxml"));
+            Parent root = loader.load();
+            ((Node) event.getSource()).getScene().setRoot(root);
+        } catch (IOException e) {
+            afficherAlerte(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement de la vue : " + e.getMessage());
+        }
     }
 }

@@ -1,99 +1,126 @@
 package models;
 
+import javafx.beans.property.*;
+
 import java.sql.Date;
 
 public class Commande {
-    private int idCommande;
-    private int quantite;
-    private Date dateCommande;
-    private double prix;
-    private int idPanier;
+    private final IntegerProperty idCommande;
+    private final IntegerProperty quantite;
+    private final StringProperty dateCommande;
+    private final DoubleProperty prix;
+    private final IntegerProperty idPanier;
 
+    // ✅ Constructeur sans paramètres
     public Commande() {
-
+        this.idCommande = new SimpleIntegerProperty();
+        this.quantite = new SimpleIntegerProperty();
+        this.dateCommande = new SimpleStringProperty();
+        this.prix = new SimpleDoubleProperty();
+        this.idPanier = new SimpleIntegerProperty();
     }
 
+    // ✅ Constructeur avec paramètres (sans idCommande)
     public Commande(int quantite, Date dateCommande, double prix, int idPanier) {
-        this.quantite = quantite;
-        this.dateCommande = dateCommande;
-        this.prix = prix;
-        this.idPanier = idPanier;
+        this();
+        setQuantite(quantite);
+        setDateCommande(dateCommande);
+        setPrix(prix);
+        setIdPanier(idPanier);
     }
 
+    // ✅ Constructeur avec idCommande
     public Commande(int idCommande, int quantite, Date dateCommande, double prix, int idPanier) {
-        this.idCommande = idCommande;
-        this.quantite = quantite;
-        this.dateCommande = dateCommande;
-        this.prix = prix;
-        this.idPanier = idPanier;
+        this(quantite, dateCommande, prix, idPanier);
+        setIdCommande(idCommande);
     }
+
+    // ✅ Getters & Setters avec JavaFX Property
 
     public int getIdCommande() {
-        return idCommande;
+        return idCommande.get();
     }
 
     public void setIdCommande(int idCommande) {
-        this.idCommande = idCommande;
+        this.idCommande.set(idCommande);
+    }
+
+    public IntegerProperty idCommandeProperty() {
+        return idCommande;
     }
 
     public int getQuantite() {
-        return quantite;
+        return quantite.get();
     }
 
     public void setQuantite(int quantite) {
-        this.quantite = quantite;
+        this.quantite.set(quantite);
     }
 
-    public Date getDateCommande() {
-        return dateCommande;
+    public IntegerProperty quantiteProperty() {
+        return quantite;
+    }
+
+    public String getDateCommande() {
+        return dateCommande.get();
     }
 
     public void setDateCommande(Date dateCommande) {
-        this.dateCommande = dateCommande;
+        // Convertir la date en format String
+        this.dateCommande.set(dateCommande.toString());  // ou un autre format si nécessaire
+    }
+
+    public StringProperty dateCommandeProperty() {
+        return dateCommande;
     }
 
     public double getPrix() {
-        return prix;
+        return prix.get();
     }
 
     public void setPrix(double prix) {
-        this.prix = prix;
+        this.prix.set(prix);
+    }
+
+    public DoubleProperty prixProperty() {
+        return prix;
     }
 
     public int getIdPanier() {
-        return idPanier;
+        return idPanier.get();
     }
 
     public void setIdPanier(int idPanier) {
-        this.idPanier = idPanier;
+        this.idPanier.set(idPanier);
     }
+
+    public IntegerProperty idPanierProperty() {
+        return idPanier;
+    }
+
+
 
     @Override
     public String toString() {
-        return "Commande{" + "idCommande" + idCommande + ",quantite" + quantite + ",prix" + prix + ",idPanier" + idPanier + '}';
-    }
-    @Override
-    public int hashCode(){
-        int hash = 7;
-        hash = 17 * hash + this.idPanier;
-        return hash;
+        return "Commande{" +
+                "idCommande=" + getIdCommande() +
+                ", quantite=" + getQuantite() +
+                ", dateCommande=" + getDateCommande() +
+                ", prix=" + getPrix() +
+                ", idPanier=" + getIdPanier() +
+                '}';
     }
 
     @Override
-    public boolean equals(Object obj){
-        if (this == obj){
-            return true;
-        }
-        if (obj == null){
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Commande other = (Commande) obj;
-        if (this.idCommande != other.idCommande) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return idCommande.get();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Commande other = (Commande) obj;
+        return idCommande.get() == other.getIdCommande();
     }
 }

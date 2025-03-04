@@ -5,11 +5,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SupprimerPanier">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SupprimerPanier" style="-fx-background-color: #0F5CAF;">
     <children>
-        <Label layoutX="253.0" layoutY="67.0" prefHeight="18.0" prefWidth="197.0" text="Supprimer Panier" />
-        <Label layoutX="66.0" layoutY="140.0" prefHeight="18.0" prefWidth="119.0" text="idPanier" />
-        <TextField fx:id="idPanier" layoutX="253.0" layoutY="137.0" />
-        <Button layoutX="358.0" layoutY="259.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="26.0" prefWidth="150.0" text="Supprimer Panier" />
+        <Label layoutX="253.0" layoutY="67.0" prefHeight="18.0" prefWidth="197.0" text="Supprimer Panier" style="-fx-text-fill: white;"/>
+        <Label layoutX="66.0" layoutY="140.0" prefHeight="18.0" prefWidth="119.0" text="idPanier" style="-fx-text-fill: white;"/>
+        <TextField fx:id="idPanier" layoutX="253.0" layoutY="137.0"/>
+        <Button layoutX="358.0" layoutY="259.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="26.0" prefWidth="150.0" text="Supprimer Panier" style="-fx-background-color: #208A39; -fx-text-fill: white;"/>
     </children>
 </AnchorPane>

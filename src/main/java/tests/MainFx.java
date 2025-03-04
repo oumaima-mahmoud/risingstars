@@ -18,13 +18,13 @@ public class MainFx extends Application {
     public void start(Stage primaryStage) {
         try {
             // Chargement du fichier FXML (chemin relatif correct)
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierPanier.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainWindow.fxml"));
             Parent root = loader.load();
 
             // Création de la scène
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Gestion du Commande");
+            primaryStage.setTitle("Menu");
             primaryStage.show();
 
         } catch (IOException e) {

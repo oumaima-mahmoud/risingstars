@@ -3,7 +3,9 @@ package Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -20,7 +22,7 @@ public class ModifierPanier {
     private DatePicker dateCreation;
 
     @FXML
-    private ComboBox<String> etatComboBox; // Utilisation du type spécifique String pour le ComboBox
+    private ComboBox<String> etatComboBox;
 
     @FXML
     private TextField idPanier;
@@ -32,65 +34,67 @@ public class ModifierPanier {
 
     @FXML
     void initialize() {
-        // Initialisation du ComboBox avec des valeurs prédéfinies
         etatComboBox.getItems().addAll("Annulé", "En cours", "Validé");
-        etatComboBox.setEditable(false); // Empêche la saisie manuelle
+        etatComboBox.setEditable(false);
     }
 
     @FXML
     void Modifier(ActionEvent event) {
         if (idPanier.getText().isEmpty() || total.getText().isEmpty() ||
                 dateCreation.getValue() == null || etatComboBox.getValue() == null) {
-            afficherAlerte("Erreur", "Tous les champs doivent être remplis !");
+            afficherAlerte("Erreur", "Tous les champs doivent être remplis !", Alert.AlertType.ERROR);
             return;
         }
 
-        int panierId;  // Renommé pour éviter le conflit avec la variable d'instance
+        int panierId;
         try {
-            panierId = Integer.parseInt(idPanier.getText()); // Convertit l'ID du panier en entier
+            panierId = Integer.parseInt(idPanier.getText());
         } catch (NumberFormatException e) {
-            afficherAlerte("Erreur", "ID du panier invalide !");
+            afficherAlerte("Erreur", "ID du panier invalide !", Alert.AlertType.ERROR);
             return;
         }
 
         double totalValue;
         try {
-            totalValue = Double.parseDouble(total.getText()); // Convertit le total en double
+            totalValue = Double.parseDouble(total.getText());
+            if (totalValue < 0) {
+                afficherAlerte("Erreur", "Le total doit être un nombre positif !", Alert.AlertType.ERROR);
+                return;
+            }
         } catch (NumberFormatException e) {
-            afficherAlerte("Erreur", "Le total doit être un nombre valide !");
+            afficherAlerte("Erreur", "Le total doit être un nombre valide !", Alert.AlertType.ERROR);
             return;
         }
 
-        LocalDate localDate = dateCreation.getValue(); // Récupère la date depuis le DatePicker
-        java.sql.Date date = java.sql.Date.valueOf(localDate); // Conversion vers Date SQL
-        String etat = etatComboBox.getValue(); // Récupère l'état depuis le ComboBox
+        LocalDate localDate = dateCreation.getValue();
+        java.sql.Date date = java.sql.Date.valueOf(localDate);
+        String etat = etatComboBox.getValue();
 
-        // Création de l'objet Panier avec les données collectées
-        Panier panier = new Panier(panierId, date, totalValue, etat); // Utilise panierId ici
+        Panier panier = new Panier(panierId, date, totalValue, etat);
         try {
-            panierService.modifier(panier); // Appel au service pour modifier le panier
-            afficherAlerte("Succès", "Panier modifié avec succès !");
+            panierService.modifier(panier);
+            afficherAlerte("Succès", "Panier modifié avec succès !", Alert.AlertType.INFORMATION);
         } catch (SQLException e) {
-            afficherAlerte("Erreur", "Erreur lors de la modification : " + e.getMessage());
+            afficherAlerte("Erreur", "Erreur lors de la modification : " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
-
 
     @FXML
-    void Afficher(ActionEvent event) {
+    void AfficherPanier(ActionEvent event) {
         try {
-            // Charge la vue PanierInfo.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/PanierInfo.fxml"));
             Parent root = loader.load();
-            total.getScene().setRoot(root); // Remplace la scène actuelle par la nouvelle vue
+            ((Node) event.getSource()).getScene().setRoot(root);
         } catch (IOException e) {
-            afficherAlerte("Erreur", "Erreur lors du chargement de la vue : " + e.getMessage());
+            afficherAlerte("Erreur", "Erreur lors du chargement de la vue : " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
-    private void afficherAlerte(String titre, String message) {
-        // Affiche un message d'alerte dans la console
-        System.out.println(titre + ": " + message);
+    private void afficherAlerte(String titre, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(titre);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

@@ -7,18 +7,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModifierPanier">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0F5CAF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModifierPanier">
    <children>
-      <Label layoutX="238.0" layoutY="53.0" prefHeight="18.0" prefWidth="179.0" text="Modifier Panier" />
-      <Label layoutX="57.0" layoutY="102.0" prefHeight="18.0" prefWidth="66.0" text="idPanier" />
-      <Label layoutX="57.0" layoutY="156.0" prefHeight="18.0" prefWidth="94.0" text="dateCreation" />
-      <Label layoutX="57.0" layoutY="213.0" prefHeight="18.0" prefWidth="56.0" text="total" />
-      <Label layoutX="57.0" layoutY="269.0" prefHeight="18.0" prefWidth="56.0" text="etat" />
+      <Label layoutX="238.0" layoutY="53.0" prefHeight="18.0" prefWidth="179.0" style="-fx-text-fill: white;" text="Modifier Panier" />
+      <Label layoutX="57.0" layoutY="102.0" prefHeight="18.0" prefWidth="66.0" style="-fx-text-fill: white;" text="idPanier" />
+      <Label layoutX="57.0" layoutY="156.0" prefHeight="18.0" prefWidth="94.0" style="-fx-text-fill: white;" text="dateCreation" />
+      <Label layoutX="57.0" layoutY="213.0" prefHeight="18.0" prefWidth="56.0" style="-fx-text-fill: white;" text="total" />
+      <Label layoutX="57.0" layoutY="269.0" prefHeight="18.0" prefWidth="56.0" style="-fx-text-fill: white;" text="etat" />
       <TextField fx:id="idPanier" layoutX="198.0" layoutY="99.0" />
       <TextField fx:id="total" layoutX="199.0" layoutY="210.0" />
       <ComboBox fx:id="etatComboBox" layoutX="199.0" layoutY="266.0" prefWidth="150.0" />
       <DatePicker fx:id="dateCreation" layoutX="198.0" layoutY="153.0" prefHeight="26.0" prefWidth="150.0" />
-      <Button layoutX="441.0" layoutY="335.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="26.0" prefWidth="106.0" text="Modifier Panier" />
+      <Button layoutX="439.0" layoutY="236.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #208A39; -fx-text-fill: white;" text="Modifier Panier" />
+      <Button layoutX="439.0" layoutY="303.0" mnemonicParsing="false" onAction="#AfficherPanier" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #208A39; -fx-text-fill: white;" text="Afficher Panier" />
    </children>
 </AnchorPane>

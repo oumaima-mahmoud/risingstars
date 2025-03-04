@@ -3,6 +3,7 @@ package Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
@@ -34,22 +35,20 @@ public class ModifierCommande {
     private final ServiceCommande serviceCommande = new ServiceCommande();
 
     @FXML
-    void Modifier(ActionEvent event) {
-        if (!validateFields()) {
-            return;
-        }
-
-        int commandeId = Integer.parseInt(idCommandee.getText());
-        int panierId = Integer.parseInt(idPanierr.getText());
-        double prix = Double.parseDouble(prixx.getText());
-        int quantite = Integer.parseInt(quantitee.getText());
-        LocalDate localDate = dateCommandee.getValue();
-        java.sql.Date date = java.sql.Date.valueOf(localDate);
-
-        Commande commande = new Commande(commandeId, quantite, date, prix, panierId);
+    void ModifierCommande(ActionEvent event) {
+        if (!validateFields()) return;
 
         try {
+            int commandeId = Integer.parseInt(idCommandee.getText());
+            int panierId = Integer.parseInt(idPanierr.getText());
+            double prix = Double.parseDouble(prixx.getText());
+            int quantite = Integer.parseInt(quantitee.getText());
+            LocalDate localDate = dateCommandee.getValue();
+            java.sql.Date date = java.sql.Date.valueOf(localDate);
+
+            Commande commande = new Commande(commandeId, quantite, date, prix, panierId);
             serviceCommande.modifierCommande(commande);
+
             afficherAlerte("Succès", "Commande modifiée avec succès !", Alert.AlertType.INFORMATION);
         } catch (SQLException e) {
             afficherAlerte("Erreur", "Erreur lors de la modification : " + e.getMessage(), Alert.AlertType.ERROR);
@@ -57,18 +56,17 @@ public class ModifierCommande {
     }
 
     @FXML
-    void Afficher(ActionEvent event) {
+    void AfficherCommande(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CommandeInfo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherCommande.fxml"));
             Parent root = loader.load();
-            prixx.getScene().setRoot(root);
+            ((Node) event.getSource()).getScene().setRoot(root);
         } catch (IOException e) {
             afficherAlerte("Erreur", "Erreur lors du chargement de la vue : " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
     private boolean validateFields() {
-        // Vérification des champs vides
         if (idCommandee.getText().trim().isEmpty() || quantitee.getText().trim().isEmpty() ||
                 prixx.getText().trim().isEmpty() || idPanierr.getText().trim().isEmpty() ||
                 dateCommandee.getValue() == null) {
@@ -76,48 +74,20 @@ public class ModifierCommande {
             return false;
         }
 
-        // Vérification des formats numériques
-        if (!isInteger(idCommandee.getText(), "ID de la commande")) return false;
-        if (!isInteger(idPanierr.getText(), "ID du panier")) return false;
-        if (!isDouble(prixx.getText(), "Le prix")) return false;
-        if (!isInteger(quantitee.getText(), "La quantité")) return false;
-
-        int commandeId = Integer.parseInt(idCommandee.getText());
-        int panierId = Integer.parseInt(idPanierr.getText());
-        double prix = Double.parseDouble(prixx.getText());
-        int quantite = Integer.parseInt(quantitee.getText());
-
-        // Vérification des valeurs positives
-        if (commandeId <= 0) {
-            afficherAlerte("Erreur", "L'ID de la commande doit être positif !", Alert.AlertType.WARNING);
-            return false;
-        }
-        if (panierId <= 0) {
-            afficherAlerte("Erreur", "L'ID du panier doit être positif !", Alert.AlertType.WARNING);
-            return false;
-        }
-        if (prix <= 0) {
-            afficherAlerte("Erreur", "Le prix doit être supérieur à zéro !", Alert.AlertType.WARNING);
-            return false;
-        }
-        if (quantite <= 0) {
-            afficherAlerte("Erreur", "La quantité doit être un nombre positif !", Alert.AlertType.WARNING);
-            return false;
-        }
-
-        // Vérification de la date
-        LocalDate date = dateCommandee.getValue();
-        if (date.isAfter(LocalDate.now())) {
-            afficherAlerte("Erreur", "La date ne peut pas être dans le futur !", Alert.AlertType.WARNING);
-            return false;
-        }
-
-        return true;
+        return validateNumericField(idCommandee, "ID de la commande") &&
+                validateNumericField(idPanierr, "ID du panier") &&
+                validateNumericField(quantitee, "La quantité") &&
+                validateDoubleField(prixx, "Le prix") &&
+                validateDate();
     }
 
-    private boolean isInteger(String value, String fieldName) {
+    private boolean validateNumericField(TextField field, String fieldName) {
         try {
-            Integer.parseInt(value);
+            int value = Integer.parseInt(field.getText());
+            if (value <= 0) {
+                afficherAlerte("Erreur", fieldName + " doit être un entier positif !", Alert.AlertType.WARNING);
+                return false;
+            }
             return true;
         } catch (NumberFormatException e) {
             afficherAlerte("Erreur", fieldName + " doit être un nombre entier valide !", Alert.AlertType.WARNING);
@@ -125,14 +95,27 @@ public class ModifierCommande {
         }
     }
 
-    private boolean isDouble(String value, String fieldName) {
+    private boolean validateDoubleField(TextField field, String fieldName) {
         try {
-            Double.parseDouble(value);
+            double value = Double.parseDouble(field.getText());
+            if (value <= 0) {
+                afficherAlerte("Erreur", fieldName + " doit être supérieur à zéro !", Alert.AlertType.WARNING);
+                return false;
+            }
             return true;
         } catch (NumberFormatException e) {
             afficherAlerte("Erreur", fieldName + " doit être un nombre valide !", Alert.AlertType.WARNING);
             return false;
         }
+    }
+
+    private boolean validateDate() {
+        LocalDate date = dateCommandee.getValue();
+        if (date.isAfter(LocalDate.now())) {
+            afficherAlerte("Erreur", "La date ne peut pas être dans le futur !", Alert.AlertType.WARNING);
+            return false;
+        }
+        return true;
     }
 
     private void afficherAlerte(String titre, String message, Alert.AlertType type) {

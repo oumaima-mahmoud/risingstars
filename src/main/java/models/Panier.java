@@ -6,7 +6,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import java.util.Date;
 import java.util.List;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 public class Panier {
 
     private int idPanier;
@@ -14,7 +15,6 @@ public class Panier {
     private DoubleProperty total;  // Utilisation de DoubleProperty pour le total
     private StringProperty etat;  // Utilisation de StringProperty pour l'état
     private List<Commande> commandes;
-
     // Constructeur sans paramètres
     public Panier() {
         this.dateCreation = new SimpleStringProperty();

@@ -116,4 +116,27 @@ public class AjouterPanier {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+    void Modifier(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierPanier.fxml"));
+            Parent root = loader.load();
+            ((javafx.scene.Node) event.getSource()).getScene().setRoot(root);
+        } catch (IOException e) {
+            afficherAlerte("Erreur", "Erreur lors du chargement de la vue : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void Supprimer(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SupprimerPanier.fxml"));
+            Parent root = loader.load();
+            ((javafx.scene.Node) event.getSource()).getScene().setRoot(root);
+        } catch (IOException e) {
+            afficherAlerte("Erreur", "Erreur lors du chargement de la vue : " + e.getMessage());
+        }
+    }
+
 }
