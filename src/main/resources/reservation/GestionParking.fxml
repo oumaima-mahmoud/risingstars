@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.reservation.GestionParkingController"
+            style="-fx-background-color: linear-gradient(to bottom, #2a5298, #00b09b);">
+    <!-- Top: Header with title and buttons -->
+    <top>
+        <VBox alignment="CENTER" spacing="15" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="Gestion du Parking"
+                   style="-fx-font-size: 42px; -fx-font-weight: bold; -fx-text-fill: white;
+                          -fx-effect: dropshadow(gaussian, rgba(0,255,0,0.7), 10, 0, 0, 0);"/>
+            <HBox spacing="20" alignment="CENTER">
+                <Button text="Ajouter Parking" onAction="#addParking"
+                        style="-fx-background-color: linear-gradient(to right, #00ffcc, #00ccff);
+                               -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10 20;
+                               -fx-background-radius: 20; -fx-border-radius: 20;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 5, 0, 0, 2);"/>
+                <Button text="Modifier Parking" onAction="#updateParking"
+                        style="-fx-background-color: linear-gradient(to right, #00ffcc, #00ccff);
+                               -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10 20;
+                               -fx-background-radius: 20; -fx-border-radius: 20;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 5, 0, 0, 2);"/>
+                <Button text="Supprimer Parking" onAction="#deleteParking"
+                        style="-fx-background-color: linear-gradient(to right, #ff4d4d, #ff1a1a);
+                               -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10 20;
+                               -fx-background-radius: 20; -fx-border-radius: 20;
+                               -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 5, 0, 0, 2);"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Left: Parking details form -->
+    <left>
+        <VBox spacing="20" alignment="CENTER" BorderPane.alignment="CENTER_LEFT"
+              style="-fx-background-color: rgba(0, 0, 0, 0.3); -fx-border-radius: 15; -fx-background-radius: 15;
+                     -fx-border-color: #00b09b; -fx-border-width: 2;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="Détails du Parking"
+                   style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #00ffcc;"/>
+            <TextField fx:id="reservationIdField" promptText="ID Réservation"
+                       style="-fx-pref-width: 250px; -fx-font-size: 16px; -fx-background-radius: 10;"/>
+            <TextField fx:id="nbrPlaceField" promptText="Nombre de Places"
+                       style="-fx-pref-width: 250px; -fx-font-size: 16px; -fx-background-radius: 10;"/>
+            <TextField fx:id="statutField" promptText="Statut (libre, réservé, occupé)"
+                       style="-fx-pref-width: 250px; -fx-font-size: 16px; -fx-background-radius: 10;"/>
+            <DatePicker fx:id="dateReservationField"
+                        style="-fx-pref-width: 250px; -fx-font-size: 16px; -fx-background-radius: 10;"/>
+            <!-- Start time selection -->
+            <HBox spacing="15" alignment="CENTER">
+                <Label text="Heure Début:" style="-fx-font-size: 16px; -fx-text-fill: white;"/>
+                <ComboBox fx:id="startHourBox" style="-fx-pref-width: 70px; -fx-font-size: 16px;"/>
+                <Label text=":" style="-fx-font-size: 16px; -fx-text-fill: white;"/>
+                <ComboBox fx:id="startMinuteBox" style="-fx-pref-width: 70px; -fx-font-size: 16px;"/>
+            </HBox>
+            <!-- End time selection -->
+            <HBox spacing="15" alignment="CENTER">
+                <Label text="Heure Fin:" style="-fx-font-size: 16px; -fx-text-fill: white;"/>
+                <ComboBox fx:id="finishHourBox" style="-fx-pref-width: 70px; -fx-font-size: 16px;"/>
+                <Label text=":" style="-fx-font-size: 16px; -fx-text-fill: white;"/>
+                <ComboBox fx:id="finishMinuteBox" style="-fx-pref-width: 70px; -fx-font-size: 16px;"/>
+            </HBox>
+            <TextField fx:id="prixField" promptText="Prix (dt)"
+                       style="-fx-pref-width: 250px; -fx-font-size: 16px; -fx-background-radius: 10;"/>
+        </VBox>
+    </left>
+
+    <!-- Center: Parking table -->
+    <center>
+        <TableView fx:id="parkingTable" prefWidth="600" prefHeight="400"
+                   style="-fx-background-color: rgba(255, 255, 255, 0.9);
+                          -fx-border-color: #00b09b; -fx-border-radius: 10;
+                          -fx-background-radius: 10;">
+            <columns>
+                <TableColumn text="ID" fx:id="idColumn" prefWidth="50"/>
+                <TableColumn text="ID Réservation" fx:id="reservationIdColumn" prefWidth="120"/>
+                <TableColumn text="Places" fx:id="nbrPlaceColumn" prefWidth="100"/>
+                <TableColumn text="Statut" fx:id="statutColumn" prefWidth="120"/>
+                <TableColumn text="Date" fx:id="dateColumn" prefWidth="130"/>
+                <TableColumn text="Début" fx:id="heureDebutColumn" prefWidth="100"/>
+                <TableColumn text="Fin" fx:id="heureFinColumn" prefWidth="100"/>
+                <TableColumn text="Prix (€)" fx:id="prixColumn" prefWidth="80"/>
+            </columns>
+            <effect>
+                <DropShadow radius="10" offsetX="0" offsetY="5">
+                    <color>
+                        <Color fx:value="#00b09b"/>
+                    </color>
+                </DropShadow>
+            </effect>
+        </TableView>
+    </center>
+
+    <!-- Bottom: Footer -->
+    <bottom>
+        <HBox alignment="CENTER" spacing="20" BorderPane.alignment="CENTER"
+              style="-fx-background-color: rgba(0, 0, 0, 0.5); -fx-background-radius: 10;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="© 2025 Gestion Parking - Tous droits réservés"
+                   style="-fx-font-size: 14px; -fx-text-fill: white;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.reservation.AdminReservationController"
+            style="-fx-background-color: linear-gradient(to bottom, #6fdc35, #3939e0); -fx-padding: 40;">
+
+    <top>
+        <Label text="🛠 Gestion des Réservations" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: linear-gradient(to right, #707cff, #003cff);"/>
+    </top>
+
+    <center>
+        <TableView fx:id="reservationTable" style="-fx-background-color: #22223b; -fx-border-radius: 15; -fx-background-radius: 15; -fx-text-fill: white;">
+            <columns>
+                <TableColumn text="Utilisateur" fx:id="userColumn" prefWidth="100"/>
+                <TableColumn text="Places" fx:id="placeColumn" prefWidth="80"/>
+                <TableColumn text="Ticket" fx:id="ticketColumn" prefWidth="120"/>
+                <TableColumn text="Parking" fx:id="parkingColumn" prefWidth="100"/>
+                <TableColumn text="Prix (DT)" fx:id="prixColumn" prefWidth="100"/>
+                <TableColumn text="Statut" fx:id="statutColumn" prefWidth="130"/>
+                <TableColumn text="QR Code" fx:id="qrCodeColumn" prefWidth="150"/>
+                <TableColumn text="Action" fx:id="actionColumn" prefWidth="200"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <bottom>
+        <HBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+            <Button text="❌ Supprimer Réservation" onAction="#handleDeleteReservation"
+                    style="-fx-background-color: #00ff3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10 25; -fx-background-radius: 10; -fx-border-width: 2; -fx-border-color: #ffcc70;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

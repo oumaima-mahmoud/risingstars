@@ -1,0 +1,85 @@
+/* Background Container */
+.container {
+    -fx-background-color: linear-gradient(to bottom, #001F3F, #005F73);
+    -fx-padding: 20;
+}
+
+/* Title Style */
+.title {
+    -fx-font-size: 40px; /* Increased the title size */
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Description Text */
+.description {
+    -fx-font-size: 18px;
+    -fx-text-fill: #D0D0D0;
+    -fx-padding: 5px 0 15px 0;
+}
+
+/* Label Style */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+/* Input Text Fields */
+.input {
+    -fx-pref-width: 250px;
+    -fx-padding: 8px;
+    -fx-border-color: #007FFF;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Focused Input Fields */
+.input:focused {
+    -fx-border-color: #00BFFF;
+    -fx-background-color: #F8F8F8;
+}
+
+/* Button Style */
+.button {
+    -fx-background-color: #007FFF;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Button Hover Style */
+.button:hover {
+    -fx-background-color: #005F73;
+}
+
+/* RadioButton Style */
+.radio-button {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+/* Custom Radio Button Styling */
+.radio-button .radio {
+    -fx-background-color: #005F73; /* Light blue background */
+    -fx-border-color: #007FFF;
+    -fx-border-width: 2px;
+}
+
+/* Selected Radio Button Color */
+.radio-button:selected .radio {
+    -fx-background-color: #00BFFF; /* Highlighted selected button */
+    -fx-border-color: #00BFFF;
+}
+
+/* Adjust the size of the "Tarif" text field */
+#tarifField {
+    -fx-pref-width: 200px; /* Reduced width of tarif field */
+}
+
+/* Profile Form Layout */
+.profile-form {
+    -fx-spacing: 20;
+    -fx-padding: 20;
+    -fx-alignment: center;
+}
