@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+
+<VBox spacing="10" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.publicite.ModifyOffreController">
+    <Label text="Modifier une Offre" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <Label text="ID Offre:" />
+    <TextField fx:id="idField" />
+
+    <Label text="Montant:" />
+    <TextField fx:id="montantField" />
+
+    <Label text="Conditions:" />
+    <TextField fx:id="conditionsField" />
+
+    <Label text="Contact:" />
+    <TextField fx:id="contactField" />
+
+    <Label text="Date de Proposition:" />
+    <DatePicker fx:id="dateField" />  <!-- Changed to DatePicker -->
+
+
+    <Label text="ID Sponsor:" />
+    <TextField fx:id="userIdField" editable="false" text="1" /> <!-- Default or disabled for now -->
+
+    <Button text="Modifier" onAction="#handleModifyOffre" style="-fx-background-color: #28a745; -fx-text-fill: white;" />
+</VBox>

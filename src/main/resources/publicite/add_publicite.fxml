@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.publicite.AddPubliciteController" spacing="10" style="-fx-padding: 20;">
+    <Label text="Ajouter une Publicité" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <Label text="Titre:" />
+    <TextField fx:id="titreField" promptText="Titre"/>
+
+    <Label text="Description:" />
+    <TextField fx:id="descriptionField" promptText="Description"/>
+
+    <Label text="Media URL:" />
+    <TextField fx:id="mediaUrlField" promptText="Media URL"/>
+
+    <Label text="Date:" />
+    <DatePicker fx:id="datePicker" promptText="Date"/>
+
+    <Label text="Statut:" />
+    <TextField fx:id="statutField" promptText="Statut"/>
+
+    <Button text="Ajouter" onAction="#handleAddPublicite" style="-fx-background-color: #28a745; -fx-text-fill: white;"/>
+</VBox>

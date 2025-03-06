@@ -255,5 +255,78 @@ public class ReclamationService implements IService<Reclamation> {
         return recList;
 
     }
+    public List<String> getAllReclamationTypes() {
+        List<String> types = new ArrayList<>();
+        String query = "SELECT DISTINCT type FROM reclamation";
+        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                types.add(rs.getString("type"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching reclamation types: " + e.getMessage());
+        }
+        return types;
+    }
+    public List<String> getAllReclamationStates() {
+        List<String> states = new ArrayList<>();
+        String query = "SELECT DISTINCT etat FROM reclamation";
+        try (Statement st = cnx.createStatement(); ResultSet rs = st.executeQuery(query)) {
+            while (rs.next()) {
+                states.add(rs.getString("etat"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching reclamation states: " + e.getMessage());
+        }
+        return states;
+    }
+
+    public List<Reclamation> getReclamationsByUserId(int userId) {
+        List<Reclamation> reclamations = new ArrayList<>();
+        String query = "SELECT * FROM reclamation WHERE user_id = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Reclamation rec = new Reclamation(
+                        rs.getInt("user_id"),
+                        rs.getString("type"),
+                        rs.getString("description"),
+                        rs.getString("objet"),
+                        rs.getString("etat"),
+                        rs.getString("phone_number")
+                );
+                rec.setId(rs.getInt("id"));
+                rec.setDateReclamation(rs.getString("date_reclamation"));
+                reclamations.add(rec);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching reclamations by user ID: " + e.getMessage());
+        }
+        return reclamations;
+    }
+    public List<Reclamation> getReclamationsByState(String state) {
+        List<Reclamation> reclamations = new ArrayList<>();
+        String query = "SELECT * FROM reclamation WHERE etat = ?";
+        try (PreparedStatement ps = cnx.prepareStatement(query)) {
+            ps.setString(1, state);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Reclamation rec = new Reclamation(
+                        rs.getInt("user_id"),
+                        rs.getString("type"),
+                        rs.getString("description"),
+                        rs.getString("objet"),
+                        rs.getString("etat"),
+                        rs.getString("phone_number")
+                );
+                rec.setId(rs.getInt("id"));
+                rec.setDateReclamation(rs.getString("date_reclamation"));
+                reclamations.add(rec);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching reclamations by state: " + e.getMessage());
+        }
+        return reclamations;
+    }
 
 }

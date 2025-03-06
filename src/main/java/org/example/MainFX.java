@@ -8,10 +8,10 @@ public class MainFX extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Use Parent instead of AnchorPane
-        Parent root = FXMLLoader.load(getClass().getResource("/mainwindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/user/home.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("publicite Interface");
+        primaryStage.setTitle(" welcome to TuniStadium");
         primaryStage.show();
     }
 

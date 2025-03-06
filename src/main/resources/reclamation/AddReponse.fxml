@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.8" xmlns:fx="http://javafx.com/fxml/1" fx:id="addResponseWindow" fx:controller="controllers.reclamation.AddResponseController" prefWidth="500.0" prefHeight="450.0" stylesheets="@../reponse.css">
+    <children>
+        <VBox spacing="20.0" layoutX="20.0" layoutY="20.0" prefWidth="460.0" prefHeight="410.0" style="-fx-background-color: #f0f8ff; -fx-padding: 20px; -fx-background-radius: 20px;">
+            <!-- Title Label -->
+            <Label text="Ajouter une réponse" styleClass="title-label">
+                <font>
+                    <Font name="System Bold" size="20.0" />
+                </font>
+            </Label>
+
+            <!-- Text Area for Response Content -->
+            <TextArea fx:id="responseContentTextArea" promptText="Entrez votre réponse..." wrapText="true" prefHeight="100.0" styleClass="input-field" />
+
+            <!-- Image Selection Section -->
+            <HBox spacing="20.0" alignment="CENTER_LEFT">
+                <Button fx:id="selectImageButton" text="Sélectionner une image (Optionnel)" onAction="#onSelectImage" styleClass="action-button" />
+                <Label fx:id="imagePathLabel" text="Aucune image sélectionnée" styleClass="hint-label" />
+            </HBox>
+
+            <!-- Type Input (TextField) -->
+            <HBox spacing="20.0" alignment="CENTER_LEFT">
+                <Label text="Type:" styleClass="field-label" />
+                <TextField fx:id="typeTextField" promptText="Entrez le type (Information, Complaint, etc.)" styleClass="input-field" prefWidth="200.0" />
+            </HBox>
+
+            <!-- Priority Input (TextField) -->
+            <HBox spacing="20.0" alignment="CENTER_LEFT">
+                <Label text="Priorité :" styleClass="field-label" />
+                <TextField fx:id="priorityTextField" promptText="Entrez la priorité" styleClass="input-field" prefWidth="200.0" />
+            </HBox>
+
+            <!-- Action Buttons (Add/Cancel) -->
+            <HBox spacing="20.0" alignment="CENTER">
+                <Button text="Ajouter" onAction="#onAddResponse" styleClass="action-button" />
+                <Button text="Annuler" onAction="#onCancel" styleClass="cancel-button" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
