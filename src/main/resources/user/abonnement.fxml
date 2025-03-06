@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane prefWidth="600" prefHeight="600" stylesheets="/user/abonnement.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.user.AbonnementController">
+
+    <!-- Title -->
+    <VBox alignment="CENTER" spacing="20" prefWidth="600" prefHeight="600" styleClass="container">
+        <Label text="Choisissez votre Abonnement" styleClass="title"/>
+        <Label text="Accédez à des services exclusifs et profitez de nos offres exceptionnelles."
+               styleClass="description"/>
+
+        <!-- Subscription Form -->
+        <VBox spacing="20" alignment="CENTER">
+            <!-- Subscription Type -->
+            <Label text="Sélectionnez votre abonnement :" styleClass="label"/>
+            <HBox spacing="20" alignment="CENTER">
+                <RadioButton fx:id="standardRadio" text="Standard" onAction="#updateAbonnementDetails"/>
+                <RadioButton fx:id="premiumRadio" text="Premium" onAction="#updateAbonnementDetails"/>
+                <RadioButton fx:id="vipRadio" text="VIP" onAction="#updateAbonnementDetails"/>
+            </HBox>
+
+            <!-- Dates -->
+            <HBox spacing="20" alignment="CENTER">
+                <DatePicker fx:id="dateDebutField" promptText="Date de début" styleClass="input"/>
+                <DatePicker fx:id="dateFinField" promptText="Date de fin" styleClass="input"/>
+            </HBox>
+
+            <!-- Tarif -->
+            <TextField fx:id="tarifField" promptText="Tarif" editable="false" styleClass="input"/>
+
+            <!-- Add Subscription Button -->
+            <Button fx:id="addAbonnementButton" text="Ajouter Abonnement" layoutX="150" layoutY="330" onAction="#addAbonnement" styleClass="button"/>
+        </VBox>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,71 @@
+/* General Layout */
+.container {
+    -fx-background-color: #F0F4F8;
+    -fx-padding: 30px;
+    -fx-alignment: center;
+    -fx-pref-width: 600px;
+    -fx-pref-height: 400px;
+}
+
+/* Title Style */
+.title {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #003366;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+}
+
+/* Profile Information Section */
+.profile-info {
+    -fx-spacing: 20px;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1px;
+}
+
+/* Label Style */
+.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+    -fx-padding: 5px;
+}
+
+/* Profile Text Style */
+.profile-text {
+    -fx-font-size: 16px;
+    -fx-text-fill: #555;
+    -fx-padding: 5px;
+}
+
+/* Button Style */
+.button {
+    -fx-background-color: #007FFF;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Button Hover Effect */
+.button:hover {
+    -fx-background-color: #005F73;
+}
+
+/* Back Button */
+.back-button {
+    -fx-background-color: #FF5722;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Hover Effect for Back Button */
+.back-button:hover {
+    -fx-background-color: #D84315;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.consommation.RechercherCommande" style="-fx-background-color: #0F5CAF;">
+    <children>
+        <!-- Champ de recherche -->
+        <TextField fx:id="searchField" layoutX="144.0" layoutY="50.0" prefWidth="200.0" promptText="Recherche..." />
+
+        <!-- Bouton de recherche -->
+        <Button layoutX="360.0" layoutY="50.0" mnemonicParsing="false" onAction="#rechercher" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: #208A39; -fx-text-fill: black;" text="Rechercher" />
+
+        <!-- TableView -->
+        <TableView fx:id="tableview" layoutX="144.0" layoutY="108.0" prefHeight="200.0" prefWidth="238.0">
+            <columns>
+                <TableColumn fx:id="quantite" prefWidth="75.0" text="Date de création" style="-fx-text-fill: black;" />
+                <TableColumn fx:id="dateCommande" prefWidth="75.0" text="Date de création" style="-fx-text-fill: black;" />
+                <TableColumn fx:id="prix" prefWidth="75.0" text="Total" style="-fx-text-fill: black;" />
+                <TableColumn fx:id="idPanier" prefWidth="75.0" text="État" style="-fx-text-fill: black;" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

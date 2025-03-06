@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.reservation.ClientReservationController"
+            prefWidth="800" prefHeight="500"
+            style="-fx-background-color: linear-gradient(to bottom, #6fdc35, #3939e0); -fx-padding: 20;">
+
+    <center>
+        <VBox spacing="15" alignment="CENTER"
+              style="-fx-background-color: #39a0e0; -fx-padding: 20; -fx-border-radius: 25; -fx-background-radius: 25; -fx-border-color: #555579; -fx-border-width: 3; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0, 0, 5);">
+
+            <Label text="🚗 Réservation de Parking et Ticket 🎟"
+                   style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: linear-gradient(to right, #f8ffae, #43c6ac);"/>
+
+            <TextField fx:id="placeField" promptText="Nombre de Places"
+                       style="-fx-pref-width: 350px; -fx-font-size: 18px; -fx-background-radius: 12; -fx-padding: 10;"/>
+            <TextField fx:id="idUserField" promptText="ID Utilisateur"
+                       style="-fx-pref-width: 350px; -fx-font-size: 18px; -fx-background-radius: 12; -fx-padding: 10;"/>
+
+            <ComboBox fx:id="idTicketDropdown" promptText="🎫 Sélectionner un Ticket (Code Barre)"
+                      style="-fx-pref-width: 350px; -fx-font-size: 18px; -fx-background-radius: 12; -fx-padding: 10;" onAction="#handleTicketSelection"/>
+            <DatePicker fx:id="dateReservationField"
+                        style="-fx-pref-width: 350px; -fx-font-size: 18px; -fx-background-radius: 12; -fx-padding: 10;" editable="false"/>
+
+            <TextField fx:id="prixTotalField" promptText="💰 Prix Total (DT)"
+                       style="-fx-pref-width: 350px; -fx-font-size: 18px; -fx-background-radius: 12; -fx-padding: 10;" editable="false"/>
+
+            <ComboBox fx:id="idParkingDropdown" promptText="🅿️ Sélectionner un Parking"
+                      style="-fx-pref-width: 350px; -fx-font-size: 18px; -fx-background-radius: 12; -fx-padding: 10;"/>
+
+            <Button text="✅ Confirmer Réservation" onAction="#handleAddReservation"
+                    style="-fx-background-color: linear-gradient(to right, #43c6ac, #191654); -fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 15 40; -fx-background-radius: 20; -fx-border-width: 3; -fx-border-color: #43c6ac; -fx-effect: dropshadow(gaussian, rgba(0,255,150,0.5), 10, 0, 0, 5);"/>
+
+            <Label fx:id="statusLabel"
+                   style="-fx-font-size: 18px; -fx-text-fill: #f8ffae; -fx-font-weight: bold;"/>
+
+            <!-- Added ImageView for QR Code display -->
+            <ImageView fx:id="qrCodeImageView" fitWidth="150" fitHeight="150" preserveRatio="true"
+                       style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 10, 0, 0, 5);"/>
+        </VBox>
+    </center>
+</BorderPane>

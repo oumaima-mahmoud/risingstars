@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.GridPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController" stylesheets="@styles.css">
+    <!-- Top Bar -->
+    <top>
+        <HBox style="-fx-background-color: #2c3e50; -fx-padding: 10;" alignment="CENTER_RIGHT" spacing="20">
+            <Button fx:id="dashboardButton" text="Dashboard" styleClass="top-button" onAction="#goToDashboard" />
+            <Button fx:id="editProfileButton" text="Edit Profile" styleClass="top-button" onAction="#editProfile" />
+            <ImageView fitWidth="30" fitHeight="30" preserveRatio="true">
+                <Image url="@user/images/b.jpg" />
+            </ImageView>
+        </HBox>
+    </top>
+
+    <!-- Sidebar -->
+    <left>
+        <VBox style="-fx-background-color: #34495e; -fx-padding: 20;" spacing="15" minWidth="200">
+            <Label text="Sports Management" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" />
+            <Button fx:id="handleGestionReclamationButton" onAction="#handleGestionReclamation" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 16px;" />
+            <Button fx:id="gestionOffreButton" text="Gestion des Offres" styleClass="sidebar-button" onAction="#openOffre" />
+            <Button fx:id="gestionPubliciteButton" text="Gestion des Publicités" styleClass="sidebar-button" onAction="#openPublicite" />
+            <Button fx:id="gestionStadeButton" text="Gestion des Stades" styleClass="sidebar-button" onAction="#openStade" />
+            <Button fx:id="gestionPanierButton" text="Gestion des Paniers" styleClass="sidebar-button" onAction="#openGestionPanier" />
+            <Button fx:id="gestionCommandeButton" text="Gestion des Commandes" styleClass="sidebar-button" onAction="#openGestionCommande" />
+            <Button fx:id="gestionReservationButton" text="Gestion des Réservations" styleClass="sidebar-button" onAction="#openreservation" />
+        </VBox>
+    </left>
+
+    <!-- Main Content -->
+    <center>
+        <StackPane style="-fx-background-color: #ecf0f1;">
+            <ImageView fitWidth="800" fitHeight="600" preserveRatio="true">
+                <Image url="@user/images/logo.png" />
+            </ImageView>
+            <Label text="Welcome to Sports Management System" style="-fx-text-fill: #2c3e50; -fx-font-size: 32px; -fx-font-weight: bold;" />
+        </StackPane>
+    </center>
+
+    <!-- Bottom Bar -->
+    <bottom>
+        <HBox style="-fx-background-color: #2c3e50; -fx-padding: 10;" alignment="CENTER">
+            <Button fx:id="logoutButton" text="Logout" styleClass="logout-button" onAction="#handleLogout" />
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -1,0 +1,81 @@
+/* Background Container */
+.container {
+    -fx-background-color: linear-gradient(to bottom, #001F3F, #005F73);
+    -fx-padding: 20;
+}
+
+/* Title Style */
+.title {
+    -fx-font-size: 32px; /* Bigger title */
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Description Text */
+.description {
+    -fx-font-size: 18px; /* Slightly smaller than title */
+    -fx-text-fill: #D0D0D0; /* Lighter gray for readability */
+    -fx-padding: 5px 0 15px 0;
+}
+
+/* Label Style */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+/* Input Text Fields */
+.input {
+    -fx-pref-width: 250px;
+    -fx-padding: 8px;
+    -fx-border-color: #007FFF;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Focused Input Fields */
+.input:focused {
+    -fx-border-color: #00BFFF;
+    -fx-background-color: #F8F8F8;
+}
+
+/* Button Style */
+.button {
+    -fx-background-color: #007FFF;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Button Hover Style */
+.button:hover {
+    -fx-background-color: #005F73;
+}
+
+/* Profile Form Layout */
+.profile-form {
+    -fx-spacing: 20; /* Space between the input fields */
+    -fx-padding: 20; /* Space around the form */
+    -fx-alignment: center; /* Center-align the content */
+}
+
+/* Adjustments for text fields (specific fields in profile) */
+.text-field {
+    -fx-pref-width: 300px; /* Wider text fields for profile information */
+}
+
+/* Style for the "Update" button */
+.update-button {
+    -fx-background-color: #00BFFF;
+    -fx-text-fill: white;
+    -fx-padding: 15px 25px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Hover Effect for Update Button */
+.update-button:hover {
+    -fx-background-color: #008CBA;
+}

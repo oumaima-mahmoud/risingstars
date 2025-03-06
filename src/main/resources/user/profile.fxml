@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox styleClass="container" prefWidth="400" prefHeight="600" spacing="20" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.user.ProfileController" stylesheets="/user/profile.css">
+    <!-- Titre -->
+    <Label text="Mon Profil" styleClass="title"/>
+
+    <!-- Formulaire -->
+    <GridPane styleClass="profile-form" hgap="10" vgap="10" alignment="CENTER">
+        <!-- Champ Nom -->
+        <Label text="Nom:" styleClass="label" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="nomField" styleClass="input" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <!-- Champ Prénom -->
+        <Label text="Prénom:" styleClass="label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="prenomField" styleClass="input" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <!-- Champ Email -->
+        <Label text="Email:" styleClass="label" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="emailField" styleClass="input" editable="false" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <!-- Champ Numéro de téléphone -->
+        <Label text="Numéro de téléphone:" styleClass="label" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="phoneNumberField" styleClass="input" editable="false" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <!-- Champ Mot de passe -->
+        <Label text="Mot de passe:" styleClass="label" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <PasswordField fx:id="passwordField" styleClass="input" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <!-- Affichage Statut Abonnement -->
+        <Label text="Statut de l'abonnement:" styleClass="label" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="statutField" styleClass="input" editable="false" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <!-- Affichage Points de Fidélité -->
+        <Label text="Points de fidélité:" styleClass="label" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <TextField fx:id="pointsFideliteField" styleClass="input" editable="false" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+
+        <!-- Type d'abonnement -->
+        <Label text="Type d'abonnement:" styleClass="label" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+        <TextField fx:id="typeAbonnementField" styleClass="input" editable="false" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+        <!-- Rôle (Ajouter ComboBox pour les rôles) -->
+        <Label text="Rôle:" styleClass="label" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="roleComboBox" styleClass="input" editable="false" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <!-- Boutons -->
+    <VBox spacing="10" alignment="CENTER">
+        <Button text="Mettre à jour" onAction="#updateProfile" styleClass="update-button"/>
+        <Button fx:id="addAbonnementButton" text="Ajouter Abonnement" layoutX="150" layoutY="330" onAction="#addAbonnement" styleClass="button"/>
+
+
+        <Button text="Supprimer Mon Compte" onAction="#deleteAccount" styleClass="delete-button"/>
+        <Button fx:id="logoutButton" text="Se déconnecter" onAction="#logout" styleClass="logout-button"/>
+    </VBox>
+</VBox>

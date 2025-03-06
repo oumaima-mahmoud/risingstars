@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<VBox fx:id="eventInterfaces" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="6000.0" prefWidth="1331.0" stylesheets="@../css/product.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.stade.EventController">
+
+   <children>
+      <!-- Events List Interface -->
+      <VBox fx:id="EventInterfaces" prefHeight="700.0" prefWidth="1000" stylesheets="@../css/product.css">
+         <children>
+
+            <Pane fx:id="EventListContainer" prefHeight="700.0" prefWidth="1000.0">
+               <children>
+                  <ScrollPane layoutX="1.0" layoutY="83.0" prefHeight="568.0" prefWidth="1089.0">
+                     <content>
+                        <VBox fx:id="eventBox" prefHeight="542.0" prefWidth="1232.0" spacing="10.0">
+                           <children>
+                              <Label styleClass="label-style" stylesheets="@../css/product.css" text="Liste des événements" />
+                           </children></VBox>
+                     </content>
+                  </ScrollPane>
+                  <TextField  fx:id="searchField" layoutX="191.0" layoutY="10.0" prefHeight="37.0" prefWidth="265.0" styleClass="search-field" stylesheets="@../css/product.css" />
+                  <Label layoutX="31.0" layoutY="6.0" prefHeight="37.0" prefWidth="115.0" styleClass="label-style" text="Rechercher" />
+                  <Button layoutX="528.0" layoutY="12.0" mnemonicParsing="false" onAction="#showAddForm" styleClass="UpperSectionBtn">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                           <image>
+                              <Image url="@../icons/plus.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <ComboBox fx:id="sortComboBox" prefWidth="200" layoutX="391.0" layoutY="50.0">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Sort by Name"/>
+                           <String fx:value="Sort by Capacity"/>
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+                  <Button fx:id="backToMainButton" text="Back to Main" onAction="#goBackToMain" style="-fx-background-radius: 10; -fx-background-color: #2c3e50; -fx-text-fill: white; -fx-padding: 5 15;" />
+                  <Button layoutX="693.0" layoutY="11.0" mnemonicParsing="false" onAction="#showStadeInterface" text="Stades">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0">
+                           <image>
+                              <Image url="@../icons/event.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+
+      <!-- Add Event Form -->
+      <Pane fx:id="AddEventPage" prefHeight="700" visible="false">
+         <children>
+            <VBox layoutX="445.0" layoutY="1.0" prefHeight="700.0" prefWidth="390.0" styleClass="add-product-card">
+               <children>
+                  <Label styleClass="title" text="Ajouter un Événement">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="31.0" />
+                     </font>
+                  </Label>
+
+                  <!-- Event Form Fields -->
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Nom:" />
+                     <TextField fx:id="nomEvent" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Type:" />
+                     <TextField fx:id="typeEvent" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Date:" />
+                     <DatePicker fx:id="dateEvent" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Organisateur:" />
+                     <TextField fx:id="organisateurEvent" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Participants:" />
+                     <TextField fx:id="participantsEvent" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="ID Stade:" />
+                     <TextField fx:id="stadeIdEvent" />
+                  </HBox>
+
+                  <Button fx:id="AddEventBtn" onAction="#handleAddEvent" styleClass="orangebtn" text="Add" />
+               </children>
+            </VBox>
+            <Button onAction="#showEventList" styleClass="UpperSectionBtn">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="36.0">
+                     <image>
+                        <Image url="@../icons/back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+
+      <!-- Update Event Form -->
+      <!-- Update Event Form -->
+      <Pane fx:id="UpdateEventPage" prefHeight="1200" prefWidth="1000" visible="false">
+         <children>
+            <VBox layoutX="350" layoutY="0.01" styleClass="add-product-card">
+               <children>
+                  <Label styleClass="title" text="Modifier Événement">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="31.0" />
+                     </font>
+                  </Label>
+
+                  <!-- Update Form Fields -->
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Nom:" />
+                     <TextField fx:id="nomEventUpdate" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Type:" />
+                     <TextField fx:id="typeEventUpdate" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Date:" />
+                     <DatePicker fx:id="dateEventUpdate" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Organisateur:" />
+                     <TextField fx:id="organisateurEventUpdate" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="Participants:" />
+                     <TextField fx:id="participantsEventUpdate" />
+                  </HBox>
+
+                  <HBox styleClass="input-field">
+                     <Label prefWidth="101.0" text="ID Stade:" />
+                     <TextField fx:id="stadeIdEventUpdate" />
+                  </HBox>
+
+                  <Button fx:id="UpdateEventBtn" onAction="#handleUpdateEvent" styleClass="orangebtn" text="Update" />
+               </children>
+            </VBox>
+
+            <!-- Back Button -->
+            <Button layoutX="30.0" layoutY="26.0" mnemonicParsing="false" onAction="#showEventList" styleClass="UpperSectionBtn">
+               <graphic>
+                  <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</VBox>

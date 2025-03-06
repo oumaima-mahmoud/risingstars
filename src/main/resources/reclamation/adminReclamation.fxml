@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.FontWeight?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.image.ImageView?> <!-- Add this import -->
+
+<AnchorPane id="AnchorPane" fx:id="adminReclamationPane" prefHeight="780.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17.0.8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.reclamation.AdminReclamationController" stylesheets="@../styles.css">
+    <children>
+        <!-- Title Section -->
+        <VBox layoutX="0.0" layoutY="0.0" prefHeight="100.0" prefWidth="1200.0" style="-fx-background-color: linear-gradient(to right, #008080, #00bfae); -fx-padding: 20;">
+            <children>
+                <!-- Use an HBox to align the title and the "Back to Main" button -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Gestion des Réclamations" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="28.0" />
+                        </font>
+                    </Label>
+                    <!-- Add the "Back to Main" button here -->
+                    <Button fx:id="backToMainButton" text="Back to Main" onAction="#goBackToMain" style="-fx-background-radius: 10; -fx-background-color: #2c3e50; -fx-text-fill: white; -fx-padding: 5 15;" />
+                </HBox>
+            </children>
+        </VBox>
+
+        <!-- Search and Filter Section -->
+        <HBox layoutX="50.0" layoutY="120.0" spacing="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <children>
+                <TextField fx:id="searchField" prefWidth="400.0" promptText="Rechercher..." style="-fx-background-radius: 10; -fx-padding: 5;" HBox.hgrow="ALWAYS" />
+                <ComboBox fx:id="typeFilter" prefWidth="200.0" promptText="Filtrer par type" style="-fx-background-radius: 10; -fx-padding: 5;" />
+                <ComboBox fx:id="etatFilter" prefWidth="200.0" promptText="Filtrer par état" style="-fx-background-radius: 10; -fx-padding: 5;" />
+                <Button text="Rechercher" onAction="#handleSearch" style="-fx-background-radius: 10; -fx-background-color: #008080; -fx-text-fill: white; -fx-padding: 5 15;" />
+            </children>
+        </HBox>
+
+        <!-- Reclamation List -->
+        <ListView fx:id="reclamationListView" layoutX="50.0" layoutY="180.0" prefHeight="400.0" prefWidth="1100.0" style="-fx-background-color: #f0f0f0; -fx-border-radius: 10px; -fx-padding: 10;" AnchorPane.topAnchor="180.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+
+        <!-- Sentiment Analysis Label -->
+        <Label fx:id="sentimentLabel" text="Sentiment: " layoutX="50.0" layoutY="590.0" style="-fx-font-size: 14; -fx-text-fill: #008080;" />
+        <!-- Add this below the sentimentLabel -->
+        <Label fx:id="autoResponseLabel" text="Auto-Response: " layoutX="50.0" layoutY="620.0" style="-fx-font-size: 14; -fx-text-fill: #008080;" />
+
+        <!-- Image View -->
+        <ImageView fx:id="imageView" layoutX="650.0" layoutY="20.0" fitWidth="400.0" fitHeight="300.0" preserveRatio="true" />
+
+        <!-- Pagination Section -->
+        <HBox layoutX="50.0" layoutY="600.0" spacing="10.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <children>
+                <Button fx:id="prevPageButton" text="Précédent" onAction="#handlePrevPage" style="-fx-background-radius: 10; -fx-background-color: #008080; -fx-text-fill: white; -fx-padding: 5 15;" />
+                <Button fx:id="nextPageButton" text="Suivant" onAction="#handleNextPage" style="-fx-background-radius: 10; -fx-background-color: #008080; -fx-text-fill: white; -fx-padding: 5 15;" />
+                <Label fx:id="pageLabel" text="Page 1" style="-fx-font-size: 14; -fx-text-fill: #008080;" />
+            </children>
+        </HBox>
+
+        <!-- Buttons for Actions -->
+        <HBox layoutX="50.0" layoutY="700.0" spacing="10.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <children>
+                <Button fx:id="btnSupprimer" text="Supprimer" onAction="#supprimerReclamation" style="-fx-background-radius: 10; -fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-padding: 5 15;" />
+                <Button fx:id="btnModifier" text="Modifier" onAction="#remplirModifierform" style="-fx-background-radius: 10; -fx-background-color: #008080; -fx-text-fill: white; -fx-padding: 5 15;" />
+                <Button fx:id="btnVoirReponses" text="Voir Réponses" onAction="#ouvrirReponses" style="-fx-background-radius: 10; -fx-background-color: #008080; -fx-text-fill: white; -fx-padding: 5 15;" />
+                <Button fx:id="btnAjouter" text="Ajouter" onAction="#ajouterReclamation" style="-fx-background-radius: 10; -fx-background-color: #00bfae; -fx-text-fill: white; -fx-padding: 5 15;" />
+                <Button fx:id="btnAjouterAutoReponse" text="Ajouter Auto-Réponse" onAction="#ajouterAutoReponse" style="-fx-background-radius: 10; -fx-background-color: #00bfae; -fx-text-fill: white; -fx-padding: 5 15;" />
+                <Button fx:id="btnTextToSpeech" text="Convertir en Audio" onAction="#convertToSpeech" style="-fx-background-radius: 10; -fx-background-color: #00bfae; -fx-text-fill: white; -fx-padding: 5 15;" />
+                <Button fx:id="btnGenerateImage" text="Générer une Image" onAction="#generateImage" style="-fx-background-radius: 10; -fx-background-color: #00bfae; -fx-text-fill: white; -fx-padding: 5 15;" />
+                <Button text="Export to PDF" onAction="#exportToPDF" layoutX="50" layoutY="50" />
+                <Button text="Afficher les Statistiques" onAction="#showStatistics" style="-fx-background-radius: 20; -fx-background-color: #008080; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 25px;" />
+                <Button text="Open Chatbox" onAction="#openChatbox" layoutX="50" layoutY="50" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
