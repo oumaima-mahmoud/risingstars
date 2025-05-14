@@ -128,7 +128,9 @@ graph TD
     classDef module fill:#bbf,stroke:#333,stroke-width:1px
     class A main
     class B,C,D,E,F module
-  ## Installation
+
+```
+## Installation
   1. Clonez le repository :
 
 ```bash
