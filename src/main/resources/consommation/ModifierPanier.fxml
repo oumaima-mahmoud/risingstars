@@ -20,5 +20,9 @@
       <DatePicker fx:id="dateCreation" layoutX="198.0" layoutY="153.0" prefHeight="26.0" prefWidth="150.0" />
       <Button layoutX="439.0" layoutY="236.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #208A39; -fx-text-fill: white;" text="Modifier Panier" />
       <Button layoutX="439.0" layoutY="303.0" mnemonicParsing="false" onAction="#AfficherPanier" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #208A39; -fx-text-fill: white;" text="Afficher Panier" />
+      <Label layoutX="48.0" layoutY="320.0" prefHeight="18.0" prefWidth="56.0" style="-fx-text-fill: white;" text="idproduit" />
+      <TextField fx:id="idproduitTextField" layoutX="199.0" layoutY="316.0" />
+      <Label layoutX="48.0" layoutY="355.0" prefHeight="18.0" prefWidth="56.0" style="-fx-text-fill: white;" text="idUser" />
+      <TextField fx:id="idUserTextField" layoutX="198.0" layoutY="360.0" />
    </children>
 </AnchorPane>

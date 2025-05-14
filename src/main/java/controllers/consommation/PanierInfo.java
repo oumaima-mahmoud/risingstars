@@ -34,6 +34,10 @@ public class PanierInfo {
     @FXML
     private TableColumn<Panier, String> etat;
     @FXML
+    private TableColumn<Panier, Integer> idproduit;
+    @FXML
+    private TableColumn<Panier, Integer> id_user;
+    @FXML
     private Button backToMainButton; // Injected from FXML
 
 
@@ -47,7 +51,8 @@ public class PanierInfo {
         dateCreation.setCellValueFactory(new PropertyValueFactory<>("dateCreation"));
         total.setCellValueFactory(new PropertyValueFactory<>("total"));
         etat.setCellValueFactory(new PropertyValueFactory<>("etat"));
-
+        idproduit.setCellValueFactory(new PropertyValueFactory<>("idproduit"));
+        id_user.setCellValueFactory(new PropertyValueFactory<>("id_user"));
         // Charger les paniers au démarrage
         chargerPaniers();
     }

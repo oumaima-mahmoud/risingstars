@@ -1,40 +1,42 @@
 package entite;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+
 import java.util.Date;
 import java.util.List;
-import javafx.beans.property.ObjectProperty;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class Panier {
 
     private int idPanier;
+    private int idproduit;  // Ajout de la clé étrangère idProduit
+    private int id_user;     // Ajout de la clé étrangère idUser
     private StringProperty dateCreation;  // Utilisation de StringProperty pour la date
     private DoubleProperty total;  // Utilisation de DoubleProperty pour le total
     private StringProperty etat;  // Utilisation de StringProperty pour l'état
     private List<Commande> commandes;
+
     // Constructeur sans paramètres
     public Panier() {
         this.dateCreation = new SimpleStringProperty();
         this.total = new SimpleDoubleProperty();
         this.etat = new SimpleStringProperty();
+        this.idproduit = idproduit;
+        this.id_user =id_user;
     }
 
     // Constructeur avec paramètres
-    public Panier(Date dateCreation, double total, String etat) {
+    public Panier(Date dateCreation, double total, String etat, int idproduit, int id_user) {
         this();
         setDateCreation(dateCreation);
         setTotal(total);
         setEtat(etat);
+        setIdproduit(idproduit);  // Initialiser idProduit
+        setIdUser(id_user);        // Initialiser idUser
     }
 
     // Constructeur complet
-    public Panier(int idPanier, Date dateCreation, double total, String etat) {
-        this(dateCreation, total, etat);
+    public Panier(int idPanier, Date dateCreation, double total, String etat, int idproduit, int idUser) {
+        this(dateCreation, total, etat, idproduit, idUser);
         this.idPanier = idPanier;
     }
 
@@ -45,6 +47,24 @@ public class Panier {
 
     public void setIdPanier(int idPanier) {
         this.idPanier = idPanier;
+    }
+
+    // Getter et Setter pour idProduit
+    public int getIdproduit() {
+        return idproduit;
+    }
+
+    public void setIdproduit(int idproduit) {
+        this.idproduit = idproduit;
+    }
+
+    // Getter et Setter pour idUser
+    public int getIdUser() {
+        return id_user;
+    }
+
+    public void setIdUser(int idUser) {
+        this.id_user = idUser;
     }
 
     // Getter et Setter pour dateCreation
@@ -102,6 +122,8 @@ public class Panier {
                 ", dateCreation=" + dateCreation +
                 ", total=" + total +
                 ", etat='" + etat + '\'' +
+                ", idproduit=" + idproduit +
+                ", idUser=" + id_user +
                 '}';
     }
 

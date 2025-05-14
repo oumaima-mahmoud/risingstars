@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.consommation.ProduitController" stylesheets="/user/register.css" style="-fx-background-color: #001f3d;">
+    <children>
+        <!-- Conteneur principal horizontal -->
+        <HBox spacing="30" layoutX="20" layoutY="20">
+            <children>
+
+                <!-- Formulaire à gauche -->
+                <VBox spacing="10">
+                    <children>
+                        <!-- Titre et description -->
+                        <VBox alignment="CENTER" spacing="10">
+                            <Label text="Ajout / Modification de Produit" styleClass="title"/>
+                            <Label text="Remplissez les informations ci-dessous pour ajouter ou modifier un produit." styleClass="description"/>
+                        </VBox>
+
+                        <!-- Formulaire -->
+                        <Label text="Nom :" styleClass="label" />
+                        <TextField fx:id="nomField" promptText="Entrez le nom du produit" styleClass="input"/>
+
+                        <Label text="Prix :" styleClass="label"/>
+                        <TextField fx:id="prixField" promptText="Entrez le prix" styleClass="input"/>
+
+                        <Label text="Stock :" styleClass="label"/>
+                        <TextField fx:id="stockField" promptText="Entrez le stock" styleClass="input"/>
+
+                        <Label text="Catégorie :" styleClass="label"/>
+                        <TextField fx:id="categorieField" promptText="Entrez la catégorie" styleClass="input"/>
+
+                        <Label text="Image :" styleClass="label"/>
+                        <HBox spacing="10">
+                            <TextField fx:id="imageField" promptText="Entrez le chemin de l'image" prefWidth="180" styleClass="input"/>
+                            <Button text="Parcourir" onAction="#parcourirImage" styleClass="button"/>
+                        </HBox>
+
+                        <!-- Boutons sous le formulaire -->
+                        <HBox spacing="10">
+                            <Button text="Ajouter Produit" onAction="#ajouterProduit" styleClass="button"/>
+                            <Button text="Modifier Produit" onAction="#modifierProduit" styleClass="button"/>
+                            <Button text="Clear" onAction="#clearFormm" styleClass="button"/>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <!-- Tableau à droite -->
+                <VBox spacing="10">
+                    <children>
+                        <TableView fx:id="tableProduits" prefHeight="400" prefWidth="550" style="-fx-background-color: #f4f4f4; -fx-border-color: #ccc; -fx-border-width: 1px;">
+                            <columns>
+                                <TableColumn fx:id="idProduit" prefWidth="75.0" text="ID" style="-fx-alignment: center; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                                <TableColumn fx:id="nom" prefWidth="100.0" text="Nom" style="-fx-alignment: center; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                                <TableColumn fx:id="prixProduit" prefWidth="100.0" text="Prix" style="-fx-alignment: center; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                                <TableColumn fx:id="stock" prefWidth="75.0" text="Stock" style="-fx-alignment: center; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                                <TableColumn fx:id="categorie" prefWidth="100.0" text="Catégorie" style="-fx-alignment: center; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                                <TableColumn fx:id="image" prefWidth="100.0" text="Image" style="-fx-alignment: center; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                            </columns>
+                        </TableView>
+
+
+                        <!-- Bouton supprimer sous le tableau -->
+                        <Button fx:id="btnSupprimer" onAction="#supprimerProduit" text="Supprimer le produit sélectionné" styleClass="button" prefWidth="300"/>
+                    </children>
+                </VBox>
+
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

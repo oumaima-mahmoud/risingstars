@@ -30,6 +30,8 @@ public class MainController {
 
     @FXML
     private Button gestionPanierButton; // Injected from FXML
+    @FXML
+    private Button gestionProduitButton;
 
     @FXML
     private Button gestionCommandeButton; // Injected from FXML
@@ -61,6 +63,10 @@ public class MainController {
     @FXML
     public void openGestionPanier() {
         openWindow("/consommation/AjouterPanier.fxml", "Gestion des Paniers");
+    }
+    @FXML
+    public void openGestionProduit() {
+        openWindow("/consommation/ProduitV.fxml", "Gestion des Produits");
     }
 
     @FXML

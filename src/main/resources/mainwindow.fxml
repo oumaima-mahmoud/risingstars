@@ -35,6 +35,7 @@
             <Button fx:id="gestionPubliciteButton" text="Gestion des Publicités" styleClass="sidebar-button" onAction="#openPublicite" />
             <Button fx:id="gestionStadeButton" text="Gestion des Stades" styleClass="sidebar-button" onAction="#openStade" />
             <Button fx:id="gestionPanierButton" text="Gestion des Paniers" styleClass="sidebar-button" onAction="#openGestionPanier" />
+            <Button fx:id="gestionProduitButton" text="Gestion des Produits" styleClass="sidebar-button" onAction="#openGestionProduit" />
             <Button fx:id="gestionCommandeButton" text="Gestion des Commandes" styleClass="sidebar-button" onAction="#openGestionCommande" />
             <Button fx:id="gestionReservationButton" text="Gestion des Réservations" styleClass="sidebar-button" onAction="#openreservation" />
         </VBox>

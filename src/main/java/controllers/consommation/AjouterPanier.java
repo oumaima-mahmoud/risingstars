@@ -28,6 +28,12 @@ public class AjouterPanier {
     private DatePicker dateCreationDatePicker;
 
     @FXML
+    private TextField idUserTextField;
+
+    @FXML
+    private TextField idproduitTextField;
+
+    @FXML
     void initialize() {
         etatComboBox.getItems().addAll("Annulé", "En cours", "Validé");
         etatComboBox.setEditable(false);
@@ -39,6 +45,8 @@ public class AjouterPanier {
         String total = totalTextField.getText().trim();
         String etat = etatComboBox.getValue();
         LocalDate dateCreation = dateCreationDatePicker.getValue();
+        int idproduit = Integer.parseInt(idproduitTextField.getText());
+        int idUser = Integer.parseInt(idUserTextField.getText());
 
         // ✅ Vérification des champs vides
         if (total.isEmpty()) {
@@ -82,7 +90,7 @@ public class AjouterPanier {
         java.sql.Date dateSQL = java.sql.Date.valueOf(dateCreation);
 
         // ✅ Création de l'objet Panier et ajout dans la base de données
-        Panier panier = new Panier(dateSQL, totalDouble, etat);
+        Panier panier = new Panier(dateSQL, totalDouble, etat, idproduit, idUser);
         ServicePanier panierService = new ServicePanier();
 
         try {
@@ -138,5 +146,4 @@ public class AjouterPanier {
             afficherAlerte("Erreur", "Erreur lors du chargement de la vue : " + e.getMessage());
         }
     }
-
 }

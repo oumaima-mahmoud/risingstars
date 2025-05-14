@@ -30,6 +30,12 @@ public class ModifierPanier {
     @FXML
     private TextField total;
 
+    @FXML
+    private TextField idproduit;
+
+    @FXML
+    private TextField id_user;
+
     private final ServicePanier panierService = new ServicePanier();
 
     @FXML
@@ -37,7 +43,6 @@ public class ModifierPanier {
         etatComboBox.getItems().addAll("Annulé", "En cours", "Validé");
         etatComboBox.setEditable(false);
     }
-
     @FXML
     void Modifier(ActionEvent event) {
         if (idPanier.getText().isEmpty() || total.getText().isEmpty() ||
@@ -66,11 +71,32 @@ public class ModifierPanier {
             return;
         }
 
+        if (idproduit.getText() == null || idproduit.getText().isEmpty()) {
+            afficherAlerte("Erreur", "Veuillez entrer un ID produit !", Alert.AlertType.ERROR);
+            return;
+        }
+
+        int idp;
+        try {
+            idp = Integer.parseInt(idproduit.getText());
+        } catch (NumberFormatException e) {
+            afficherAlerte("Erreur", "ID produit invalide !", Alert.AlertType.ERROR);
+            return;
+        }
+
+        int idU;
+        try {
+            idU = Integer.parseInt(id_user.getText());
+        } catch (NumberFormatException e) {
+            afficherAlerte("Erreur", "ID utilisateur invalide !", Alert.AlertType.ERROR);
+            return;
+        }
+
         LocalDate localDate = dateCreation.getValue();
         java.sql.Date date = java.sql.Date.valueOf(localDate);
         String etat = etatComboBox.getValue();
 
-        Panier panier = new Panier(panierId, date, totalValue, etat);
+        Panier panier = new Panier(panierId, date, totalValue, etat, idp, idU);
         try {
             panierService.modifier(panier);
             afficherAlerte("Succès", "Panier modifié avec succès !", Alert.AlertType.INFORMATION);
@@ -82,7 +108,7 @@ public class ModifierPanier {
     @FXML
     void AfficherPanier(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/PanierInfo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/consommation/PanierInfo.fxml"));
             Parent root = loader.load();
             ((Node) event.getSource()).getScene().setRoot(root);
         } catch (IOException e) {

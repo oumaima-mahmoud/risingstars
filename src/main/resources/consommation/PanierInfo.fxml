@@ -7,18 +7,18 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0F5CAF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.consommation.PanierInfo">
    <children>
-      <TableView fx:id="tableview" layoutX="84.0" layoutY="73.0" prefHeight="200.0" prefWidth="238.0">
+      <TableView fx:id="tableview" layoutX="55.0" layoutY="100.0" prefHeight="200.0" prefWidth="362.0">
          <columns>
             <TableColumn fx:id="dateCreation" prefWidth="75.0" style="-fx-text-fill: black;" text="dateCreation" />
             <TableColumn fx:id="total" prefWidth="75.0" style="-fx-text-fill: black;" text="total" />
             <TableColumn fx:id="etat" prefWidth="75.0" style="-fx-text-fill: black;" text="etat" />
+            <TableColumn fx:id="idproduit" prefWidth="75.0" style="-fx-text-fill: black;" text="idproduit" />
+            <TableColumn fx:id="id_user" prefWidth="75.0" style="-fx-text-fill: black;" text="idUser" />
          </columns>
       </TableView>
-      <Button layoutX="382.0" layoutY="123.0" mnemonicParsing="false" onAction="#trierParTotal" prefHeight="26.0" prefWidth="127.0" style="-fx-background-color: #208A39; -fx-text-fill: black;" text="Trier par total" />
-      <Button layoutX="382.0" layoutY="187.0" mnemonicParsing="false" onAction="#Rechercher" prefHeight="26.0" prefWidth="127.0" style="-fx-background-color: #208A39; -fx-text-fill: black;" text="Rechercher" />
-      <Button layoutX="382.0" layoutY="240.0" mnemonicParsing="false" onAction="#statistiquss" prefHeight="26.0" prefWidth="127.0" style="-fx-background-color: #208A39; -fx-text-fill: black;" text="statistiques" />
-      <Button fx:id="backToMainButton" text="Back to Main" onAction="#goBackToMain" style="-fx-background-radius: 10; -fx-background-color: #2c3e50; -fx-text-fill: white; -fx-padding: 5 15;" />
-
-
+      <Button layoutX="438.0" layoutY="121.0" mnemonicParsing="false" onAction="#trierParTotal" prefHeight="26.0" prefWidth="127.0" style="-fx-background-color: #208A39; -fx-text-fill: black;" text="Trier par total" />
+      <Button layoutX="445.0" layoutY="187.0" mnemonicParsing="false" onAction="#Rechercher" prefHeight="26.0" prefWidth="127.0" style="-fx-background-color: #208A39; -fx-text-fill: black;" text="Rechercher" />
+      <Button layoutX="445.0" layoutY="253.0" mnemonicParsing="false" onAction="#statistiquss" prefHeight="26.0" prefWidth="127.0" style="-fx-background-color: #208A39; -fx-text-fill: black;" text="statistiques" />
+      <Button fx:id="backToMainButton" onAction="#goBackToMain" style="-fx-background-radius: 10; -fx-background-color: #2c3e50; -fx-text-fill: white; -fx-padding: 5 15;" text="Back to Main" />
    </children>
 </AnchorPane>

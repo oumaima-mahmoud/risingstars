@@ -10,35 +10,46 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0F5CAF;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.consommation.AjouterPanier">
     <children>
-        <Label layoutX="66.0" layoutY="56.0" prefHeight="27.0" prefWidth="142.0" style="-fx-text-fill: white;" text="Ajouter Panier" textOverrun="CENTER_WORD_ELLIPSIS">
+        <Label layoutX="66.0" layoutY="56.0" prefHeight="27.0" prefWidth="142.0" textOverrun="CENTER_WORD_ELLIPSIS">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
 
-        <Label layoutX="66.0" layoutY="117.0" prefHeight="18.0" prefWidth="112.0" style="-fx-text-fill: white;" text="Date de création">
+        <Label layoutX="45.0" layoutY="73.0" prefHeight="18.0" prefWidth="112.0" text="Date de création">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
 
-        <Label layoutX="66.0" layoutY="164.0" prefHeight="18.0" prefWidth="91.0" style="-fx-text-fill: white;" text="Total">
+        <Label layoutX="55.0" layoutY="128.0" prefHeight="18.0" prefWidth="91.0" text="Total">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
 
-        <Label layoutX="66.0" layoutY="224.0" prefHeight="18.0" prefWidth="112.0" style="-fx-text-fill: white;" text="État">
+        <Label layoutX="56.0" layoutY="184.0" prefHeight="18.0" prefWidth="112.0" text="État">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
+        <Label layoutX="55.0" layoutY="221.0" prefHeight="18.0" prefWidth="91.0" text="idproduit">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="55.0" layoutY="263.0" prefHeight="18.0" prefWidth="91.0" text="idUser">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="totalTextField" layoutX="208.0" layoutY="125.0" promptText="Entrez le total" />
 
-        <TextField fx:id="totalTextField" layoutX="225.0" layoutY="161.0" promptText="Entrez le total" style="-fx-background-color: #FFFFFF; -fx-text-fill: #101215;" />
+        <ComboBox fx:id="etatComboBox" layoutX="208.0" layoutY="181.0" prefWidth="150.0" promptText="Choisir l'état" style="-fx-background-color: #FFFFFF; -fx-text-fill: #101215;" />
 
-        <ComboBox fx:id="etatComboBox" layoutX="224.0" layoutY="220.0" prefWidth="150.0" promptText="Choisir l'état" style="-fx-background-color: #FFFFFF; -fx-text-fill: #101215;" />
-
-        <DatePicker fx:id="dateCreationDatePicker" layoutX="222.0" layoutY="115.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-text-fill: #101215;" />
+        <DatePicker fx:id="dateCreationDatePicker" layoutX="208.0" layoutY="70.0" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #FFFFFF; -fx-text-fill: #101215;" />
+        <TextField fx:id="idproduitTextField" layoutX="208.0" layoutY="218.0" promptText="Entrez l'idproduit" />
+        <TextField fx:id="idUserTextField" layoutX="208.0" layoutY="260.0" promptText="Entrez l'idUser" />
 
         <Button layoutX="195.0" layoutY="311.0" mnemonicParsing="false" onAction="#Afficher" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #208A39; -fx-text-fill: white;" text="Afficher Panier" />
       <Button layoutX="56.0" layoutY="311.0" mnemonicParsing="false" onAction="#Ajouter" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #208A39; -fx-text-fill: white;" text="Ajouter Panier" />

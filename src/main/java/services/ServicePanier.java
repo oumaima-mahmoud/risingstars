@@ -32,11 +32,14 @@ public class ServicePanier {
 
     // Méthode pour ajouter un panier
     public void ajouter(Panier t) throws SQLException {
-        String req = "INSERT INTO panier (dateCreation, total, etat) VALUES (?, ?, ?)";
+        String req = "INSERT INTO panier (dateCreation, total, etat,idproduit,id_user) VALUES (?, ?, ?, ?,?)";
         try (PreparedStatement stm = cnx.prepareStatement(req)) {
             stm.setObject(1, t.getDateCreation());  // Utilisation de setObject pour la date
             stm.setDouble(2, t.getTotal());
             stm.setString(3, t.getEtat());
+            stm.setInt(4,t.getIdproduit());
+            stm.setInt(5,t.getIdUser());
+
             stm.executeUpdate();
             System.out.println("Panier ajouté avec succès !");
         } catch (SQLException ex) {
@@ -52,12 +55,14 @@ public class ServicePanier {
             checkPst.setInt(1, t.getIdPanier());
             try (ResultSet rs = checkPst.executeQuery()) {
                 if (rs.next() && rs.getInt(1) > 0) {
-                    String req = "UPDATE panier SET dateCreation = ?, total = ?, etat = ? WHERE idPanier = ?";
+                    String req = "UPDATE panier SET dateCreation = ?, total = ?, etat = ?, idproduit =?, id_user =? WHERE idPanier = ?";
                     try (PreparedStatement pst = cnx.prepareStatement(req)) {
                         pst.setObject(1, t.getDateCreation());  // Utilisation de setObject pour la date
                         pst.setDouble(2, t.getTotal());
                         pst.setString(3, t.getEtat());
-                        pst.setInt(4, t.getIdPanier());
+                        pst.setInt(4, t.getIdproduit());
+                        pst.setInt(5,t.getIdUser());
+
                         pst.executeUpdate();
                         System.out.println("Panier modifié avec succès !");
                     }
@@ -105,6 +110,8 @@ public class ServicePanier {
                 p.setDateCreation(rs.getDate("dateCreation"));  // Récupération directe de la date
                 p.setTotal(rs.getDouble("total"));
                 p.setEtat(rs.getString("etat"));
+                p.setIdproduit(rs.getInt("idproduit"));
+                p.setIdUser(rs.getInt("id_user"));
                 paniers.add(p);
             }
         } catch (SQLException ex) {
@@ -128,7 +135,9 @@ public class ServicePanier {
                         rs.getInt("idPanier"),
                         rs.getDate("dateCreation"),  // Correction ici pour la date
                         rs.getDouble("total"),
-                        rs.getString("etat")
+                        rs.getString("etat"),
+                        rs.getInt("idproduit"),
+                        rs.getInt("id_user")
                 );
                 paniers.add(panier);
             }
@@ -153,7 +162,9 @@ public class ServicePanier {
                         rs.getInt("idPanier"),
                         rs.getDate("dateCreation"),
                         rs.getDouble("total"),
-                        rs.getString("etat")
+                        rs.getString("etat"),
+                        rs.getInt("idproduit"),
+                        rs.getInt("id_user")
                 );
                 paniersTrouves.add(panier);
             }
@@ -222,7 +233,7 @@ public class ServicePanier {
             }
 
             // Correction de la requête SQL si nécessaire
-            String query = "SELECT idpanier, datecreation, etat, total FROM PANIER"; // Utilisation des bons noms de colonnes
+            String query = "SELECT idpanier, datecreation, etat, total,idproduit FROM PANIER"; // Utilisation des bons noms de colonnes
             PreparedStatement ps = cnx.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
@@ -232,6 +243,7 @@ public class ServicePanier {
                 table.addCell(new PdfPCell(new Phrase(rs.getString("datecreation"), cellFont))); // Utilisation de "datecreation"
                 table.addCell(new PdfPCell(new Phrase(rs.getString("etat"), cellFont)));
                 table.addCell(new PdfPCell(new Phrase(String.valueOf(rs.getDouble("total")), cellFont)));
+                table.addCell(new PdfPCell(new Phrase(String.valueOf(rs.getInt("idproduit")),cellFont)));
             }
 
             document.add(table);
@@ -245,44 +257,6 @@ public class ServicePanier {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    public List<Panier> afficherPaniersParDate(Date selectedDate) {
-        List<Panier> paniers = new ArrayList<>();
-        String query = "SELECT idPanier, dateCreation, total FROM Panier WHERE dateCreation = ?";
-
-        try (PreparedStatement pst = cnx.prepareStatement(query)) {
-            pst.setDate(1, new Date(selectedDate.getTime()));
-            ResultSet rs = pst.executeQuery();
-
-            while (rs.next()) {
-                Panier panier = new Panier(
-                        rs.getInt("idPanier"),
-                        rs.getDate("dateCreation"),
-                        rs.getDouble("total"),
-                        rs.getString("etat")
-                );
-                paniers.add(panier);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return paniers;
-    }
-    public Set<Date> obtenirJoursPaniers() {
-        Set<Date> joursPaniers = new HashSet<>();
-        String query = "SELECT DISTINCT dateCreation FROM Panier";
-
-        try (Statement stmt = cnx.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-            while (rs.next()) {
-                // Directly adding java.sql.Date
-                Date sqlDate = rs.getDate("dateCreation");
-                joursPaniers.add(sqlDate); // Add java.sql.Date directly
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return joursPaniers;
     }
 
 }
