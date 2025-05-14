@@ -85,7 +85,9 @@ tunistadium-desktop/
 
 
 ```
-**Architecture visuelle
+## Architecture visuelle
+
+```mermaid
 graph TD
     A[TuniStadium Desktop] --> B[Controller]
     A --> C[DAO]
@@ -122,9 +124,10 @@ graph TD
     F --> F6[FilterUtil]
     F --> F7[SearchUtil]
     
-  style A fill:#f9f,stroke:#333,stroke-width:2px
-  style B,C,D,E,F fill:#bbf,stroke:#333,stroke-width:1px
-
+    classDef main fill:#f9f,stroke:#333,stroke-width:2px
+    classDef module fill:#bbf,stroke:#333,stroke-width:1px
+    class A main
+    class B,C,D,E,F module
   ## Installation
   1. Clonez le repository :
 
