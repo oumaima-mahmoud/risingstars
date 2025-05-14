@@ -327,11 +327,11 @@ Nous sommes ouverts aux contributions ! Si vous souhaitez contribuer à ce proje
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
 
 ## Remerciements
-Ce projet a été développé sous la supervision de Mme Mounira Hmayda à Esprit School of Engineering. Nous tenons à remercier tous les membres de l'équipe pour leur contribution à ce projet :
+Ce projet a été développé sous la supervision de Mme Maroua Belkneni à Esprit School of Engineering. Nous tenons à remercier tous les membres de l'équipe pour leur contribution à ce projet :
 
-**Zeineb Ghezaiel** - Gestion des utilisateurs - [Zeineb.Ghezaiel@esprit.tn]
-**Oumaima Mahmoud** - Gestion des réservations - [Oumaima.Mahmoud@esprit.tn]
-**Taieb Bsaies** - Gestion des événements - [Taieb.Bsaies@esprit.tn]
-**Mohamed Aziz Cherif** - Gestion des réclamations - [Mohamedaziz.Cherif.1@esprit.tn]
-**Mohamed Skander Ghannem** - Gestion des publicités - [Mohamedskander.Ghannem@esprit.tn]
-**Nadine Razki** - Gestion de la consommation - [Nadine.Razki@esprit.tn]
+* **Zeineb Ghezaiel** - Gestion des utilisateurs - [Zeineb.Ghezaiel@esprit.tn]
+* **Oumaima Mahmoud** - Gestion des réservations - [Oumaima.Mahmoud@esprit.tn]
+* **Taieb Bsaies** - Gestion des événements - [Taieb.Bsaies@esprit.tn]
+* **Mohamed Aziz Cherif** - Gestion des réclamations - [Mohamedaziz.Cherif.1@esprit.tn]
+* **Mohamed Skander Ghannem** - Gestion des publicités - [Mohamedskander.Ghannem@esprit.tn]
+* **Nadine Razki** - Gestion de la consommation - [Nadine.Razki@esprit.tn]
